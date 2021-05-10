@@ -8,7 +8,6 @@
     "start:prod": "cd server && npm start",
     "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
     "install": "cd server && npm i && cd ../client && npm i",
-    "seed": "cd server && npm run seed",
     "heroku-postbuild": "cd client && npm run build"
   },
   "repository": {
@@ -24,5 +23,8 @@
   "homepage": "https://github.com/the-glorious-4/parking-pal#readme",
   "dependencies": {
     "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^6.1.0"
   }
 }

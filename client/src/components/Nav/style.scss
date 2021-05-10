@@ -1,0 +1,28 @@
+nav {
+    font-family: 'Black Han Sans', sans-serif;
+    height: 12vh;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    background-image: url('/images/car-strip.png');
+    background-size: auto 16vh;
+}
+.title {
+    font-size: 10vh;
+    color: black;
+    padding-left: 20px;
+}
+.menu {
+    display: flex;
+    align-content: center;
+    width: fit-content;
+    padding-right: 15px;
+    
+    span {
+        display: flex;
+        align-items: center;
+        padding: 15px;
+        cursor: pointer;
+        
+    }
+}

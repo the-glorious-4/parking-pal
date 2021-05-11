@@ -11,6 +11,7 @@ const Nav = () => {
             <a href='/' className='title'>Parking-Pal</a>
             {/* <div>look for parking</div> */}
             <div className='menu'>
+            <span><a href='#infoSection'>How It Works</a></span>
                 {tempState.loggedIn ? <span>Log-Out</span> : <><span>Log-In</span> <span>Sign-Up</span></>}
             </div>
         </nav>

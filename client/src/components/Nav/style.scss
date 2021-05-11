@@ -29,6 +29,11 @@ nav {
         align-items: center;
         padding: 15px;
         cursor: pointer;   
+        
+        a {
+            text-decoration: none;
+            color: black;
+        }
     }
 }
 .staticBG{

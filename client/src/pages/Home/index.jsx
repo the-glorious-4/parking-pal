@@ -3,6 +3,8 @@ import './style.scss'
 
 import Nav from '../../components/Nav'
 import QuickBook from '../../components/QuickBook'
+import InfoSection from '../../components/InfoSection'
+
 const Home = () => {
     return (<>
     <Nav />
@@ -11,8 +13,7 @@ const Home = () => {
         <QuickBook />
     </section>
     <section>
-        <h1>Section heading</h1>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Nostrum, architecto sunt. Error modi dolores, velit, reprehenderit maxime nesciunt numquam aut voluptate a aperiam molestiae vitae natus ipsum blanditiis accusantium fuga!</p>
+        <InfoSection />
     </section>
     <section>
         <h1>Section heading</h1>

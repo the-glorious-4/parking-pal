@@ -1,0 +1,25 @@
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  padding: .5rem;
+  max-width: 500px;
+  outline: 0;
+  background-color: #f8f9fa;
+  border-bottom-left-radius: .5rem;
+}
+
+.modal-backdrop {
+  position: fixed;
+  opacity: .5;
+  z-index: 999;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: black;
+}

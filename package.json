@@ -1,0 +1,10 @@
+{
+  "name": "parking-pal",
+  "version": "0.1.0",
+  "private": true,
+  "proxy": "http://localhost:3001/",
+  "dependencies": {},
+  "scripts": {
+    "start": "cd client && npm start"
+  }
+}

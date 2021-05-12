@@ -10,21 +10,22 @@
     display: flex;
     // align-self: center;
     z-index: 3;
-    margin-top: 30vh;
+    margin-top: 20vh;
     height: 70px;
     border: 2px solid black;
     border-radius: 25px;
+    background-color: rgba(255, 255, 255, .4);
 
     div {
         width: 25%;
-        padding: 0 25px;
+        padding: 0 20px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
 
         button {
-            font-size: 40px;
+            font-size: 35px;
             border-radius: 40px;
         }
     }

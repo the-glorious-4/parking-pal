@@ -27,8 +27,12 @@ section {
     scroll-snap-align: start;
     
     &:nth-of-type(3) {
-        background-color: green;
+        background-image: url('../../images/garage.jpeg');
+        background-size: 100% 100%;
         // height: calc(86vh);
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 }
 

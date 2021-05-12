@@ -14,10 +14,12 @@
   "dependencies": {
     "apollo-server-express": "^2.24.0",
     "bcrypt": "^5.0.1",
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "graphql": "^15.5.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.12.8",
+    "nodemailer": "^6.6.0",
     "stripe": "^8.148.0"
   },
   "devDependencies": {

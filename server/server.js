@@ -32,7 +32,7 @@ const dummyData = {
     address: "123 Pine Street, NY, 12345",
   },
 };
-sendEmail(EMAIL_TEMPLATE.BOOKING_CONFIRMATION_CONSUMER, dummyData);
+// sendEmail(EMAIL_TEMPLATE.BOOKING_CONFIRMATION_CONSUMER, dummyData);
 
 // Serve up static assets
 // app.use(

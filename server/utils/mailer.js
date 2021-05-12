@@ -1,7 +1,7 @@
 const nodemailer = require("nodemailer");
 require("dotenv").config();
 
-const EMAIL_TEMPLATE = {
+const EmailTemplate = {
   BOOKING_CONFIRMATION_CONSUMER: "booking_confirmation_consumer",
   BOOKING_CONFIRMATION_PROVIDER: "booking_confirmation_provider",
 };
@@ -23,7 +23,7 @@ const resolveTemplate = (template, formData, receipt) => {
   //   const { stripeConfirmation: attachment } = receipt; // replace w/ the actual response property
 
   switch (template) {
-    case EMAIL_TEMPLATE.BOOKING_CONFIRMATION_CONSUMER:
+    case EmailTemplate.BOOKING_CONFIRMATION_CONSUMER:
       return {
         from: process.env.EMAIL_SENDER_USERNAME, // sender address
         to: email, // list of receivers
@@ -38,7 +38,7 @@ const resolveTemplate = (template, formData, receipt) => {
         // TODO: handle receipt attachment
       };
 
-    case EMAIL_TEMPLATE.BOOKING_CONFIRMATION_PROVIDER:
+    case EmailTemplate.BOOKING_CONFIRMATION_PROVIDER:
       return {
         from: process.env.EMAIL_SENDER_USERNAME, // sender address
         to: email, // list of receivers
@@ -62,4 +62,4 @@ const sendEmail = (template, formData, receipt) => {
   });
 };
 
-module.exports = { sendEmail, EMAIL_TEMPLATE };
+module.exports = { sendEmail, EmailTemplate };

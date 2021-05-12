@@ -1,7 +1,9 @@
 html {
     scroll-snap-type: y mandatory;
     overflow-y: scroll;
-    scroll-padding-top: 10vh;
+    // scroll-padding-top: 14vh;
+    scroll-behavior: smooth;
+    
 }
 
 body{
@@ -12,21 +14,37 @@ nav {
     position: fixed;
     top: 0;
 }
+.stickyBG {
+    position: fixed;
+    top: 0;
+}
+.staticBG{
+    display: none;
+}
 
 section {
-    padding: 7em;
-    height: calc(100vh - 14em);
+    height: calc(100vh);
     scroll-snap-align: start;
-    color: white;
-
-    &:nth-of-type(1) {
-        background-color: blue;
-    }
-    &:nth-of-type(2) {
-        background-color: red;
-    }
+    
     &:nth-of-type(3) {
-        background-color: green;
-        height: calc(88vh - 14em);
+        background-image: url('../../images/garage.jpeg');
+        background-size: 100% 100%;
+        // height: calc(86vh);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
+.heroSection {
+
+    .heroImg{
+        top: 10vh;
+        position: absolute;
+        background-image: url('../../images/lot-hero.jpeg');
+        background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(255, 255, 255, 1)), to(rgba(0, 0, 0, 0.5))),url('../../images/lot-hero.jpeg');
+        width: 100%;
+        height: 90vh;
+        background-size:100% 100%;
     }
 }

@@ -1,11 +1,17 @@
 nav {
     font-family: 'Black Han Sans', sans-serif;
-    height: 12vh;
+    height: 14vh;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    background-image: url('/images/car-strip.png');
-    background-size: auto 16vh;
+    text-shadow: lightgrey 1px 1px;
+    z-index: 3;
+
+    // div {
+    //     border-radius: 30px;
+    //     align-self: center;
+    //     height: 30px;
+    // }
 }
 .title {
     font-size: 10vh;
@@ -17,12 +23,32 @@ nav {
     align-content: center;
     width: fit-content;
     padding-right: 15px;
-    
+
     span {
         display: flex;
         align-items: center;
         padding: 15px;
-        cursor: pointer;
+        cursor: pointer;   
         
+        a {
+            text-decoration: none;
+            color: black;
+        }
     }
+}
+.staticBG{
+    position: absolute;
+    background-image: url('/images/car-strip.png');
+    width: 100%;
+    background-size: auto 14vh;
+    height: 14vh;
+    z-index: 2;
+}
+.stickyBG{
+    background-color: white;
+    width: 100%;
+    background-size: auto 14vh;
+    height: 14vh;
+    z-index: 1;
+    opacity: .3;
 }

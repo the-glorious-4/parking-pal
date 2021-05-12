@@ -21,9 +21,9 @@ const Home = () => {
                 isMarkerShown
                 googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places`}
                                                                         // &key=${process.env.REACT_APP_GOOGLE_API}
-                loadingElement={<div style={{ height: `70vh`, width: '70vw'}} />}
-                containerElement={<div style={{ height: `70vh`, width: '70vw'}} />}
-                mapElement={<div style={{ height: `70vh`, width: '70vw'}} />}
+                loadingElement={<div className='mapBody' />}
+                containerElement={<div className='mapBody' />}
+                mapElement={<div className='mapBody' />}
             />
         </section>
     </>)

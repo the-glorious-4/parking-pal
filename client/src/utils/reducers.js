@@ -1,7 +1,8 @@
 import { useReducer } from "react";
 import {
     RENDER_LOGIN_MODAL,
-    RENDER_SIGNUP_MODAL
+    RENDER_SIGNUP_MODAL,
+    REMOVE_MODAL
 } from "./actions";
 
 /*
@@ -21,7 +22,13 @@ export const reducer = (state, action) => {
         case RENDER_SIGNUP_MODAL:
             return {
                 ...state,
-                loginRendered: true
+                signupRendered: true
+            };
+        case REMOVE_MODAL:
+            return {
+                ...state,
+                loginRendered: false,
+                signupRendered: false
             };
         default:
             return state;

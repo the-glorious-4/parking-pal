@@ -1,12 +1,16 @@
 /* Modal/index.js: general-purpose modal component. Wrap content in this! */ 
 import React from "react";
 import "./style.scss";
+import { REMOVE_MODAL } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
 
 // parent component renders modal visible/hidden based on state.
 const Modal = ({ children }) => {
-    // TODO: function to dismiss modal, either altering global state or via css
+    const [state, dispatch] = useStoreContext();
+
+    // remove modal from DOM via state
     const dismissModal = event => {
-        console.log("clicked");
+        dispatch({ type: REMOVE_MODAL });
     };
 
     return (

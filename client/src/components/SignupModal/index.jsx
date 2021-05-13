@@ -1,17 +1,25 @@
 /* SignupModal: Signup form for users of the app. */ 
-import React from "react";
+import React, { useState } from "react";
 import "./style.scss";
 import Modal from "../Modal";
 
 // render signup page wrapped in a Modal.
 const SignupModal = () => {
+    const [formState, setFormState] = useState({ firstname: "", lastname: "", email: "", password: "" });
+
     const handleChange = event => {
-        ;
+        const { name, value } = event.target;
+        setFormState({
+            ...formState,
+            [name]: value
+        });
     };
+
+    // TODO: validate function to check for any constraints
 
     const handleFormSubmit = event => {
         event.preventDefault();
-        // TODO: await response from backend, get token, and login
+        // TODO: validate, await response from backend, get token, and login
     };
 
     return (

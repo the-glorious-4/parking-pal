@@ -1,7 +1,8 @@
 import React from 'react';
 import './style.scss';
 import LoginModal from '../LoginModal';
-import { RENDER_LOGIN_MODAL } from "../../utils/actions";
+import SignupModal from '../SignupModal';
+import { RENDER_LOGIN_MODAL, RENDER_SIGNUP_MODAL } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 
 const tempState = {
@@ -14,7 +15,9 @@ const Nav = () => {
     const renderLoginModal = () => {
         dispatch({ type: RENDER_LOGIN_MODAL });
     };
-    const renderSignupModal = () => {console.log("signup")};
+    const renderSignupModal = () => {
+        dispatch({ type: RENDER_SIGNUP_MODAL });
+    };
 
     return (<>
         <nav>
@@ -26,7 +29,8 @@ const Nav = () => {
                 <><span onClick={renderLoginModal}>Log-In</span> <span onClick={renderSignupModal}>Sign-Up</span></>}
             </div>
         </nav>
-        {state.loginRendered ? <LoginModal /> : null}
+        {state.loginRendered ? <LoginModal /> :
+         state.signupRendered ? <SignupModal /> : null}
 
         <div className='staticBG'></div>
         <div className='stickyBG'></div>

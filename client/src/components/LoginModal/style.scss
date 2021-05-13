@@ -20,10 +20,15 @@
 }
 
 .modal-bg {
+    padding-left: 1rem;
     background-image: url("../../images/modal-parkinglot-bg.jpeg"); // fallback
     background-image:
         linear-gradient(to right bottom, white, rgba(0, 0, 0, 0.5)),
         url("../../images/modal-parkinglot-bg.jpeg");
     background-size: 100% 100%;
     flex-grow: 1;
+
+    h2 {
+        font-family: "Black Han Sans", sans-serif;
+    }
 }

@@ -28,7 +28,7 @@ const LoginModal = () => {
                 <div className="field">
                     <label htmlFor="email">Email:</label>
                     <input
-                        placeholder="youremail@test.com"
+                        placeholder="name@domain.com"
                         name="email"
                         type="email"
                         id="email"
@@ -36,12 +36,12 @@ const LoginModal = () => {
                     />
                 </div>
                 <div className="field">
-                    <label htmlFor="pwd">Password:</label>
+                    <label htmlFor="pass">Password:</label>
                     <input
                         placeholder="******"
                         name="password"
                         type="password"
-                        id="pwd"
+                        id="pass"
                         onChange={handleChange}
                     />
                 </div>

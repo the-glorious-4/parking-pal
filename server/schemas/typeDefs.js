@@ -15,10 +15,12 @@ type User {
   firstName: String
   lastName: String
   email: String
-  phone:Int
+  phone:Int,
+  parkingPlaces: [ParkingPlace],
+  inventories : [Inventory]
 }
 
-type ParkingPlaces {
+type ParkingPlace {
   _id: ID
   apt: String
   street: String
@@ -29,6 +31,8 @@ type ParkingPlaces {
   capacity: Int
   price:Int
   provider: User
+
+
 }
 
 type Inventory {
@@ -72,6 +76,7 @@ type Mutation {
     endDate:String
     provider:ID) : User
 
+  availParking(startDate:String,endDate:String): Inventory
   login(email: String!, password: String!): Auth
 }
 `;

@@ -1,5 +1,5 @@
 const { Schema,model} = require('mongoose');
-// const ParkingLocation = require('./ParkingLoacations');
+
 const InventorySchema = new Schema({
     
     startDate : {
@@ -8,11 +8,11 @@ const InventorySchema = new Schema({
     endDate : {
         type:Date,
     },
-    ParkingLocation : {
+    parkingPlace : {
         type: Schema.Types.ObjectId,
-        ref: 'ParkingLoacations',
+        ref: 'ParkingPlace',
         required: true
-      }
+    }
 
 });
 

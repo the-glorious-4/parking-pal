@@ -10,10 +10,10 @@ const resolvers = {
         const user = await User.findById(context.user._id).populate({
           path: 'User',
           populate:   {
-            path: 'parkingPlace',
+            path: 'parkingPlaces',
             model:'ParkingPlace',
             populate : {
-              path: 'inventory',
+              path: 'inventories',
               model:'Inventory'
             }
           }
@@ -23,7 +23,7 @@ const resolvers = {
       
       throw new AuthenticationError('Not logged in');
     },
-    
+     
     
   },
   Mutation: {

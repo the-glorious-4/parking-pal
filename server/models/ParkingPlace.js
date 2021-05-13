@@ -13,6 +13,7 @@ const AddressSchema = new Schema({
 })
 
 const ParkingPlaceSchema = new Schema({
+
     address:AddressSchema,
     isCoveredParking : Boolean,
     capacity: Number,
@@ -21,10 +22,10 @@ const ParkingPlaceSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'User',
         required: true
-      }
+      },
 
 });
 
-const ParkingPlaces = model('ParkingPlaces', ParkingPlaceSchema);
+const ParkingPlace = model('ParkingPlace', ParkingPlaceSchema);
 
-module.exports = ParkingPlaces;
+module.exports = ParkingPlace;

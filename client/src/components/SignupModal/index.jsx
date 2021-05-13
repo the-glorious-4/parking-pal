@@ -29,7 +29,7 @@ const SignupModal = () => {
                 <div className="field">
                     <label htmlFor="firstName">First Name:</label>
                     <input
-                        placeholder="First"
+                        placeholder="First Name"
                         name="firstName"
                         type="firstName"
                         id="firstName"
@@ -39,7 +39,7 @@ const SignupModal = () => {
                 <div className="field">
                     <label htmlFor="lastName">Last Name:</label>
                     <input
-                        placeholder="Last"
+                        placeholder="Last Name"
                         name="lastName"
                         type="lastName"
                         id="lastName"
@@ -49,7 +49,7 @@ const SignupModal = () => {
                 <div className="field">
                     <label htmlFor="email">Email:</label>
                     <input
-                        placeholder="youremail@test.com"
+                        placeholder="name@domain.com"
                         name="email"
                         type="email"
                         id="email"

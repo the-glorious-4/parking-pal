@@ -14,11 +14,11 @@ const Modal = ({ children }) => {
       <div className="modal">
         <div className="modal-box">
           <div className="modal-content">
-            {/* <p>test filler content</p>
-            <br /> <br /> <br /> <br /> <br /> <br /> <br /> <br />
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Esse magnam officiis saepe, 
-              beatae nemo commodi perspiciatis architecto! Sapiente, porro? Aperiam natus sunt nesciunt 
-              aliquam blanditiis esse consequuntur non error ipsum?</p> */}
+            {/* Close Button */}
+            <div style={{display: "flex", justifyContent: "flex-end"}}>
+              <span className="closeBtn" onClick={dismissModal}>X</span>
+            </div>
+            {/* Content */}
             {children}
           </div>
         </div>

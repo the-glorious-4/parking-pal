@@ -10,10 +10,10 @@ const resolvers = {
         const user = await User.findById(context.user._id).populate({
           path: 'User',
           populate:   {
-            path: 'ParkingPlaces',
-            model:'ParkingPlaces',
+            path: 'parkingPlace',
+            model:'ParkingPlace',
             populate : {
-              path: 'ParkingPlaces',
+              path: 'inventory',
               model:'Inventory'
             }
           }
@@ -33,14 +33,23 @@ const resolvers = {
 
       return { token, user };
     },
-   
+    
+    addParkingPlace: async (parent, { args }, context) => {
+      console.log(context);
+      if (context.user) {
+        // const parkingLoation = await ParkingPlace.create({provider:context.user._id} , args);
+        // if(parkingLoation.length>0){
+        //   return await Inventory.create(parkingLoation._id,args.startDate ,args.endDate );
+        // }
+      }
+
+      throw new AuthenticationError('Not logged in');
+    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
-
       if (!user) {
         throw new AuthenticationError('Incorrect credentials');
       }
-
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {

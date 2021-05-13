@@ -59,6 +59,19 @@ type Query {
 
 type Mutation {
   addUser(firstName: String!, lastName: String!, email: String!, password: String!,phone : String!): Auth
+  
+  addParkingPlace(apt: String!
+    street: String!
+    city: String!
+    state: String!
+    zip:String!
+    isCoveredParking:Boolean!
+    capacity: Int!
+    price:Int!
+    startDate:String!
+    endDate:String
+    provider:ID) : User
+
   login(email: String!, password: String!): Auth
 }
 `;

@@ -1,6 +1,6 @@
 const { Schema,model} = require('mongoose');
 
-const ParkingPlaceSchema = new Schema({
+const AddressSchema = new Schema({
     apt:String,
     street: String,
     city: String,
@@ -10,6 +10,10 @@ const ParkingPlaceSchema = new Schema({
         required: true
     },
     zip: Number,
+})
+
+const ParkingPlaceSchema = new Schema({
+    address:AddressSchema,
     isCoveredParking : Boolean,
     capacity: Number,
     price: Number,

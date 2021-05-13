@@ -1,4 +1,8 @@
 const  { Schema , model } = require('mongoose');
+const ParkingPlace = require('./ParkingPlace');
+const Inventory = require('./Inventory');
+const Reservation = require('./Reservation');
+
 const bcrypt = require('bcrypt');
 
 const userSchema = new Schema({
@@ -35,7 +39,9 @@ const userSchema = new Schema({
       message: props => `${props.value} is not a valid phone number!`
     },
     required: [true, 'User phone number required']
-  }
+  },
+  parkingPlaces : [{ type: Schema.Types.ObjectId, ref:'ParkingPlace' }],
+  inventory: [{ type: Schema.Types.ObjectId, ref:'Inventory' }]
   
 });
 

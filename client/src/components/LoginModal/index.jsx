@@ -23,34 +23,36 @@ const LoginModal = () => {
     };
     return (
         <Modal>
-            <h2>Log In</h2>
-            <form className="loginForm" onSubmit={handleFormSubmit}>
-                <div className="field">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        placeholder="name@domain.com"
-                        name="email"
-                        type="email"
-                        id="email"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="field">
-                    <label htmlFor="pass">Password:</label>
-                    <input
-                        placeholder="******"
-                        name="password"
-                        type="password"
-                        id="pass"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="submit">
-                    <button type="submit">
-                        Submit
-                    </button>
-                </div>
-            </form>
+            <div className="modal-bg">
+                <h2>Log In</h2>
+                <form className="loginForm" onSubmit={handleFormSubmit}>
+                    <div className="field">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            placeholder="name@domain.com"
+                            name="email"
+                            type="email"
+                            id="email"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="field">
+                        <label htmlFor="pass">Password:</label>
+                        <input
+                            placeholder="******"
+                            name="password"
+                            type="password"
+                            id="pass"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="submit">
+                        <button type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
         </Modal>
     );
 };

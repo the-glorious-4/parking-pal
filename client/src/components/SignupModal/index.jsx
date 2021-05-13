@@ -24,54 +24,56 @@ const SignupModal = () => {
 
     return (
         <Modal>
-            <h2>Sign Up</h2>
-            <form className="signupForm" onSubmit={handleFormSubmit}>
-                <div className="field">
-                    <label htmlFor="firstName">First Name:</label>
-                    <input
-                        placeholder="First Name"
-                        name="firstName"
-                        type="firstName"
-                        id="firstName"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="field">
-                    <label htmlFor="lastName">Last Name:</label>
-                    <input
-                        placeholder="Last Name"
-                        name="lastName"
-                        type="lastName"
-                        id="lastName"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="field">
-                    <label htmlFor="email">Email:</label>
-                    <input
-                        placeholder="name@domain.com"
-                        name="email"
-                        type="email"
-                        id="email"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="field">
-                    <label htmlFor="pwd">Password:</label>
-                    <input
-                        placeholder="******"
-                        name="password"
-                        type="password"
-                        id="pwd"
-                        onChange={handleChange}
-                    />
-                </div>
-                <div className="submit">
-                    <button type="submit">
-                        Submit
-                    </button>
-                </div>
-            </form>
+            <div className="modal-bg">
+                <h2>Sign Up</h2>
+                <form className="signupForm" onSubmit={handleFormSubmit}>
+                    <div className="field">
+                        <label htmlFor="firstName">First Name:</label>
+                        <input
+                            placeholder="First Name"
+                            name="firstName"
+                            type="firstName"
+                            id="firstName"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="field">
+                        <label htmlFor="lastName">Last Name:</label>
+                        <input
+                            placeholder="Last Name"
+                            name="lastName"
+                            type="lastName"
+                            id="lastName"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="field">
+                        <label htmlFor="email">Email:</label>
+                        <input
+                            placeholder="name@domain.com"
+                            name="email"
+                            type="email"
+                            id="email"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="field">
+                        <label htmlFor="pwd">Password:</label>
+                        <input
+                            placeholder="******"
+                            name="password"
+                            type="password"
+                            id="pwd"
+                            onChange={handleChange}
+                        />
+                    </div>
+                    <div className="submit">
+                        <button type="submit">
+                            Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
         </Modal>
     );
 };

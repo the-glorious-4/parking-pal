@@ -38,6 +38,17 @@
   background-color: black;
 }
 
-.closeBtn {
-  float: right;
+.modal-close {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.modal-close-btn {
+  font-size: larger;
+  padding-bottom: 0.5rem;
+  font-weight: bolder;
+}
+
+.modal-close-btn:hover {
+  color: red;
 }

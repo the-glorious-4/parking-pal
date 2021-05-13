@@ -19,8 +19,8 @@ const Modal = ({ children }) => {
                 <div className="modal-box">
                     <div className="modal-content">
                         {/* Close Button */}
-                        <div>
-                            <span className="closeBtn" onClick={dismissModal}>X</span>
+                        <div className="modal-close">
+                            <span className="modal-close-btn" onClick={dismissModal}>X</span>
                         </div>
                         {/* Content */}
                         {children}

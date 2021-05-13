@@ -25,7 +25,7 @@ const SignupModal = () => {
     return (
         <Modal>
             <div className="modal-bg">
-                <h2>Sign Up</h2>
+                <h2>Create An Account</h2>
                 <form className="signupForm" onSubmit={handleFormSubmit}>
                     <div className="field">
                         <label htmlFor="firstName">First Name:</label>

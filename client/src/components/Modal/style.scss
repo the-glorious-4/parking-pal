@@ -19,6 +19,9 @@
   border-radius: .5rem;
   display: flex;
   flex-direction: column;
+  animation-name: display-modal;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-out;
 }
 
 .modal-content {
@@ -36,6 +39,9 @@
   width: 100vw;
   height: 100vh;
   background-color: black;
+  animation-name: opacity-fade-in;
+  animation-duration: 0.15s;
+  animation-timing-function: linear;
 }
 
 .modal-close {
@@ -51,4 +57,14 @@
 
 .modal-close-btn:hover {
   color: red;
+}
+
+@keyframes opacity-fade-in {
+  from { opacity: 0; }
+  to { opacity: 0.5; }
+}
+
+@keyframes display-modal {
+  from { transform: translateY(2em); }
+  to { transform: translateY(0em); }
 }

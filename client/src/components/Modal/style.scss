@@ -17,10 +17,14 @@
   margin: 1rem auto;
   background-color: #f8f9fa;
   border-radius: .5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal-content {
-
+  flex-grow: 1; // make modal-content grow to fit the remaining space in modal
+  // display: flex;
+  // flex-direction: column;
 }
 
 .modal-backdrop {

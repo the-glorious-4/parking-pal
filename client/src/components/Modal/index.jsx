@@ -19,7 +19,7 @@ const Modal = ({ children }) => {
                 <div className="modal-box">
                     <div className="modal-content">
                         {/* Close Button */}
-                        <div style={{display: "flex", justifyContent: "flex-end"}}>
+                        <div>
                             <span className="closeBtn" onClick={dismissModal}>X</span>
                         </div>
                         {/* Content */}

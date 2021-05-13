@@ -6,7 +6,7 @@ import { useStoreContext } from "../../utils/GlobalState";
 
 // parent component renders modal visible/hidden based on state.
 const Modal = ({ children }) => {
-    const [state, dispatch] = useStoreContext();
+    const [, dispatch] = useStoreContext();
 
     // remove modal from DOM via state
     const dismissModal = event => {

@@ -2,6 +2,7 @@ import React from 'react';
 import './style.scss';
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
+import Auth from "../../utils/auth";
 import { RENDER_LOGIN_MODAL, RENDER_SIGNUP_MODAL } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 
@@ -19,13 +20,18 @@ const Nav = () => {
         dispatch({ type: RENDER_SIGNUP_MODAL });
     };
 
+    const logout = event => {
+        event.preventDefault();
+        Auth.logout();
+    };
+
     return (<>
         <nav>
             <a href='/' className='title'>Parking-Pal</a>
             {/* <div>look for parking</div> */}
             <div className='menu'>
             <span><a href='#infoSection'>How It Works</a></span>
-                {tempState.loggedIn ? <span>Log-Out</span> :
+                {Auth.loggedIn() ? <span onClick={logout}>Log-Out</span> :
                 <><span onClick={renderLoginModal}>Log-In</span> <span onClick={renderSignupModal}>Sign-Up</span></>}
             </div>
         </nav>

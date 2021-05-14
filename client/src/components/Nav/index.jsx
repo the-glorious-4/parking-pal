@@ -6,10 +6,6 @@ import Auth from "../../utils/auth";
 import { RENDER_LOGIN_MODAL, RENDER_SIGNUP_MODAL } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 
-const tempState = {
-    loggedIn: false
-}
-
 const Nav = () => {
     const [state, dispatch] = useStoreContext();
 

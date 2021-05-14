@@ -1,13 +1,17 @@
 /* SignupModal: Signup form for users of the app. */ 
 import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
 import "./style.scss";
 import Modal from "../Modal";
+import Auth from "../../utils/auth";
+import { ADD_USER } from "../../utils/mutations";
 import { validateEmail, formatPhoneNumber } from "../../utils/helpers";
 
 // render signup page wrapped in a Modal.
 const SignupModal = () => {
     const [formState, setFormState] = useState({ firstName: "", lastName: "", email: "", password: "", phone: "" });
-    const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false, submitError: false });
+    const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false });
+    const [addUser, { error }] = useMutation(ADD_USER);
 
     const handleChange = event => {
         // destructure event target
@@ -47,10 +51,25 @@ const SignupModal = () => {
         validateForm(event.target.name);
     };
 
-    const handleFormSubmit = event => {
+    const handleFormSubmit = async event => {
         event.preventDefault();
         validateForm();
         // if no errors, await response from backend, get token, and login
+        if (!errFlags.emailError && !errFlags.passLengthError && !errFlags.phoneError) {
+            try {
+                const { data } = await addUser({
+                    variables: {
+                        ...formState,
+                        phone: formatPhoneNumber(formState.phone)
+                    }
+                });
+                
+                Auth.login(data.addUser.token);
+            }
+            catch (e) {
+                console.error(e);
+            }
+        }
     };
 
     return (
@@ -88,7 +107,7 @@ const SignupModal = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-                        {!errFlags.emailError ? null :
+                        {errFlags.emailError &&
                         <span className="signup-form-err">Please enter a valid email address.</span>}
                     </div>
                     <div className="field">
@@ -101,7 +120,7 @@ const SignupModal = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-                        {!errFlags.passLengthError ? null :
+                        {errFlags.passLengthError &&
                         <span className="signup-form-err">Your password must be at least 6 characters long.</span>}
                     </div>
                     <div className="field">
@@ -114,7 +133,7 @@ const SignupModal = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
-                        {!errFlags.phoneError ? null :
+                        {errFlags.phoneError &&
                         <span className="signup-form-err">Please enter a valid phone number.</span>}
                     </div>
                     <div className="signup-submit">
@@ -123,8 +142,7 @@ const SignupModal = () => {
                         </div>
                     </div>
                 </form>
-                {errFlags.submitError ? null :
-                <span className="signup-form-err">Something went wrong!</span>}
+                {error && <span className="signup-form-err">Something went wrong!</span>}
             </div>
         </Modal>
     );

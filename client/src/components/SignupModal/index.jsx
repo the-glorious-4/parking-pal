@@ -2,12 +2,12 @@
 import React, { useState } from "react";
 import "./style.scss";
 import Modal from "../Modal";
-//import { formatPhoneNumber } from "../../utils/helpers";
+import { validateEmail, formatPhoneNumber } from "../../utils/helpers";
 
 // render signup page wrapped in a Modal.
 const SignupModal = () => {
     const [formState, setFormState] = useState({ firstName: "", lastName: "", email: "", password: "", phone: "" });
-    const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false });
+    const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false, submitError: false });
 
     const handleChange = event => {
         // destructure event target
@@ -22,13 +22,20 @@ const SignupModal = () => {
             case "password":
                 setErrFlags({
                     ...errFlags,
-                    passLengthError: (formState.password.length < 6) ? true : false,
+                    passLengthError: (formState.password.length < 6) ? true : false
                 });
                 break;
             case "email":
-                // setErrFlags({
-                //     ...errFlags
-                // });
+                setErrFlags({
+                    ...errFlags,
+                    emailError: !validateEmail(formState.email)
+                });
+                break;
+            case "phone":
+                setErrFlags({
+                    ...errFlags,
+                    phoneError: (formState.phone.length !== 10) ? true : false
+                });
                 break;
             default:
                 return;
@@ -43,7 +50,7 @@ const SignupModal = () => {
     const handleFormSubmit = event => {
         event.preventDefault();
         validateForm();
-        // TODO: if no errors, await response from backend, get token, and login
+        // if no errors, await response from backend, get token, and login
     };
 
     return (
@@ -81,6 +88,8 @@ const SignupModal = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
+                        {!errFlags.emailError ? null :
+                        <span className="signup-form-err">Please enter a valid email address.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="pwd">Password:</label>
@@ -105,6 +114,8 @@ const SignupModal = () => {
                             onChange={handleChange}
                             onBlur={handleBlur}
                         />
+                        {!errFlags.phoneError ? null :
+                        <span className="signup-form-err">Please enter a valid phone number.</span>}
                     </div>
                     <div className="signup-submit">
                         <div>
@@ -112,6 +123,8 @@ const SignupModal = () => {
                         </div>
                     </div>
                 </form>
+                {errFlags.submitError ? null :
+                <span className="signup-form-err">Something went wrong!</span>}
             </div>
         </Modal>
     );

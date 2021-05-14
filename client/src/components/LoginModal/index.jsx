@@ -1,26 +1,62 @@
 /* LoginModal/index.js: Login form for users of the app. */ 
 import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
 import "./style.scss";
 import Modal from "../Modal";
+import Auth from "../../utils/auth";
+import { LOGIN_USER } from "../../utils/mutations";
+import { validateEmail } from "../../utils/helpers";
 
 // render login page wrapped in a Modal.
 const LoginModal = () => {
     const [formState, setFormState] = useState({ email: "", password: "" });
+    const [errFlags, setErrFlags] = useState({ emailError: false });
+    const [login, { error }] = useMutation(LOGIN_USER);
 
     const handleChange = event => {
+        // destructure event target
         const { name, value } = event.target;
-        setFormState({
-            ...formState,
-            [name]: value
-        });
+        // update state
+        setFormState({ ...formState, [name]: value });
     };
 
-    // TODO: validate function to check for any constraints
+    // validate form and set error messages.
+    const validateForm = fieldName => {
+        switch(fieldName) {
+            case "email":
+                setErrFlags({
+                    ...errFlags,
+                    emailError: !validateEmail(formState.email)
+                });
+                break;
+            default:
+                return;
+        }
+    };
 
-    const handleFormSubmit = event => {
+    // on blur, validate fields
+    const handleBlur = event => {
+        validateForm(event.target.name);
+    };
+
+    const handleFormSubmit = async event => {
         event.preventDefault();
-        // TODO: validate, await response from backend, get token, and login
+        validateForm();
+        // if no errors, await response from backend, get token, and login
+        if (!errFlags.emailError) {
+            try {
+                const { data } = await login({
+                    variables: { ...formState }
+                });
+    
+                Auth.login(data.login.token);
+            }
+            catch (e) {
+                console.error(e);
+            }
+        }
     };
+
     return (
         <Modal>
             <div className="modal-bg">
@@ -34,7 +70,10 @@ const LoginModal = () => {
                             type="email"
                             id="email"
                             onChange={handleChange}
+                            onBlur={handleBlur}
                         />
+                        {errFlags.emailError &&
+                        <span className="login-form-err">This is not a valid email address.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="pass">Password:</label>
@@ -46,12 +85,13 @@ const LoginModal = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="submit">
-                        <button type="submit">
-                            Submit
-                        </button>
+                    <div className="login-submit">
+                        <div>
+                        <button type="submit">Submit</button>
+                        </div>
                     </div>
                 </form>
+                {error && <span className="login-form-err">Something went wrong with your log-in!</span>}
             </div>
         </Modal>
     );

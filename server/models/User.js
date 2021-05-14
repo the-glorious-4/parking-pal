@@ -40,7 +40,7 @@ const userSchema = new Schema({
     },
     required: [true, 'User phone number required']
   },
-  parkingPlaces : [{ type: Schema.Types.ObjectId, ref:'ParkingPlace' }],
+  parkingPlace : [{ type: Schema.Types.ObjectId, ref:'ParkingPlace' }],
   inventory: [{ type: Schema.Types.ObjectId, ref:'Inventory' }]
   
 });

@@ -16,7 +16,7 @@ type User {
   lastName: String
   email: String
   phone:Int,
-  parkingPlaces: [ParkingPlace],
+  parkingPlace: [ParkingPlace],
   inventories : [Inventory]
 }
 
@@ -39,14 +39,14 @@ type Inventory {
   _id: ID
   startDate: String
   endDate:String
-  parkingPlace : ParkingPlaces
+  parkingPlace : ParkingPlace
 }
 
 type Reservation {
   _id: ID
   startDate: String
   endDate:String
-  parkingPlace : ParkingPlaces
+  parkingPlace : ParkingPlace
   consumer: User
   stripeTransaction : String
 }

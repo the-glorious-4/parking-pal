@@ -1,8 +1,8 @@
 require('dotenv').config(); 
 
 const jwt = require('jsonwebtoken');
-// const secret = 'mysecretsTokenStringss';  //for local run use this secret - replace process.env.SECRETKEY
-// const expiration = '2h'; //process.env.EXPIRATIONTIME 
+const secret = process.env.SECRETKEY; //'mysecretsTokenStringss';  //for local run use this secret - replace process.env.SECRETKEY
+const expiration = process.env.EXPIRATIONTIME; //'2h'; //process.env.EXPIRATIONTIME 
 
 module.exports = {
   authMiddleware: function ({ req }) {
@@ -25,7 +25,7 @@ module.exports = {
     }
 
     try {
-      const { data } = jwt.verify(token, process.env.SECRETKEY, { maxAge: process.env.EXPIRATIONTIME });
+      const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
     }
     catch {

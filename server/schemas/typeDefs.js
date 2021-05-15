@@ -31,7 +31,6 @@ type ParkingPlace {
   price:Int
   provider: User
 
-
 }
 
 type Inventory {
@@ -61,6 +60,7 @@ type Query {
   getParkingById(startDate:String!,parkingPlace:ID!) : ParkingPlace
   getParkingByInventoryId(_id:ID!):ParkingPlace
   getAllInventory(_id : ID!) : User
+  getActiveReservation(startDate:String): [ParkingPlace]
   user: User
 }
 
@@ -79,7 +79,6 @@ type Mutation {
     endDate:String
     provider:ID) : User
 
-  
   login(email: String!, password: String!): Auth
 }
 `;

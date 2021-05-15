@@ -10,10 +10,10 @@ const resolvers = {
         const user = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
           .populate({ 
-            path: 'parkingplace',
+            path: "parkingplace",
             populate: {
-              path: 'inventory',
-              model: 'Inventory'
+              path: "inventory",
+              model: "Inventory"
             } 
          })
 
@@ -22,17 +22,17 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    getAllParking : async( parent , {searchdate}) => {
-      const parkingPlacesInv = await Inventory.find({"startDate":searchdate},{"isAvailable":true})
-          .populate('parkingPlace');
+    getAllParking : async( parent , {searchDate}) => {
+      const parkingPlacesInv = await Inventory.find({"startDate":searchDate},{"isAvailable":true})
+          .populate("parkingPlace");
 
       return parkingPlacesInv;
     },
 
     //Assuming ParkingById returns ParkingplaceID
-    getParkingById : async( parent , {searchdate,parkingPlaceID}) => {
-      const parkingPlacesInv = await Inventory.find({"startDate":searchdate},{"isAvailable":true},{'parkingPlace':parkingPlaceID})
-          .populate('parkingPlace');
+    getParkingById : async( parent , {searchDate,parkingPlaceID}) => {
+      const parkingPlacesInv = await Inventory.find({"startDate":searchDate},{"isAvailable":true},{"parkingPlace":parkingPlaceID})
+          .populate("parkingPlace");
 
       return parkingPlacesInv;
     },
@@ -40,7 +40,7 @@ const resolvers = {
     //User passing Inventory ID
     getParkingByInventoryId : async( parent , {_id}) => {
       const parkingPlacesInv = await Inventory.findOne({ _id })
-          .populate('parkingPlace');
+          .populate("parkingPlace");
 
       return parkingPlacesInv;
     },
@@ -50,19 +50,33 @@ const resolvers = {
     getAllInventory: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findOne({ _id: context.user._id })
-          .select('-__v -password')
+          .select("-__v -password")
           .populate({ 
-            path: 'parkingplace',
+            path: "parkingplace",
             populate: {
-              path: 'inventory',
-              model: 'Inventory'
+              path: "inventory",
+              model: "Inventory"
             } 
          })
 
         return userData;
       }
     
-      throw new AuthenticationError('No logged in user found');
+      throw new AuthenticationError("No logged in user found");
+    },
+
+    //Get all reservations for given Provider
+    getActiveReservation: async (parent, {searchDate}, context) => {
+      if (context.user) {
+        const reservedParkingPlaces = await Reservation.find({ startDate :{ $gt: searchDate}})
+          .populate({ 
+            path: "parkingplace",
+            match: { "provider" : context.user._id}
+         })
+        return reservedParkingPlaces
+      }
+    
+      throw new AuthenticationError("No logged in user found");
     },
   },
   Mutation: {
@@ -84,7 +98,7 @@ const resolvers = {
           }
         }
       //}
-      throw new AuthenticationError('Not logged in');
+      throw new AuthenticationError("Not logged in");
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });

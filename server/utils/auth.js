@@ -1,8 +1,8 @@
-require('dotenv').config(); 
+require("dotenv").config();
 
-const jwt = require('jsonwebtoken');
-const secret = process.env.SECRETKEY; //'mysecretsTokenStringss';  //for local run use this secret - replace process.env.SECRETKEY
-const expiration = process.env.EXPIRATIONTIME; //'2h'; //process.env.EXPIRATIONTIME 
+const jwt = require("jsonwebtoken");
+const secret = process.env.AUTH_SECRET_STRING;
+const expiration = process.env.AUTH_SECRET_EXPIRATION;
 
 module.exports = {
   authMiddleware: function ({ req }) {
@@ -11,14 +11,10 @@ module.exports = {
 
     // ["Bearer", "<tokenvalue>"]
     if (req.headers.authorization) {
-      token = token
-        .split(' ')
-        .pop()
-        .trim();
+      token = token.split(" ").pop().trim();
     }
 
-    console.log("token", token)
-
+    console.log("token", token);
 
     if (!token) {
       return req;
@@ -27,9 +23,8 @@ module.exports = {
     try {
       const { data } = jwt.verify(token, secret, { maxAge: expiration });
       req.user = data;
-    }
-    catch {
-      console.log('Invalid token');
+    } catch {
+      console.log("Invalid token");
     }
 
     return req;
@@ -37,10 +32,6 @@ module.exports = {
   signToken: function ({ firstName, email, _id }) {
     const payload = { firstName, email, _id };
 
-    return jwt.sign(
-      { data: payload },
-      secret,
-      { expiresIn: expiration }
-    );
-  }
+    return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
+  },
 };

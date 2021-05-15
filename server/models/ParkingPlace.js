@@ -1,31 +1,52 @@
-const { Schema,model} = require('mongoose');
+const { Schema, model } = require("mongoose");
 
-const AddressSchema = new Schema({
-    apt:String,
+const parkingPlaceSchema = new Schema(
+  {
+    apt: String,
     street: String,
     city: String,
     state: {
-        type: String,
-        uppercase: true,
-        required: true
+      type: String,
+      uppercase: true,
+      required: true,
     },
     zip: Number,
-})
-
-const ParkingPlaceSchema = new Schema({
-
-    address:AddressSchema,
-    isCoveredParking : Boolean,
+    isCoveredParking: Boolean,
     capacity: Number,
     price: Number,
-    Provider : {
+    provider: {
+      type: Schema.Types.ObjectId,
+      ref: "User",
+      required: true,
+    },
+    inventory: [
+      {
         type: Schema.Types.ObjectId,
-        ref: 'User',
-        required: true
+        ref: "Inventory",
       },
+    ],
+    reservations: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Reservations",
+      },
+    ],
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+  }
+);
 
+parkingPlaceSchema.virtual("inventoryCount").get(function () {
+  return this.inventory.length;
 });
 
-const ParkingPlace = model('ParkingPlace', ParkingPlaceSchema);
+parkingPlaceSchema.virtual("reservationsCount").get(function () {
+  return this.reservations.length;
+});
+
+const ParkingPlace = model("ParkingPlace", parkingPlaceSchema);
 
 module.exports = ParkingPlace;

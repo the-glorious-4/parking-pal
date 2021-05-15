@@ -17,7 +17,6 @@ type User {
   email: String
   phone:Int,
   parkingPlace: [ParkingPlace],
-  inventories : [Inventory]
 }
 
 type ParkingPlace {

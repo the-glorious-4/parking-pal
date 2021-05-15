@@ -1,20 +1,16 @@
 const { Schema, model } = require("mongoose");
 
-const addressSchema = new Schema({
-  apt: String,
-  street: String,
-  city: String,
-  state: {
-    type: String,
-    uppercase: true,
-    required: true,
-  },
-  zip: Number,
-});
-
 const parkingPlaceSchema = new Schema(
   {
-    address: addressSchema,
+    apt: String,
+    street: String,
+    city: String,
+    state: {
+      type: String,
+      uppercase: true,
+      required: true,
+    },
+    zip: Number,
     isCoveredParking: Boolean,
     capacity: Number,
     price: Number,

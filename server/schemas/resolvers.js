@@ -87,19 +87,6 @@ const resolvers = {
       return { token, user };
     },
 
-    addParkingPlace: async (parent, { args }) => {
-      //console.log(context);
-      //if (context.user) {
-        const parkingpL = await ParkingPlace.create(args); //{provider:context.user._id} , 
-        if(parkingpL.length>0){
-          const inventory =  await Inventory.create({parkingPlace: parkingpL._id},args.startDate );
-          if (inventory){
-            return await User.findById(context.user._id)
-          }
-        }
-      //}
-      throw new AuthenticationError("Not logged in");
-    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {

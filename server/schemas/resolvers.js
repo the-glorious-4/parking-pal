@@ -20,11 +20,26 @@ const resolvers = {
         // });
         const user = await User.findById({ _id: context.user._id })
           .select("-__v -password")
-          .populate("parkingPlace");
+          .populate({
+            path: "parkingPlace",
+            model: "ParkingPlace",
+            populate: {
+              path: "inventory",
+              model: "Inventory",
+            },
+          });
+
         return user;
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+
+    inventory: async (parent, args, context) => {
+      if (context.user) {
+        const inventory = await Inventory.find();
+        return inventory;
+      }
     },
   },
   Mutation: {
@@ -51,6 +66,26 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+
+    addInventory: async (parent, args, context) => {
+      const { parkingPlace: parkingPlaceId } = args;
+
+      if (context.user) {
+        const inventory = await Inventory.create({
+          ...args,
+        });
+
+        const updatedParkingPlace = await ParkingPlace.findByIdAndUpdate(
+          { _id: parkingPlaceId },
+          { $push: { inventory: inventory._id } }
+          // { new: true }
+        );
+        return inventory;
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
+
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {

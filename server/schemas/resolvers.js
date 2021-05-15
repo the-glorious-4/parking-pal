@@ -43,8 +43,7 @@ const resolvers = {
         });
         await User.findByIdAndUpdate(
           { _id: context.user._id },
-          { $push: { parkingPlace: parkingLot._id } },
-          { new: true }
+          { $push: { parkingPlace: parkingLot._id } }
         );
 
         return parkingLot;

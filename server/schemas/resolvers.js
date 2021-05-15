@@ -7,17 +7,6 @@ const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        // const user = await User.findById(context.user._id).populate({
-        //   path: "User",
-        //   populate: {
-        //     path: "inventories",
-        //     model: "ParkingPlace",
-        //     populate: {
-        //       path: "inventories",
-        //       model: "Inventory",
-        //     },
-        //   },
-        // });
         const user = await User.findById({ _id: context.user._id })
           .select("-__v -password")
           .populate({

@@ -18,7 +18,7 @@ const resolvers = {
         //     },
         //   },
         // });
-        const user = await User.findOne({ _id: context.user._id })
+        const user = await User.findById({ _id: context.user._id })
           .select("-__v -password")
           .populate("parkingPlace");
         return user;

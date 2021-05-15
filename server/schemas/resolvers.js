@@ -7,26 +7,62 @@ const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        // const user = await User.findById(context.user._id).populate({
-        //   path: "User",
-        //   populate: {
-        //     path: "inventories",
-        //     model: "ParkingPlace",
-        //     populate: {
-        //       path: "inventories",
-        //       model: "Inventory",
-        //     },
-        //   },
-        // });
         const user = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
-          .populate("inventories");
-        // .populate("inventories");
+          .populate({ 
+            path: 'parkingplace',
+            populate: {
+              path: 'inventory',
+              model: 'Inventory'
+            } 
+         })
 
         return user;
       }
 
       throw new AuthenticationError("Not logged in");
+    },
+    getAllParking : async( parent , {searchdate}) => {
+      const parkingPlacesInv = await Inventory.find({"startDate":searchdate},{"isAvailable":true})
+          .populate('parkingPlace');
+
+      return parkingPlacesInv;
+    },
+
+    //Assuming ParkingById returns ParkingplaceID
+    getParkingById : async( parent , {searchdate,parkingPlaceID}) => {
+      const parkingPlacesInv = await Inventory.find({"startDate":searchdate},{"isAvailable":true},{'parkingPlace':parkingPlaceID})
+          .populate('parkingPlace');
+
+      return parkingPlacesInv;
+    },
+
+    //User passing Inventory ID
+    getParkingByInventoryId : async( parent , {_id}) => {
+      const parkingPlacesInv = await Inventory.findOne({ _id })
+          .populate('parkingPlace');
+
+      return parkingPlacesInv;
+    },
+    
+    //Get All Inventory for given Provider
+    
+    getAllInventory: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+          .select('-__v -password')
+          .populate({ 
+            path: 'parkingplace',
+            populate: {
+              path: 'inventory',
+              model: 'Inventory'
+            } 
+         })
+
+        return userData;
+      }
+    
+      throw new AuthenticationError('No logged in user found');
     },
   },
   Mutation: {
@@ -37,16 +73,18 @@ const resolvers = {
       return { token, user };
     },
 
-    addParkingPlace: async (parent, args, context) => {
-      console.log(context);
-      if (context.user) {
-        // const parkingLoation = await ParkingPlace.create({provider:context.user._id} , args);
-        // if(parkingLoation.length>0){
-        //   return await Inventory.create(parkingLoation._id,args.startDate ,args.endDate );
-        // }
-      }
-
-      throw new AuthenticationError("Not logged in");
+    addParkingPlace: async (parent, { args }) => {
+      //console.log(context);
+      //if (context.user) {
+        const parkingpL = await ParkingPlace.create(args); //{provider:context.user._id} , 
+        if(parkingpL.length>0){
+          const inventory =  await Inventory.create({parkingPlace: parkingpL._id},args.startDate );
+          if (inventory){
+            return await User.findById(context.user._id)
+          }
+        }
+      //}
+      throw new AuthenticationError('Not logged in');
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });

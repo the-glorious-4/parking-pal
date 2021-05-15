@@ -56,7 +56,11 @@ type Auth {
 }
 
 type Query {
-  Inventory(parkingPlace: ID): [Inventory]
+  inventory(parkingPlace: ID): [Inventory]
+  getAllParking(startDate:String): [ParkingPlace]
+  getParkingById(startDate:String!,parkingPlace:ID!) : ParkingPlace
+  getParkingByInventoryId(_id:ID!):ParkingPlace
+  getAllInventory(_id : ID!) : User
   user: User
 }
 
@@ -75,7 +79,7 @@ type Mutation {
     endDate:String
     provider:ID) : User
 
-  availParking(startDate:String,endDate:String): Inventory
+  
   login(email: String!, password: String!): Auth
 }
 `;

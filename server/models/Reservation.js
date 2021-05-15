@@ -1,6 +1,6 @@
 const { Schema,model} = require('mongoose');
 
-const ReservationSchema = new Schema({
+const reservationSchema = new Schema({
     
     startDate : {
         type:Date,
@@ -21,10 +21,8 @@ const ReservationSchema = new Schema({
     stripeTransaction :{
         type: Schema.Types.ObjectId
     }
-
-
 });
 
-const Reservation = model('Reservation', ReservationSchema);
+const Reservation = model('Reservation', reservationSchema);
 
 module.exports = Reservation;

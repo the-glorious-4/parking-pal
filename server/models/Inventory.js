@@ -1,21 +1,23 @@
-const { Schema,model} = require('mongoose');
+const { Schema, model } = require("mongoose");
 
-const InventorySchema = new Schema({
-    
-    startDate : {
-        type:Date,
-    },
-    endDate : {
-        type:Date,
-    },
-    parkingPlace : {
-        type: Schema.Types.ObjectId,
-        ref: 'ParkingPlace',
-        required: true
-    }
-
+const inventorySchema = new Schema({
+  startDate: {
+    type: Date,
+  },
+  endDate: {
+    type: Date,
+  },
+  parkingPlace: {
+    type: Schema.Types.ObjectId,
+    ref: "ParkingPlace",
+    required: true,
+  },
+  reservation: {
+    type: Schema.Types.ObjectId,
+    ref: "Reservation",
+  },
 });
 
-const Inventory = model('Inventory', InventorySchema);
+const Inventory = model("Inventory", inventorySchema);
 
 module.exports = Inventory;

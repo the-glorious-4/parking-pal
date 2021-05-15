@@ -1,0 +1,61 @@
+.loginForm {
+    margin: 0.1rem;
+}
+
+.field {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    padding: .5rem;
+    align-items: flex-start;
+    height: 200%;
+
+    label {
+        // column 3
+        flex: 0 0 calc(100% * 3 / 12 - 0.5%);
+    }
+
+    input {
+        // column 4
+        flex: 0 0 calc(100% * 4 / 12 - 0.5%);
+    }
+}
+
+.login-submit {
+    display: flex;
+    padding-top: .5rem;
+    padding-bottom: .5rem;
+
+    div {
+        // column 7
+        flex: 0 0 calc(100% * 7 / 12 - 0.5%);
+        display: flex;
+        justify-content: flex-end;
+    }
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.modal-bg {
+    padding-left: 1rem;
+    background-image: url("../../images/modal-parkinglot-bg.jpeg"); // fallback
+    background-image:
+        linear-gradient(to right bottom, white, rgba(0, 0, 0, 0.5)),
+        url("../../images/modal-parkinglot-bg.jpeg");
+    background-size: 100% 100%;
+    flex-grow: 1;
+
+    h2 {
+        font-family: "Black Han Sans", sans-serif;
+    }
+}
+
+.login-form-err {
+    color: red;
+    // column auto
+    flex: auto;
+    padding-left: 2em;
+}

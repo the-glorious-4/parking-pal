@@ -20,9 +20,7 @@ const resolvers = {
         // });
         const user = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
-          .populate("inventories");
-        // .populate("inventories");
-
+          .populate("parkingPlace");
         return user;
       }
 
@@ -38,12 +36,18 @@ const resolvers = {
     },
 
     addParkingPlace: async (parent, args, context) => {
-      console.log(context);
       if (context.user) {
-        // const parkingLoation = await ParkingPlace.create({provider:context.user._id} , args);
-        // if(parkingLoation.length>0){
-        //   return await Inventory.create(parkingLoation._id,args.startDate ,args.endDate );
-        // }
+        const parkingLot = await ParkingPlace.create({
+          ...args,
+          provider: context.user._id,
+        });
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { parkingPlace: parkingLot._id } },
+          { new: true }
+        );
+
+        return parkingLot;
       }
 
       throw new AuthenticationError("Not logged in");

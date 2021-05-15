@@ -30,8 +30,7 @@ type ParkingPlace {
   capacity: Int
   price:Int
   provider: User
-
-
+  reservations: [Reservation]
 }
 
 type Inventory {
@@ -70,10 +69,7 @@ type Mutation {
     zip:String!
     isCoveredParking:Boolean!
     capacity: Int!
-    price:Int!
-    startDate:String!
-    endDate:String
-    provider:ID) : User
+    price:Int!) : ParkingPlace
 
   availParking(startDate:String,endDate:String): Inventory
   login(email: String!, password: String!): Auth

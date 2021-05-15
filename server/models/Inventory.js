@@ -4,14 +4,16 @@ const inventorySchema = new Schema({
   startDate: {
     type: Date,
   },
-  endDate: {
-    type: Date,
-  },
   parkingPlace: {
     type: Schema.Types.ObjectId,
     ref: "ParkingPlace",
     required: true,
   },
+  isAvailable: {
+    type: Boolean,
+    default: true,
+  },
+
   reservation: {
     type: Schema.Types.ObjectId,
     ref: "Reservation",

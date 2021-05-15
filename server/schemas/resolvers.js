@@ -7,16 +7,9 @@ const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findOne({ _id: context.user._id })
+        const user = await User.findById({ _id: context.user._id })
           .select("-__v -password")
-          .populate({ 
-            path: "parkingplace",
-            populate: {
-              path: "inventory",
-              model: "Inventory"
-            } 
-         })
-
+          .populate("parkingPlace");
         return user;
       }
 
@@ -87,6 +80,22 @@ const resolvers = {
       return { token, user };
     },
 
+    addParkingPlace: async (parent, args, context) => {
+      if (context.user) {
+        const parkingLot = await ParkingPlace.create({
+          ...args,
+          provider: context.user._id,
+        });
+        await User.findByIdAndUpdate(
+          { _id: context.user._id },
+          { $push: { parkingPlace: parkingLot._id } }
+        );
+
+        return parkingLot;
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
       if (!user) {

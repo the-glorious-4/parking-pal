@@ -30,6 +30,7 @@ const typeDefs = gql`
     price: Int
     provider: User
     reservations: [Reservation]
+    inventory: [Inventory]
   }
 
   type Inventory {
@@ -54,8 +55,8 @@ const typeDefs = gql`
   }
 
   type Query {
-    Inventory(parkingPlace: ID): [Inventory]
-    user: User
+    inventory(inventory: ID): [Inventory]
+    user: User!
   }
 
   type Mutation {
@@ -75,9 +76,9 @@ const typeDefs = gql`
       zip: String!
       isCoveredParking: Boolean!
       capacity: Int!
-      price: Int!
     ): ParkingPlace
 
+    addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
     availParking(startDate: String, endDate: String): Inventory
     login(email: String!, password: String!): Auth
   }

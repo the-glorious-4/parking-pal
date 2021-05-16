@@ -10,6 +10,12 @@
     width: 100%;
     justify-content: space-evenly;
     flex-wrap: wrap;
+    animation: boxSlide 2s 1;
+}
+
+@keyframes boxSlide {
+    from {margin-top: 1000px;}
+    to {margin-top: 0;}
 }
 
 .info1, .info2, .info3 {
@@ -28,6 +34,15 @@
         font-weight: 100;
         text-shadow: 0 0 5px #fff, 0 0 5px #fff;
     }
+}
+
+.boxGrow {
+    animation: boxGrow 2s 1;
+}
+
+@keyframes boxGrow {
+    from {transform: scale(0);}
+    to {transform: scale(1);}
 }
 
 .info1 {

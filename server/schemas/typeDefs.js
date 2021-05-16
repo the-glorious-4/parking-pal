@@ -30,6 +30,7 @@ const typeDefs = gql`
     price: Int
     provider: User
     reservations: [Reservation]
+    inventory: [Inventory]
   }
 
   type Inventory {
@@ -55,7 +56,7 @@ const typeDefs = gql`
 
  
 type Query {
-    inventory(parkingPlace: ID): [Inventory]
+    inventory(inventory: ID): [Inventory]
     getAllParking(startDate:String): [ParkingPlace]
     getParkingById(startDate:String!,parkingPlace:ID!) : ParkingPlace
     getParkingByInventoryId(_id:ID!):ParkingPlace
@@ -64,7 +65,6 @@ type Query {
     user: User
 
 }
-
 
 type Mutation {
   
@@ -84,9 +84,9 @@ type Mutation {
     zip: String!
     isCoveredParking: Boolean!
     capacity: Int!
-    price: Int!
   ): ParkingPlace
 
+  addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
   login(email: String!, password: String!): Auth
 }
 `;

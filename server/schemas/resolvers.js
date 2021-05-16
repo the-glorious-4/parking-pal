@@ -23,6 +23,8 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
+
+
     getAllParking : async( parent , {searchDate}) => {
       const parkingPlacesInv = await Inventory.find({"startDate":searchDate},{"isAvailable":true})
           .populate("parkingPlace");
@@ -32,7 +34,7 @@ const resolvers = {
 
     //Assuming ParkingById returns ParkingplaceID
     getParkingById : async( parent , {searchDate,parkingPlaceID}) => {
-      const parkingPlacesInv = await Inventory.find({"startDate":searchDate},{"isAvailable":true},{"parkingPlace":parkingPlaceID})
+      const parkingPlacesInv = await Inventory.find({"isAvailable":true,"parkingPlace":parkingPlaceID})
           .populate("parkingPlace");
 
       return parkingPlacesInv;
@@ -53,7 +55,8 @@ const resolvers = {
         const userData = await User.findOne({ _id: context.user._id })
           .select("-__v -password")
           .populate({ 
-            path: "parkingplace",
+            path: "parkingPlace",
+            model: "ParkingPlace",
             populate: {
               path: "inventory",
               model: "Inventory"

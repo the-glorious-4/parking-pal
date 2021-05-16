@@ -25,63 +25,67 @@ const resolvers = {
     },
 
 
-    getAllParking : async( parent , {searchDate}) => {
-      const parkingPlacesInv = await Inventory.find({"startDate":searchDate},{"isAvailable":true})
-          .populate("parkingPlace");
+    getAllParking : async( parent , args) => {
+      const { city , startDate} = args;
+      const parkingPlacesInv = await Inventory.find({"startDate":startDate,"isAvailable":true})
+      .populate({ 
+                path: "parkingPlace",
+                model: "ParkingPlace",
+                match: { "city" : city}});
 
       return parkingPlacesInv;
     },
 
-    //Assuming ParkingById returns ParkingplaceID
-    getParkingById : async( parent , {searchDate,parkingPlaceID}) => {
-      const parkingPlacesInv = await Inventory.find({"isAvailable":true,"parkingPlace":parkingPlaceID})
-          .populate("parkingPlace");
+    // // //Assuming ParkingById returns ParkingplaceID
+    // // getParkingById : async( parent , {searchDate,parkingPlaceID}) => {
+    // //   const parkingPlacesInv = await Inventory.find({"isAvailable":true,"parkingPlace":parkingPlaceID})
+    // //       .populate("parkingPlace");
 
-      return parkingPlacesInv;
-    },
+    // //   return parkingPlacesInv;
+    // // },
 
-    //User passing Inventory ID
-    getParkingByInventoryId : async( parent , {_id}) => {
-      const parkingPlacesInv = await Inventory.findOne({ _id })
-          .populate("parkingPlace");
+    // // //User passing Inventory ID
+    // // getParkingByInventoryId : async( parent , {_id}) => {
+    // //   const parkingPlacesInv = await Inventory.findOne({ _id })
+    // //       .populate("parkingPlace");
 
-      return parkingPlacesInv;
-    },
+    // //   return parkingPlacesInv;
+    // // },
     
-    //Get All Inventory for given Provider
+    // // //Get All Inventory for given Provider
     
-    getAllInventory: async (parent, args, context) => {
-      if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select("-__v -password")
-          .populate({ 
-            path: "parkingPlace",
-            model: "ParkingPlace",
-            populate: {
-              path: "inventory",
-              model: "Inventory"
-            } 
-         })
+    // // getAllInventory: async (parent, args, context) => {
+    // //   if (context.user) {
+    // //     const userData = await User.findOne({ _id: context.user._id })
+    // //       .select("-__v -password")
+    // //       .populate({ 
+    // //         path: "parkingPlace",
+    // //         model: "ParkingPlace",
+    // //         populate: {
+    // //           path: "inventory",
+    // //           model: "Inventory"
+    // //         } 
+    // //      })
 
-        return userData;
-      }
+    // //     return userData;
+    // //   }
     
-      throw new AuthenticationError("No logged in user found");
-    },
+    // //   throw new AuthenticationError("No logged in user found");
+    // // },
 
-    //Get all reservations for given Provider
-    getActiveReservation: async (parent, {searchDate}, context) => {
-      if (context.user) {
-        const reservedParkingPlaces = await Reservation.find({ startDate :{ $gt: searchDate}})
-          .populate({ 
-            path: "parkingplace",
-            match: { "provider" : context.user._id}
-         })
-        return reservedParkingPlaces
-      }
+    // //Get all reservations for given Provider
+    // getActiveReservation: async (parent, {searchDate}, context) => {
+    //   if (context.user) {
+    //     const reservedParkingPlaces = await Reservation.find({ startDate :{ $gt: searchDate}})
+    //       .populate({ 
+    //         path: "parkingplace",
+    //         match: { "provider" : context.user._id}
+    //      })
+    //     return reservedParkingPlaces
+    //   }
     
-      throw new AuthenticationError("No logged in user found");
-    },
+    //   throw new AuthenticationError("No logged in user found");
+    // },
     inventory: async (parent, args, context) => {
       if (context.user) {
         const inventory = await Inventory.find();

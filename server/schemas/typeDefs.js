@@ -56,11 +56,7 @@ const typeDefs = gql`
  
 type Query {
     inventory(inventory: ID): [Inventory]
-    getAllParking(startDate:String): [ParkingPlace]
-    getParkingById(startDate:String!,parkingPlace:ID!) : ParkingPlace
-    getParkingByInventoryId(_id:ID!):ParkingPlace
-    getAllInventory(_id : ID!) : User
-    getActiveReservation(startDate:String): [ParkingPlace]
+    getAllParking(city:String,startDate:String): [Inventory]
     user: User
 
 }
@@ -91,3 +87,10 @@ type Mutation {
 `;
 
 module.exports = typeDefs;
+
+
+
+  // getParkingById(startDate:String!,parkingPlace:ID!) : ParkingPlace
+    // getParkingByInventoryId(_id:ID!):ParkingPlace
+    // getAllInventory(_id : ID!) : User
+    // getActiveReservation(startDate:String): [ParkingPlace]

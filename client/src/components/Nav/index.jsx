@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from "react-router-dom";
 import './style.scss';
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
@@ -26,9 +27,20 @@ const Nav = () => {
             <a href='/' className='title'>Parking-Pal</a>
             {/* <div>look for parking</div> */}
             <div className='menu'>
-            <span><a href='#infoSection'>How It Works</a></span>
-                {Auth.loggedIn() ? <span onClick={logout}>Log-Out</span> :
-                <><span onClick={renderLoginModal}>Log-In</span> <span onClick={renderSignupModal}>Sign-Up</span></>}
+                {Auth.loggedIn() ?
+                <>
+                    <span><Link>Find a Space</Link></span>
+                    <span><Link>Host a Page</Link></span>
+                    <span><Link>Edit Profile</Link></span>
+                    <span><Link to="/history">History</Link></span>
+                    <span onClick={logout}>Log-Out</span>
+                </>
+                :
+                <>
+                    <span><a href='#infoSection'>How It Works</a></span>
+                    <span onClick={renderLoginModal}>Log-In</span>
+                    <span onClick={renderSignupModal}>Sign-Up</span>
+                </>}
             </div>
         </nav>
         {state.loginRendered ? <LoginModal /> :

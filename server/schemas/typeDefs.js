@@ -55,9 +55,10 @@ const typeDefs = gql`
 
  
 type Query {
+    user: User  
     inventory(inventory: ID): [Inventory]
     getAllParking(city:String,startDate:String): [Inventory]
-    user: User
+    getParkingByInventoryId(_id:ID!):Inventory
 
 }
 
@@ -90,7 +91,7 @@ module.exports = typeDefs;
 
 
 
-  // getParkingById(startDate:String!,parkingPlace:ID!) : ParkingPlace
-    // getParkingByInventoryId(_id:ID!):ParkingPlace
+  
+    // getAllInventoryByParkingId(startDate:String!,parkingPlace:ID!) : Inventory
     // getAllInventory(_id : ID!) : User
     // getActiveReservation(startDate:String): [ParkingPlace]

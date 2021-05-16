@@ -35,22 +35,29 @@ const resolvers = {
 
       return parkingPlacesInv;
     },
+  //User passing Inventory ID
+      getParkingByInventoryId : async( parent , {_id }) => {
+        // const { _id } = args;
+        const parkingPlacesInv = await Inventory.findById({ _id })
+            .populate({
+                path:"parkingPlace",
+                model:ParkingPlace});
 
-    // // //Assuming ParkingById returns ParkingplaceID
-    // // getParkingById : async( parent , {searchDate,parkingPlaceID}) => {
-    // //   const parkingPlacesInv = await Inventory.find({"isAvailable":true,"parkingPlace":parkingPlaceID})
-    // //       .populate("parkingPlace");
+        return parkingPlacesInv;
+      },
+      
+    // //Assuming ParkingById returns ParkingplaceID
+    // getAllInventoryByParkingId : async( parent , args) => {
+    //   const { parkingPlace , startDate} = args;
+    //   const parkingPlacesInv = await Inventory.find({"startDate":startDate,"isAvailable":true,"parkingPlace" : parkingPlace})
+    //   .populate({ 
+    //             path: "parkingPlace",
+    //             model: "ParkingPlace"});
 
-    // //   return parkingPlacesInv;
-    // // },
+    //   return parkingPlacesInv;
+    // },
 
-    // // //User passing Inventory ID
-    // // getParkingByInventoryId : async( parent , {_id}) => {
-    // //   const parkingPlacesInv = await Inventory.findOne({ _id })
-    // //       .populate("parkingPlace");
-
-    // //   return parkingPlacesInv;
-    // // },
+   
     
     // // //Get All Inventory for given Provider
     

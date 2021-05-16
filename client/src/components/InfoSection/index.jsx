@@ -1,7 +1,9 @@
 import React from 'react';
 import './style.scss'
+import './main'
 
 const InfoSection = () => {
+
     return (<>
         <div id='infoSection' className='infoSection'>
             <div className='infoBody'>

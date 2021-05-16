@@ -3,6 +3,11 @@ const { Schema, model } = require("mongoose");
 const inventorySchema = new Schema({
   startDate: {
     type: Date,
+    required: true,
+  },
+  price: {
+    type: Number,
+    required: true,
   },
   parkingPlace: {
     type: Schema.Types.ObjectId,

@@ -13,7 +13,6 @@ const parkingPlaceSchema = new Schema(
     zip: Number,
     isCoveredParking: Boolean,
     capacity: Number,
-    price: Number,
     provider: {
       type: Schema.Types.ObjectId,
       ref: "User",

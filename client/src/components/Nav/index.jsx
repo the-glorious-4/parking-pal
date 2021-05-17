@@ -24,7 +24,9 @@ const Nav = () => {
 
     return (<>
         <nav>
-            <a href='/' className='title'>Parking-Pal</a>
+        <Link to='/'>
+        <span className='title'>Parking-Pal</span>
+        </Link>
             {/* <div>look for parking</div> */}
             <div className='menu'>
                 {Auth.loggedIn() ?

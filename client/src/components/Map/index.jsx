@@ -25,16 +25,16 @@ const options = {
 }
 const plots = features.map(location => (location.geometry.coordinates))
 
-function MyMapComponent() {
+function MyMapComponent(props) {
 
-    const { loading, data } = useQuery(QUERY_ALL_PARKING);
+    // const { loading, data } = useQuery(QUERY_ALL_PARKING);
 
     // console.log(loading);
     // console.log(data);
 
     const [state,] = useStoreContext();
-    const [markers, setMarkers] = useState(plots)
-    const [map, setMap] = useState(null)
+    const [markers,] = useState(plots)
+    const [, setMap] = useState(null)
     const [selected, setSelected] = useState(null)
     const mapRef = useRef();
 
@@ -43,22 +43,25 @@ function MyMapComponent() {
         setMap(mapRef)
     });
 
-    const parkingRedirect = (event) => {
-        console.log(event.target.id);
+    const parkingRedirect = () => {
+        console.log(features.filter(marker => marker.geometry.coordinates === selected));
     }
 
     return (
         <div className='mapBody'>
             <h1 className='mapTitle'>Parking-Pal <span role='img'>🚗</span></h1>
-            <div className='findMeBtn'><FindMeBtn /></div>
-            <div className='searchBoxMap'>
+
+            {props.findMeBtn ? <div className='findMeBtn'><FindMeBtn /></div> : null}
+
+            {props.searchBar ? <div className='searchBoxMap'>
                 <Search />
-            </div>
+            </div> : null}
+            
             <GoogleMap
                 key={new Date().getTime()}
                 mapContainerStyle={containerStyle}
                 zoom={15}
-                center={state.mapLocation}
+                center={state.mapLocation ? state.mapLocation : { lat: 37.774, lng: -122.419 }}
                 options={options}
                 onLoad={onLoad}
             >

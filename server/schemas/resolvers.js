@@ -24,6 +24,75 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
+
+    getAllParking : async( parent , args) => {
+      const { city , startDate} = args;
+      const parkingPlacesInv = await Inventory.find({"startDate":startDate,"isAvailable":true})
+      .populate({ 
+                path: "parkingPlace",
+                model: "ParkingPlace",
+                match: { "city" : city}});
+
+      return parkingPlacesInv;
+    },
+  //User passing Inventory ID
+      getParkingByInventoryId : async( parent , {_id }) => {
+        // const { _id } = args;
+        const parkingPlacesInv = await Inventory.findById({ _id })
+            .populate({
+                path:"parkingPlace",
+                model:ParkingPlace});
+
+        return parkingPlacesInv;
+      },
+      
+    // //Assuming ParkingById returns ParkingplaceID
+    // getAllInventoryByParkingId : async( parent , args) => {
+    //   const { parkingPlace , startDate} = args;
+    //   const parkingPlacesInv = await Inventory.find({"startDate":startDate,"isAvailable":true,"parkingPlace" : parkingPlace})
+    //   .populate({ 
+    //             path: "parkingPlace",
+    //             model: "ParkingPlace"});
+
+    //   return parkingPlacesInv;
+    // },
+
+   
+    
+    // // //Get All Inventory for given Provider
+    
+    // // getAllInventory: async (parent, args, context) => {
+    // //   if (context.user) {
+    // //     const userData = await User.findOne({ _id: context.user._id })
+    // //       .select("-__v -password")
+    // //       .populate({ 
+    // //         path: "parkingPlace",
+    // //         model: "ParkingPlace",
+    // //         populate: {
+    // //           path: "inventory",
+    // //           model: "Inventory"
+    // //         } 
+    // //      })
+
+    // //     return userData;
+    // //   }
+    
+    // //   throw new AuthenticationError("No logged in user found");
+    // // },
+
+    // //Get all reservations for given Provider
+    // getActiveReservation: async (parent, {searchDate}, context) => {
+    //   if (context.user) {
+    //     const reservedParkingPlaces = await Reservation.find({ startDate :{ $gt: searchDate}})
+    //       .populate({ 
+    //         path: "parkingplace",
+    //         match: { "provider" : context.user._id}
+    //      })
+    //     return reservedParkingPlaces
+    //   }
+    
+    //   throw new AuthenticationError("No logged in user found");
+    // },
     inventory: async (parent, args, context) => {
       if (context.user) {
         const inventory = await Inventory.find();

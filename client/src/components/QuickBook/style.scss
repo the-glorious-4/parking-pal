@@ -9,38 +9,63 @@
 .mainBubble {
     font-family: 'Black Han Sans', sans-serif;
     display: flex;
-    // align-self: center;
-    z-index: 3;
+    z-index: 2;
     margin-top: 20vh;
     height: 90px;
     border: 2px solid black;
     border-radius: 25px;
     background-color: rgba(255, 255, 255, .4);
     font-size: 18px;
-
+    width: 90%;
+    max-width: 700px;
+    form{
+        justify-content: space-evenly;
+    }
     div {
         padding-top: 10px;
         width: 25%;
-        padding: 0 20px;
+        padding: 0 0px;
         display: flex;
         flex-direction: column;
         justify-content: center;
         align-items: center;
+        z-index: 3;
 
-        button {
+        .searchBtn {
             font-size: 35px;
             border-radius: 40px;
+            background: none;
+        }
+        .comboMain {
+            input{
+                max-width: 150px;
+
+            }
+            // max-width: 180px;
         }
     }
-    input {
+
+    .dateSearch input {
         display: block;
-        height: 20px;
+        height: 40px;
+        padding: 0 10px;
+        // display: none;
     }
     select {
         display: block;
-        height: 30px;
+        height: 40px;
     }
     form {
         display: inline-flex;
+        width: 100%;
     }
+    .buttonDiv{
+        // width: 10%;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}
+.comboOption {
+    z-index: 5;
+    width: 20%;
 }

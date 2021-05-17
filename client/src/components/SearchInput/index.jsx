@@ -1,4 +1,5 @@
 import React from 'react';
+import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import {
     Combobox,
@@ -8,15 +9,20 @@ import {
     ComboboxOption
 } from "@reach/combobox";
 import "@reach/combobox/styles.css";
+import { useStoreContext } from '../../utils/GlobalState';
+import { UPDATE_MAP_LOCATION } from '../../utils/actions';
 
-const panTo = useCallback(({ lat, lng }) => {
-    mapRef.current.panTo({ lat, lng });
-    mapRef.current.setZoom(16);
-    // mapRef.current.setZoom(17);
-    setMap(mapRef)
-}, [])
 
 const Search = () => {
+
+    // const { isLoaded, loadError } = useLoadScript({
+    //     id: 'google-map-script',
+    //     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API,
+    //     libraries: ["places"]
+    // })
+
+    const [, dispatch] = useStoreContext();
+
     const { ready, value, suggestions: { status, data }, setValue, clearSuggestions } = usePlacesAutocomplete({
         requestOptions: {
             location: { lat: () => 37.774, lng: () => -122.419 },
@@ -25,14 +31,20 @@ const Search = () => {
     })
 
     return <div className='searchBox'>
-        <Combobox onSelect={async (address) => {
+    <script async
+    src={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API}&libraries=places`}>
+</script>
+        <Combobox className='comboMain' onSelect={async (address) => {
             setValue(address, false);
             clearSuggestions();
 
             try {
                 const results = await getGeocode({ address })
                 const { lat, lng } = await getLatLng(results[0])
-                panTo({ lat, lng });
+                dispatch({
+                        type: UPDATE_MAP_LOCATION,
+                        location: { lat: lat, lng: lng }
+                    })
             } catch (error) {
                 console.log('error!', error)
             }
@@ -44,10 +56,10 @@ const Search = () => {
                 disabled={!ready}
                 placeholder="Enter location here"
             />
-            <ComboboxPopover>
-                <ComboboxList>
+            <ComboboxPopover className='comboOption'>
+                <ComboboxList className=''>
                     {status === "OK" && data.map(({ id, description }) => (
-                        <ComboboxOption key={id} value={description} />
+                        <ComboboxOption className='' key={Math.random()} value={description} />
                     ))}
                 </ComboboxList>
             </ComboboxPopover>

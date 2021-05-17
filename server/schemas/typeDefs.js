@@ -27,7 +27,6 @@ const typeDefs = gql`
     zip: String
     isCoveredParking: Boolean
     capacity: Int
-    price: Int
     provider: User
     reservations: [Reservation]
     inventory: [Inventory]
@@ -36,14 +35,14 @@ const typeDefs = gql`
   type Inventory {
     _id: ID
     startDate: String
-    endDate: String
+    price:Int
+    isAvailable:Boolean
     parkingPlace: ParkingPlace
   }
 
   type Reservation {
     _id: ID
     startDate: String
-    endDate: String
     parkingPlace: ParkingPlace
     consumer: User
     stripeTransaction: String
@@ -54,34 +53,45 @@ const typeDefs = gql`
     user: User
   }
 
-  type Query {
+ 
+type Query {
+    user: User  
     inventory(inventory: ID): [Inventory]
-    user: User!
-  }
+    getAllParking(city:String,startDate:String): [Inventory]
+    getParkingByInventoryId(_id:ID!):Inventory
 
-  type Mutation {
-    addUser(
-      firstName: String!
-      lastName: String!
-      email: String!
-      password: String!
-      phone: String!
-    ): Auth
+}
 
-    addParkingPlace(
-      apt: String!
-      street: String!
-      city: String!
-      state: String!
-      zip: String!
-      isCoveredParking: Boolean!
-      capacity: Int!
-    ): ParkingPlace
+type Mutation {
+  
+  addUser(
+    firstName: String!
+    lastName: String!
+    email: String!
+    password: String!
+    phone: String!
+  ): Auth
 
-    addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
-    availParking(startDate: String, endDate: String): Inventory
-    login(email: String!, password: String!): Auth
-  }
+  addParkingPlace(
+    apt: String!
+    street: String!
+    city: String!
+    state: String!
+    zip: String!
+    isCoveredParking: Boolean!
+    capacity: Int!
+  ): ParkingPlace
+
+  addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
+  login(email: String!, password: String!): Auth
+}
 `;
 
 module.exports = typeDefs;
+
+
+
+  
+    // getAllInventoryByParkingId(startDate:String!,parkingPlace:ID!) : Inventory
+    // getAllInventory(_id : ID!) : User
+    // getActiveReservation(startDate:String): [ParkingPlace]

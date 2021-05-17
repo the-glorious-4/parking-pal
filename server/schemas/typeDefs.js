@@ -14,7 +14,7 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     email: String
-    phone: Int
+    phone: String
     parkingPlace: [ParkingPlace]
   }
 

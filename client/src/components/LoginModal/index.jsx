@@ -1,7 +1,7 @@
 /* LoginModal/index.js: Login form for users of the app. */ 
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import "./style.scss";
+// import "./style.scss";
 import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
@@ -61,7 +61,7 @@ const LoginModal = () => {
         <Modal>
             <div className="modal-bg">
                 <h2>Log In</h2>
-                <form className="loginForm" onSubmit={handleFormSubmit}>
+                <form className="loginForm signupForm" onSubmit={handleFormSubmit}>
                     <div className="field">
                         <label htmlFor="email">Email:</label>
                         <input
@@ -73,7 +73,7 @@ const LoginModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.emailError &&
-                        <span className="login-form-err">This is not a valid email address.</span>}
+                        <span className="form-err">This is not a valid email address.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="pass">Password:</label>
@@ -85,13 +85,13 @@ const LoginModal = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="login-submit">
+                    <div className="signup-submit">
                         <div>
                         <button type="submit">Submit</button>
                         </div>
                     </div>
                 </form>
-                {error && <span className="login-form-err">Something went wrong with your log-in!</span>}
+                {error && <span className="form-err">Something went wrong with your log-in!</span>}
             </div>
         </Modal>
     );

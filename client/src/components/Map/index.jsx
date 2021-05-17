@@ -1,7 +1,8 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef, useCallback, useContext } from 'react'
 import { GoogleMap, useLoadScript, Marker, InfoWindow } from '@react-google-maps/api';
 import { features } from '../../utils/dummyData.json';
 import './style.scss';
+// import Search from '../SearchInput'
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import {
     Combobox,
@@ -13,6 +14,8 @@ import {
 import "@reach/combobox/styles.css";
 
 import prkingLogo from './images/mapPic.png'
+
+import { useStoreContext } from '../../utils/GlobalState';
 
 const containerStyle = {
     width: '80vw',
@@ -33,11 +36,12 @@ function MyMapComponent() {
         libraries
     })
 
-
+    const [state, dispatch] = useStoreContext();
     const [markers, setMarkers] = useState(plots)
     const [map, setMap] = useState(null)
     const [selected, setSelected] = useState(null)
     const mapRef = useRef();
+    console.log(state)
 
     const onLoad = useCallback((map) => {
         mapRef.current = map;
@@ -47,7 +51,6 @@ function MyMapComponent() {
     const panTo = useCallback(({ lat, lng }) => {
         mapRef.current.panTo({ lat, lng });
         mapRef.current.setZoom(16);
-        // mapRef.current.setZoom(17);
         setMap(mapRef)
 
     }, [])
@@ -128,7 +131,7 @@ function MyMapComponent() {
                 key={new Date().getTime()}
                 mapContainerStyle={containerStyle}
                 zoom={15}
-                center={center}
+                center={state.mapLocation}
                 options={options}
                 onLoad={onLoad}
             >

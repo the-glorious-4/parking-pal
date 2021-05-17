@@ -7,16 +7,19 @@
 }
 
 .mainBubble {
+    font-family: 'Black Han Sans', sans-serif;
     display: flex;
     // align-self: center;
     z-index: 3;
     margin-top: 20vh;
-    height: 70px;
+    height: 90px;
     border: 2px solid black;
     border-radius: 25px;
     background-color: rgba(255, 255, 255, .4);
+    font-size: 18px;
 
     div {
+        padding-top: 10px;
         width: 25%;
         padding: 0 20px;
         display: flex;
@@ -31,9 +34,11 @@
     }
     input {
         display: block;
+        height: 20px;
     }
     select {
         display: block;
+        height: 30px;
     }
     form {
         display: inline-flex;

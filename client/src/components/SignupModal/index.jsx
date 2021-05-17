@@ -108,7 +108,7 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.emailError &&
-                        <span className="signup-form-err">Please enter a valid email address.</span>}
+                        <span className="form-err">Please enter a valid email address.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="pwd">Password:</label>
@@ -121,7 +121,7 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.passLengthError &&
-                        <span className="signup-form-err">Your password must be at least 6 characters long.</span>}
+                        <span className="form-err">Your password must be at least 6 characters long.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="phone">Phone Number:</label>
@@ -134,7 +134,7 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.phoneError &&
-                        <span className="signup-form-err">Please enter a valid phone number.</span>}
+                        <span className="form-err">Please enter a valid phone number.</span>}
                     </div>
                     <div className="signup-submit">
                         <div>
@@ -142,7 +142,7 @@ const SignupModal = () => {
                         </div>
                     </div>
                 </form>
-                {error && <span className="signup-form-err">Something went wrong!</span>}
+                {error && <span className="form-err">Something went wrong!</span>}
             </div>
         </Modal>
     );

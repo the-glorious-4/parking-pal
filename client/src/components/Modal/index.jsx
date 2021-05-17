@@ -20,7 +20,7 @@ const Modal = ({ children }) => {
                     <div className="modal-content">
                         {/* Close Button */}
                         <div className="modal-close">
-                            <span className="modal-close-btn" onClick={dismissModal}>X</span>
+                            <span className="modal-close-btn" onClick={dismissModal}>✘</span>
                         </div>
                         {/* Content */}
                         {children}

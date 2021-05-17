@@ -1,15 +1,31 @@
 .dashboard {
-    display: flex;
-    flex-direction: column;
     margin-top: 14vh;
     margin-left: 2em;
     margin-right: 2em;
 }
 
-h2 {
+.active-lists {
     display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    justify-content: space-around;
 }
 
-// nav {
-//     position: relative;
-// }
+.dash-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    ul {
+        padding-inline-start: 0;
+        list-style-type: none;
+        margin: 0;
+        
+        li {
+            padding: 1rem;
+            margin: 0.5rem;
+            border: 1px solid black;
+            border-radius: 0.5rem;
+        }
+    }
+}

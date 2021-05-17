@@ -1,24 +1,45 @@
 import React from "react";
 import "./style.scss";
 import { useQuery } from "@apollo/react-hooks";
+import Auth from "../../utils/auth";
 import { QUERY_USER } from "../../utils/queries";
 import Nav from '../../components/Nav';
 
 const Dashboard = () => {
-    const { data } = useQuery(QUERY_USER);
+    const { loading, data } = useQuery(QUERY_USER);
     let user;
+    
+    user = data?.user || {};
 
-    if (data) {
-        user = data.user;
+    if (loading) {
+        return <h1>Loading...</h1>;
     }
 
     return (
         <>
-            {user ? (
+            {Auth.loggedIn() ? (
                 <>
                     <Nav />
                     <div className="dashboard">
-                        <h2>Welcome, {user.firstName}.</h2>
+                        <h1>Welcome, {user.firstName}!</h1>
+                        <div className="active-lists">
+                            <div className="dash-list">
+                                <h2>Current and Upcoming Reservations</h2>
+                                <ul>
+                                </ul>
+                            </div>
+                            <div className="dash-list">
+                                <h2>Your Spaces</h2>
+                                <ul>
+                                    {user.parkingPlace.map(({ _id, street, city, state, zip }) => (
+                                        <li key={_id}>
+                                            {/* TODO: Link to detail view */}
+                                            {`${street} ${city}, ${state} ${zip}`}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </>
             ) : (

@@ -1,7 +1,29 @@
+.content-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-image:
+        linear-gradient(rgba(171, 171, 171, 0.3), rgba(171, 171, 171, 0.3)),
+        url("../../images/bg-sunny-parking-lot.jpeg");
+    background-position: center;
+}
+
 .dashboard {
     margin-top: 14vh;
     margin-left: 2em;
     margin-right: 2em;
+    flex-grow: 1;
+
+    h1, h2 {
+        text-shadow: #f1f3f4 0 0 2px;
+    }
 }
 
 .active-lists {
@@ -28,11 +50,14 @@
             margin: 0.5rem;
             border: 1px solid black;
             border-radius: 0.5rem;
+            background-color: #f1f3f4;
+            opacity: 0.8;
         }
     }
 
     button {
         margin-top: auto;
         padding: 1rem 0.4rem;
+        background-color: #d9dcde;
     }
 }

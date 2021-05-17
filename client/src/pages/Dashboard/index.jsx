@@ -18,8 +18,10 @@ const Dashboard = () => {
         return <h1>Returning to Homepage...</h1>;
     }
 
+    console.log(user);
+
     return (
-        <>
+        <div className="content-container">
             <Nav />
             <div className="dashboard">
                 <h1>Welcome, {user.firstName}!</h1>
@@ -51,7 +53,7 @@ const Dashboard = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

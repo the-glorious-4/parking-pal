@@ -16,6 +16,7 @@ const typeDefs = gql`
     email: String
     phone: Int
     parkingPlace: [ParkingPlace]
+    bookings: [Reservation]
   }
 
   type ParkingPlace {
@@ -27,17 +28,16 @@ const typeDefs = gql`
     zip: String
     isCoveredParking: Boolean
     capacity: Int
-    price: Int
     provider: User
-    reservations: [Reservation]
     inventory: [Inventory]
   }
 
   type Inventory {
     _id: ID
     startDate: String
-    endDate: String
+    price: Int
     parkingPlace: ParkingPlace
+    reservation: Reservation 
   }
 
   type Reservation {
@@ -79,6 +79,13 @@ const typeDefs = gql`
     ): ParkingPlace
 
     addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
+
+    addReservation(
+      startDate: String!
+      inventoryId: ID!
+      stripeTransaction: String!
+    ): Reservation
+
     availParking(startDate: String, endDate: String): Inventory
     login(email: String!, password: String!): Auth
   }

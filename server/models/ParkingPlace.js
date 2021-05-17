@@ -23,13 +23,7 @@ const parkingPlaceSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: "Inventory",
       },
-    ],
-    reservations: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: "Reservations",
-      },
-    ],
+    ]
   },
   {
     toJSON: {
@@ -40,10 +34,6 @@ const parkingPlaceSchema = new Schema(
 
 parkingPlaceSchema.virtual("inventoryCount").get(function () {
   return this.inventory.length;
-});
-
-parkingPlaceSchema.virtual("reservationsCount").get(function () {
-  return this.reservations.length;
 });
 
 const ParkingPlace = model("ParkingPlace", parkingPlaceSchema);

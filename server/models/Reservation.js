@@ -15,7 +15,8 @@ const reservationSchema = new Schema({
     required: true,
   },
   stripeTransaction: {
-    type: Schema.Types.ObjectId,
+    type: String,
+    required: true,
   },
 });
 

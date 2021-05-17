@@ -15,6 +15,10 @@ const resolvers = {
             populate: {
               path: "inventory",
               model: "Inventory",
+              populate: {
+                path: "reservation",
+                moodel: "Reservation",
+              },
             },
           });
 
@@ -64,14 +68,54 @@ const resolvers = {
           ...args,
         });
 
-        const updatedParkingPlace = await ParkingPlace.findByIdAndUpdate(
+        await ParkingPlace.findByIdAndUpdate(
           { _id: parkingPlaceId },
           { $push: { inventory: inventory._id } }
-          // { new: true }
         );
+
+        // push to user
         return inventory;
       }
 
+      throw new AuthenticationError("Not logged in");
+    },
+
+    addReservation: async (parent, args, context) => {
+      const { inventoryId } = args;
+      const consumer = context.user._id;
+
+      console.log("YULDUZ   " + consumer);
+      if (context.user) {
+        const updatedInventory = await Inventory.findByIdAndUpdate(
+          { _id: inventoryId },
+          [{ isAvailable: false }]
+        );
+
+        const parkingPlace = updatedInventory.parkingPlace;
+
+        const reservation = await Reservation.create({
+          ...args,
+          consumer,
+          parkingPlace,
+        });
+
+        const updatedParkingPlace = await ParkingPlace.findByIdAndUpdate(
+          { _id: parkingPlace },
+          { $push: { reservations: reservation._id } }
+        );
+
+        const user = await User.findByIdAndUpdate(
+          { _id: consumer },
+          { $push: { bookings: reservation._id } }
+        );
+
+        console.log("RESERVATION: " + reservation);
+        console.log("PARKINGPLACE: " + updatedParkingPlace);
+        console.log("INVENTORY: " + updatedInventory);
+        console.log("USER: " + user);
+
+        return reservation;
+      }
       throw new AuthenticationError("Not logged in");
     },
 

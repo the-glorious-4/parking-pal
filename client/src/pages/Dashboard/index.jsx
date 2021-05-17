@@ -26,6 +26,7 @@ const Dashboard = () => {
                             <div className="dash-list">
                                 <h2>Current and Upcoming Reservations</h2>
                                 <ul>
+                                    {/* TODO: query all reservations that list this user as a consumer */}
                                 </ul>
                             </div>
                             <div className="dash-list">

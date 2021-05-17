@@ -6,6 +6,19 @@ export const QUERY_USER = gql`
             _id
             firstName
             lastName
+            email
+            phone
+            parkingPlace {
+                _id
+                apt
+                street
+                city
+                state
+                zip
+                isCoveredParking
+                capacity
+                price
+            }
         }
     }
 `;

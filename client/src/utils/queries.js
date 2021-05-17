@@ -1,28 +1,23 @@
-import gql from 'graphql-tag';
+import gql from "graphql-tag";
 
-export const QUERY_USER_PROFILE = gql`
+export const QUERY_USER = gql`
     {
-        me {
-            firstName,
-            lastName,
-            email,
-            phone,
+        user {
+            _id
+            firstName
+            lastName
+            email
+            phone
             parkingPlace {
-                    _id
-                    apt
-                    street,
-                    city,
-                    state,
-                    zip,
-                    isCoveredParking
-                    capacity
-                    inventory {
-                        startDate
-                        price
-                       
-                    } 
+                _id
+                apt
+                street
+                city
+                state
+                zip
+                isCoveredParking
+                capacity
             }
-    
         }
-     }
+    }
 `;

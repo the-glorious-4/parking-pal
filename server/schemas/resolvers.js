@@ -5,9 +5,9 @@ const { signToken } = require("../utils/auth");
 
 const resolvers = {
   Query: {
-    user: async (parent, args, context) => {
+    me: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById({ _id: context.user._id })
+        const userdata = await User.findById({ _id: context.user._id })
           .select("-__v -password")
           .populate({
             path: "parkingPlace",
@@ -15,10 +15,11 @@ const resolvers = {
             populate: {
               path: "inventory",
               model: "Inventory",
+              match: { "isAvailable" : true}
             },
           });
 
-        return user;
+        return userdata;
       }
 
       throw new AuthenticationError("Not logged in");
@@ -36,17 +37,46 @@ const resolvers = {
       return parkingPlacesInv;
     },
   //User passing Inventory ID
-      getParkingByInventoryId : async( parent , {_id }) => {
-        // const { _id } = args;
-        const parkingPlacesInv = await Inventory.findById({ _id })
-            .populate({
-                path:"parkingPlace",
-                model:ParkingPlace});
+    getParkingByInventoryId : async( parent , {_id }) => {
+      // const { _id } = args;
+      const parkingPlacesInv = await Inventory.findById({ _id })
+          .populate({
+              path:"parkingPlace",
+              model:ParkingPlace});
 
-        return parkingPlacesInv;
-      },
-      
-    // //Assuming ParkingById returns ParkingplaceID
+      return parkingPlacesInv;
+    },
+  
+    //Get User's History - User's all Inventory and User's all reservation if he has 
+    getUsersHistory: async (parent, args, context) => {
+      if (context.user) {
+        const userData = await User.findOne({ _id: context.user._id })
+          .select("-__v -password")
+          .populate({ 
+            path: "parkingPlace",
+            model: "ParkingPlace",
+            populate: {
+              path: "inventory",
+              model: "Inventory"
+            }
+         })
+         .populate({ 
+          path: "parkingPlace",
+          model: "ParkingPlace",
+          populate: {
+            path: "reservation",
+            model: "Researvation",
+            match: { "consumer" : context.user._id }
+          }
+       })
+       
+        return userData;
+      }
+    
+      throw new AuthenticationError("No logged in user found");
+    },
+
+ // //Assuming ParkingById returns ParkingplaceID
     // getAllInventoryByParkingId : async( parent , args) => {
     //   const { parkingPlace , startDate} = args;
     //   const parkingPlacesInv = await Inventory.find({"startDate":startDate,"isAvailable":true,"parkingPlace" : parkingPlace})
@@ -58,28 +88,6 @@ const resolvers = {
     // },
 
    
-    
-    // // //Get All Inventory for given Provider
-    
-    // // getAllInventory: async (parent, args, context) => {
-    // //   if (context.user) {
-    // //     const userData = await User.findOne({ _id: context.user._id })
-    // //       .select("-__v -password")
-    // //       .populate({ 
-    // //         path: "parkingPlace",
-    // //         model: "ParkingPlace",
-    // //         populate: {
-    // //           path: "inventory",
-    // //           model: "Inventory"
-    // //         } 
-    // //      })
-
-    // //     return userData;
-    // //   }
-    
-    // //   throw new AuthenticationError("No logged in user found");
-    // // },
-
     // //Get all reservations for given Provider
     // getActiveReservation: async (parent, {searchDate}, context) => {
     //   if (context.user) {

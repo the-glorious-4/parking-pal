@@ -14,7 +14,7 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     email: String
-    phone: Int
+    phone: String
     parkingPlace: [ParkingPlace]
   }
 
@@ -55,11 +55,11 @@ const typeDefs = gql`
 
  
 type Query {
-    user: User  
+    me: User  
     inventory(inventory: ID): [Inventory]
     getAllParking(city:String,startDate:String): [Inventory]
     getParkingByInventoryId(_id:ID!):Inventory
-
+    getUsersHistory:User
 }
 
 type Mutation {

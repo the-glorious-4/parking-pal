@@ -17,7 +17,6 @@ export const QUERY_USER = gql`
                 zip
                 isCoveredParking
                 capacity
-                price
             }
         }
     }

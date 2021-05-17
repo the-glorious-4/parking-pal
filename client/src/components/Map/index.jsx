@@ -1,7 +1,6 @@
 import React, { useState, useRef, useCallback } from 'react'
 import {
     GoogleMap,
-    // useLoadScript,
     Marker,
     InfoWindow
 } from '@react-google-maps/api';
@@ -9,26 +8,17 @@ import { features } from '../../utils/dummyData.json';
 import './style.scss';
 import Search from '../SearchInput'
 import FindMeBtn from '../FindMeBtn'
-// import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
-// import {
-//     Combobox,
-//     ComboboxInput,
-//     ComboboxPopover,
-//     ComboboxList,
-//     ComboboxOption
-// } from "@reach/combobox";
-// import "@reach/combobox/styles.css";
-
 import prkingLogo from './images/mapPic.png'
 import { useStoreContext } from '../../utils/GlobalState';
-// import { UPDATE_MAP_LOCATION } from '../../utils/actions';
+import { useQuery } from '@apollo/react-hooks';
+import { QUERY_ALL_PARKING } from "../../utils/queries";
 
 const containerStyle = {
     width: '80vw',
     height: '70vh'
 };
 // const center = { lat: 37.774, lng: -122.419 }
-const libraries = ['places'];
+// const libraries = ['places'];
 const options = {
     disableDefaultUI: true,
     zoomControl: true
@@ -36,11 +26,11 @@ const options = {
 const plots = features.map(location => (location.geometry.coordinates))
 
 function MyMapComponent() {
-    // const { isLoaded, loadError } = useLoadScript({
-    //     id: 'google-map-script',
-    //     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API,
-    //     libraries
-    // })
+
+    const { loading, data } = useQuery(QUERY_ALL_PARKING);
+
+    // console.log(loading);
+    // console.log(data);
 
     const [state,] = useStoreContext();
     const [markers, setMarkers] = useState(plots)
@@ -53,12 +43,9 @@ function MyMapComponent() {
         setMap(mapRef)
     });
 
-    // if (loadError) {
-    //     return "something went wrong"
-    // }
-    // if (!isLoaded) {
-    //     return "loading"
-    // }
+    const parkingRedirect = (event) => {
+        console.log(event.target.id);
+    }
 
     return (
         <div className='mapBody'>
@@ -85,6 +72,7 @@ function MyMapComponent() {
                     key={markers.indexOf(marker)}
                     onClick={() => { setSelected(marker) }}
                     position={{ lat: marker[1], lng: marker[0] }}
+                    id={markers.indexOf(marker)}
                 />)}
 
                 {selected ? (
@@ -97,6 +85,7 @@ function MyMapComponent() {
                         <div>
                             <h3 style={{ textAlign: 'center' }}>Parking</h3>
                             <p>This is a pretty great spot</p>
+                            <button onClick={parkingRedirect}>check it out</button>
                         </div>
                     </InfoWindow>
                 ) : null}

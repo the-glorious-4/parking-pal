@@ -14,6 +14,7 @@ const NoMatch = () => {
         <img src={noParking} alt=""/>
         <div>
             <h1>Sorry, there's nothing here!</h1>
+            <p>redirecting to home page, please wait.......</p>
         </div>
     </div>)
 }

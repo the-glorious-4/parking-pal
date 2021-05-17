@@ -16,8 +16,9 @@ const NoMatch = () => {
 
     let imgPicker = Math.floor(Math.random() * 5 + 1);
 
-    return (<div className='sorryBody'>
+    return ( <>
         <Nav />
+        <div className='sorryBody'>
         {{
             '1': <img src={bounce} alt="loading..." />,
             '2': <img src={bang} alt="loading..." />,
@@ -30,7 +31,8 @@ const NoMatch = () => {
             <h1>Sorry, there's nothing here!</h1>
             <p>redirecting to home page, please wait.......</p>
         </div>
-    </div>)
+    </div>
+    </>)
 }
 
 export default NoMatch;

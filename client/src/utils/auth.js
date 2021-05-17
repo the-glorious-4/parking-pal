@@ -33,7 +33,7 @@ class AuthService {
     login(idToken) {
         localStorage.setItem("id_token", idToken);
 
-        window.location.assign("/");
+        window.location.assign("/dashboard");
     }
 
     // clear user token and profile data from localStorage

@@ -5,9 +5,10 @@ import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-d
 import { StoreProvider } from "./utils/GlobalState";
 import Auth from "./utils/auth";
 
-import Home from "./pages/Home";
+import Home from './pages/Home';
 import Dashboard from "./pages/Dashboard";
 import History from "./pages/History";
+import NoMatch from './pages/NoMatch';
 
 const client = new ApolloClient({
   request: operation => {
@@ -39,8 +40,8 @@ function App() {
                   {!Auth.loggedIn() ? <Redirect to="/" /> : null}
                 </Route>
                 {/* <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} />
-                <Route component={NoMatch} /> */}
+                <Route exact path="/signup" component={Signup} /> */}
+                <Route component={NoMatch} />
               </Switch>
             </StoreProvider>
         </div>

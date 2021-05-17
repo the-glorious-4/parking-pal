@@ -11,7 +11,7 @@
 }
 
 .modal-box {
-  min-height: calc(100% - 3.5rem);
+  min-height: calc(100% - 5rem);
   max-width: 700px;
   padding: 1rem;
   margin: 1rem auto;
@@ -50,13 +50,21 @@
 }
 
 .modal-close-btn {
-  font-size: larger;
+  font-size: 2.5em;
   padding-bottom: 0.5rem;
   font-weight: bolder;
 }
 
 .modal-close-btn:hover {
   color: red;
+  transform: rotate(10deg);
+  cursor: pointer;
+}
+
+button:active {
+	position:relative;
+    top:3px;
+    transform: rotate(15deg);
 }
 
 @keyframes opacity-fade-in {

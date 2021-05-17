@@ -6,12 +6,21 @@ import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils/mutations";
 import { validateEmail, formatPhoneNumber } from "../../utils/helpers";
+import { RENDER_LOGIN_MODAL, REMOVE_MODAL } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
 
 // render signup page wrapped in a Modal.
 const SignupModal = () => {
     const [formState, setFormState] = useState({ firstName: "", lastName: "", email: "", password: "", phone: "" });
     const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false });
     const [addUser, { error }] = useMutation(ADD_USER);
+    const [state, dispatch] = useStoreContext();
+
+    const renderLoginModal = (event) => {
+        event.preventDefault();
+        dispatch({ type: REMOVE_MODAL });
+        dispatch({ type: RENDER_LOGIN_MODAL });
+    };
 
     const handleChange = event => {
         // destructure event target
@@ -108,7 +117,7 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.emailError &&
-                        <span className="signup-form-err">Please enter a valid email address.</span>}
+                        <span className="form-err">Please enter a valid email address.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="pwd">Password:</label>
@@ -121,7 +130,7 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.passLengthError &&
-                        <span className="signup-form-err">Your password must be at least 6 characters long.</span>}
+                        <span className="form-err">Your password must be at least 6 characters long.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="phone">Phone Number:</label>
@@ -134,15 +143,18 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.phoneError &&
-                        <span className="signup-form-err">Please enter a valid phone number.</span>}
+                        <span className="form-err">Please enter a valid phone number.</span>}
                     </div>
                     <div className="signup-submit">
                         <div>
                         <button type="submit">Submit</button>
                         </div>
+                        <div>
+                            <button className='insteadBtn' onClick={renderLoginModal}> Log-In Instead</button>
+                        </div>
                     </div>
                 </form>
-                {error && <span className="signup-form-err">Something went wrong!</span>}
+                {error && <span className="form-err">Something went wrong!</span>}
             </div>
         </Modal>
     );

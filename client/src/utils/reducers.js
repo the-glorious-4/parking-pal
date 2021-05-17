@@ -2,7 +2,8 @@ import { useReducer } from "react";
 import {
     RENDER_LOGIN_MODAL,
     RENDER_SIGNUP_MODAL,
-    REMOVE_MODAL
+    REMOVE_MODAL,
+    UPDATE_MAP_LOCATION
 } from "./actions";
 
 /*
@@ -14,6 +15,11 @@ state: {
 
 export const reducer = (state, action) => {
     switch (action.type) {
+        case UPDATE_MAP_LOCATION:
+            return {
+                ...state,
+                mapLocation: action.location
+            }
         case RENDER_LOGIN_MODAL:
             return {
                 ...state,

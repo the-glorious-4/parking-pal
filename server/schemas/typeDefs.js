@@ -59,7 +59,8 @@ type Query {
     inventory(inventory: ID): [Inventory]
     getAllParking(city:String,startDate:String): [Inventory]
     getParkingByInventoryId(_id:ID!):Inventory
-
+    getAllInventoriesByProviderID:[Inventory]
+    getUsersHistory:User
 }
 
 type Mutation {
@@ -71,6 +72,15 @@ type Mutation {
     password: String!
     phone: String!
   ): Auth
+  
+  editUser(
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    phone: String
+  ): Auth
+
 
   addParkingPlace(
     apt: String!
@@ -82,6 +92,17 @@ type Mutation {
     capacity: Int!
   ): ParkingPlace
 
+  editParkingPlace(
+    _id:ID!
+    apt: String
+    street: String
+    city: String
+    state: String
+    zip: String
+    isCoveredParking: Boolean
+    capacity: Int
+  ): ParkingPlace
+
   addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
   login(email: String!, password: String!): Auth
 }
@@ -89,9 +110,6 @@ type Mutation {
 
 module.exports = typeDefs;
 
-
-
-  
     // getAllInventoryByParkingId(startDate:String!,parkingPlace:ID!) : Inventory
     // getAllInventory(_id : ID!) : User
     // getActiveReservation(startDate:String): [ParkingPlace]

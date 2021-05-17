@@ -7,7 +7,7 @@ const resolvers = {
   Query: {
     user: async (parent, args, context) => {
       if (context.user) {
-        const user = await User.findById({ _id: context.user._id })
+        const userdata = await User.findById({ _id: context.user._id })
           .select("-__v -password")
           .populate({
             path: "parkingPlace",
@@ -15,10 +15,11 @@ const resolvers = {
             populate: {
               path: "inventory",
               model: "Inventory",
+              match: { "isAvailable" : true}
             },
           });
 
-        return user;
+        return userdata;
       }
 
       throw new AuthenticationError("Not logged in");
@@ -36,49 +37,27 @@ const resolvers = {
       return parkingPlacesInv;
     },
   //User passing Inventory ID
-      getParkingByInventoryId : async( parent , {_id }) => {
-        // const { _id } = args;
-        const parkingPlacesInv = await Inventory.findById({ _id })
-            .populate({
-                path:"parkingPlace",
-                model:ParkingPlace});
+    getParkingByInventoryId : async( parent , {_id }) => {
+      // const { _id } = args;
+      const parkingPlacesInv = await Inventory.findById({ _id })
+          .populate({
+              path:"parkingPlace",
+              model:ParkingPlace});
 
-        return parkingPlacesInv;
-      },
-      
-    // //Assuming ParkingById returns ParkingplaceID
-    // getAllInventoryByParkingId : async( parent , args) => {
-    //   const { parkingPlace , startDate} = args;
-    //   const parkingPlacesInv = await Inventory.find({"startDate":startDate,"isAvailable":true,"parkingPlace" : parkingPlace})
-    //   .populate({ 
-    //             path: "parkingPlace",
-    //             model: "ParkingPlace"});
+      return parkingPlacesInv;
+    },
+  
+  
+ //Assuming ParkingById returns ParkingplaceID
+    getAllInventoriesByProviderID : async( parent , args,context) => {
+      const parkingPlacesInv = await Inventory.find()
+      .populate({ 
+                path: "parkingPlace",
+                model: "ParkingPlace",
+                match: { "provider" : context.user._id }});
 
-    //   return parkingPlacesInv;
-    // },
-
-   
-    
-    // // //Get All Inventory for given Provider
-    
-    // // getAllInventory: async (parent, args, context) => {
-    // //   if (context.user) {
-    // //     const userData = await User.findOne({ _id: context.user._id })
-    // //       .select("-__v -password")
-    // //       .populate({ 
-    // //         path: "parkingPlace",
-    // //         model: "ParkingPlace",
-    // //         populate: {
-    // //           path: "inventory",
-    // //           model: "Inventory"
-    // //         } 
-    // //      })
-
-    // //     return userData;
-    // //   }
-    
-    // //   throw new AuthenticationError("No logged in user found");
-    // // },
+      return parkingPlacesInv;
+    },
 
     // //Get all reservations for given Provider
     // getActiveReservation: async (parent, {searchDate}, context) => {
@@ -108,6 +87,11 @@ const resolvers = {
       return { token, user };
     },
 
+    editUser:async (parent, args, context ) => {
+      const user = await User.findByIdAndUpdate({"_id":context.user._id},args,{new:true})
+      return user;
+    },
+
     addParkingPlace: async (parent, args, context) => {
       if (context.user) {
         const parkingLot = await ParkingPlace.create({
@@ -119,6 +103,16 @@ const resolvers = {
           { $push: { parkingPlace: parkingLot._id } }
         );
 
+        return parkingLot;
+      }
+
+      throw new AuthenticationError("Not logged in");
+    },
+
+    editParkingPlace: async (parent, args, context) => {
+      if (context.user) {
+        const { _id , parkingData } = args;
+        const parkingLot = await ParkingPlace.findByIdAndUpdate( _id,parkingData,{ new :true}); 
         return parkingLot;
       }
 

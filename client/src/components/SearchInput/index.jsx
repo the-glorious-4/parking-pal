@@ -1,5 +1,4 @@
 import React from 'react';
-import { GoogleMap, useLoadScript } from '@react-google-maps/api';
 import usePlacesAutocomplete, { getGeocode, getLatLng } from 'use-places-autocomplete';
 import {
     Combobox,
@@ -15,12 +14,6 @@ import { UPDATE_MAP_LOCATION } from '../../utils/actions';
 
 const Search = () => {
 
-    // const { isLoaded, loadError } = useLoadScript({
-    //     id: 'google-map-script',
-    //     googleMapsApiKey: process.env.REACT_APP_GOOGLE_API,
-    //     libraries: ["places"]
-    // })
-
     const [, dispatch] = useStoreContext();
 
     const { ready, value, suggestions: { status, data }, setValue, clearSuggestions } = usePlacesAutocomplete({
@@ -31,9 +24,7 @@ const Search = () => {
     })
 
     return <div className='searchBox'>
-    <script async
-    src={`https://maps.googleapis.com/maps/api/js?key=${process.env.REACT_APP_GOOGLE_API}&libraries=places`}>
-</script>
+    
         <Combobox className='comboMain' onSelect={async (address) => {
             setValue(address, false);
             clearSuggestions();

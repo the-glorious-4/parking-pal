@@ -17,6 +17,7 @@ const Home = () => {
     };
 
     return (<>
+    
         <Nav />
         <section className='heroSection'>
             <div className='heroImg'>

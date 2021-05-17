@@ -6,7 +6,16 @@ import QuickBook from '../../components/QuickBook';
 import InfoSection from '../../components/InfoSection';
 import MyMapComponent from '../../components/Map';
 
+import { RENDER_SIGNUP_MODAL } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
+
 const Home = () => {
+    const [state, dispatch] = useStoreContext();
+
+    const renderSignupModal = () => {
+        dispatch({ type: RENDER_SIGNUP_MODAL });
+    };
+
     return (<>
         <Nav />
         <section className='heroSection'>
@@ -15,11 +24,11 @@ const Home = () => {
                     <h2>Parking</h2>
                     <h2>Made</h2>
                     <h2>Easy</h2>
-                    {/* <p>Safe. Simple. Reliable.</p> */}
+                    <p>Safe. Simple. Reliable.</p>
                 </div>
                 <div className='hostSignDiv'>
                 <img src={streetSign} alt=""/>
-                <span className='hostCTA'>Become a Host!</span>
+                <span onClick={renderSignupModal} className='hostCTA'>Become a Host!</span>
                 </div>
             </div>
             <QuickBook />

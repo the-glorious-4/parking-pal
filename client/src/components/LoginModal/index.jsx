@@ -6,12 +6,22 @@ import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 import { validateEmail } from "../../utils/helpers";
+import { RENDER_SIGNUP_MODAL, REMOVE_MODAL } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
 
 // render login page wrapped in a Modal.
 const LoginModal = () => {
     const [formState, setFormState] = useState({ email: "", password: "" });
     const [errFlags, setErrFlags] = useState({ emailError: false });
     const [login, { error }] = useMutation(LOGIN_USER);
+
+    const [state, dispatch] = useStoreContext();
+
+    const renderSignupModal = (event) => {
+        event.preventDefault();
+        dispatch({ type: REMOVE_MODAL });
+        dispatch({ type: RENDER_SIGNUP_MODAL });
+    };
 
     const handleChange = event => {
         // destructure event target
@@ -88,6 +98,9 @@ const LoginModal = () => {
                     <div className="signup-submit">
                         <div>
                         <button type="submit">Submit</button>
+                        </div>
+                        <div>
+                        <button className='insteadBtn' onClick={renderSignupModal}>Sign-Up Instead</button>
                         </div>
                     </div>
                 </form>

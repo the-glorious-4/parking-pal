@@ -6,12 +6,21 @@ import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils/mutations";
 import { validateEmail, formatPhoneNumber } from "../../utils/helpers";
+import { RENDER_LOGIN_MODAL, REMOVE_MODAL } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
 
 // render signup page wrapped in a Modal.
 const SignupModal = () => {
     const [formState, setFormState] = useState({ firstName: "", lastName: "", email: "", password: "", phone: "" });
     const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false });
     const [addUser, { error }] = useMutation(ADD_USER);
+    const [state, dispatch] = useStoreContext();
+
+    const renderLoginModal = (event) => {
+        event.preventDefault();
+        dispatch({ type: REMOVE_MODAL });
+        dispatch({ type: RENDER_LOGIN_MODAL });
+    };
 
     const handleChange = event => {
         // destructure event target
@@ -139,6 +148,9 @@ const SignupModal = () => {
                     <div className="signup-submit">
                         <div>
                         <button type="submit">Submit</button>
+                        </div>
+                        <div>
+                            <button className='insteadBtn' onClick={renderLoginModal}> Log-In Instead</button>
                         </div>
                     </div>
                 </form>

@@ -47,35 +47,7 @@ const resolvers = {
       return parkingPlacesInv;
     },
   
-    //Get User's History - User's all Inventory and User's all reservation if he has 
-    getUsersHistory: async (parent, args, context) => {
-      if (context.user) {
-        const userData = await User.findOne({ _id: context.user._id })
-          .select("-__v -password")
-          .populate({ 
-            path: "parkingPlace",
-            model: "ParkingPlace",
-            populate: {
-              path: "inventory",
-              model: "Inventory"
-            }
-         })
-         .populate({ 
-          path: "parkingPlace",
-          model: "ParkingPlace",
-          populate: {
-            path: "reservation",
-            model: "Researvation",
-            match: { "consumer" : context.user._id }
-          }
-       })
-       
-        return userData;
-      }
-    
-      throw new AuthenticationError("No logged in user found");
-    },
-
+  
  //Assuming ParkingById returns ParkingplaceID
     getAllInventoriesByProviderID : async( parent , args,context) => {
       const parkingPlacesInv = await Inventory.find()
@@ -87,7 +59,6 @@ const resolvers = {
       return parkingPlacesInv;
     },
 
-   
     // //Get all reservations for given Provider
     // getActiveReservation: async (parent, {searchDate}, context) => {
     //   if (context.user) {

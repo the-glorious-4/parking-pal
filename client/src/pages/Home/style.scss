@@ -14,6 +14,7 @@ nav {
     position: fixed;
     top: 0;
 }
+
 .stickyBG {
     position: fixed;
     top: 0;
@@ -25,7 +26,7 @@ nav {
 section {
     height: calc(100vh);
     scroll-snap-align: start;
-    
+    overflow: hidden;
     &:nth-of-type(3) {
         background-image: url('../../images/garage.jpeg');
         background-size: 100% 100%;
@@ -46,5 +47,51 @@ section {
         width: 100%;
         height: 90vh;
         background-size:100% 100%;
+    }
+}
+
+.heroHeading {
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin-bottom: 5vh;
+    h2{
+        font-family: 'Big Shoulders Inline Text', cursive;
+        margin: 0;
+        font-size: 12vh;
+        padding:0 0 1vh 4vw;
+    }
+    p {
+        font-family: 'Black Han Sans', sans-serif;
+        font-size: 4vh;
+        text-shadow: lightgrey 1px 1px;
+        padding:0 0 1vh 4vw;
+    }
+}
+
+.hostSignDiv {
+    position: absolute;
+    right: 5%;
+    width: fit-content;
+    bottom: 0;
+
+    img{
+        margin: 0;
+        padding: 0;
+        height: 300px;
+        cursor: pointer;
+    }
+    .hostCTA {
+        font-family: 'Black Han Sans', sans-serif;
+        text-shadow: lightgrey 1px 1px;
+        position: absolute;
+        bottom: 52%;
+        right: 37%;
+        width: 25%;
+        cursor: pointer;
+        font-size: larger;
+        text-decoration: underline 3px;
+        
     }
 }

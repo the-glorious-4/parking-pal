@@ -1,0 +1,15 @@
+img {
+    height: 80vh;
+}
+
+.sorryBody {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    div {
+        justify-self: center;
+        align-self: center;
+    }
+}

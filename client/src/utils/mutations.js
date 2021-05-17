@@ -25,3 +25,34 @@ export const ADD_USER = gql`
         }
     }
 `;
+
+export const ADD_PARKINGPLACE = gql`
+    mutation addParkingPlace($apt: String!, $street: String!, $city: String!, $state: String!, $zip:String!, $isCoveredParking:Boolean!, $capacity: Int!) {
+        addParkingPlace(apt:$apt, street: $street, city: $city, state: $state, zip: $zip, isCoveredParking:$isCoveredParking, capacity: $capacity) {
+            user {
+                _id
+                apt
+                street
+                city
+                state
+                zip
+                isCoveredParking
+                capacity
+            }
+        }
+    }
+`;
+
+export const ADD_INVENTORY = gql`
+    mutation addInventory($startDate: String!, $price: Int!, $parkingPlace: ID!) {
+        addInventory(startDate:startDate,price:price,parkingPlace:$parkingPlace){
+            _id
+            startDate
+            price
+            isAvailable
+            parkingPlace{
+              _id
+            }
+          }
+    }
+`;

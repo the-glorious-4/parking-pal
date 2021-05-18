@@ -28,6 +28,7 @@ const typeDefs = gql`
     zip: String
     isCoveredParking: Boolean
     capacity: Int
+    latlong : [String]
     provider: User
     inventory: [Inventory]
   }

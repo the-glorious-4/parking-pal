@@ -4,7 +4,7 @@ import { ADD_PARKINGPLACE } from "../../utils/mutations";
 
 import "./style.scss";
 
-const addParkingPlacePage = () => {
+const AddParkingForm = () => {
   
   const [ppformState, setFormState] = useState({
     apt: "",
@@ -159,4 +159,4 @@ const addParkingPlacePage = () => {
   );
 }
 
-export default addParkingPlacePage;
+export default AddParkingForm;

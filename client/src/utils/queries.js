@@ -1,23 +1,31 @@
 import gql from "graphql-tag";
 
 export const QUERY_USER = gql`
-    {
-        user {
-            _id
-            firstName
-            lastName
-            email
-            phone
-            parkingPlace {
-                _id
-                apt
-                street
-                city
-                state
-                zip
-                isCoveredParking
-                capacity
-            }
-        }
+  {
+    user {
+      _id
+      firstName
+      lastName
+      email
+      phone
+      parkingPlace {
+        _id
+        apt
+        street
+        city
+        state
+        zip
+        isCoveredParking
+        capacity
+      }
     }
+  }
+`;
+
+export const QUERY_CHECKOUT = gql`
+  query getCheckout($products: [ID]!) {
+    checkout(products: $products) {
+      session
+    }
+  }
 `;

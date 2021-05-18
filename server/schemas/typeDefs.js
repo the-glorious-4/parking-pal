@@ -53,6 +53,10 @@ const typeDefs = gql`
     user: User
   }
 
+  type Checkout {
+    session: ID
+  }
+
   type Query {
     user: User
     inventory(inventory: ID): [Inventory]
@@ -60,6 +64,7 @@ const typeDefs = gql`
     getParkingByInventoryId(_id: ID!): Inventory
     getAllInventoriesByProviderID: [Inventory]
     getUsersHistory: User
+    checkout(products: [ID]!): Checkout
   }
 
   type Mutation {
@@ -106,7 +111,7 @@ const typeDefs = gql`
       startDate: String!
       parkingPlace: ID!
       inventoryId: ID!
-      stripeTransaction: String!  
+      stripeTransaction: String!
     ): Reservation
   }
 `;

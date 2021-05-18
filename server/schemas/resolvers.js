@@ -1,6 +1,10 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, ParkingPlace, Inventory, Reservation } = require("../models");
 const { signToken } = require("../utils/auth");
+const stripe = require("stripe")(
+  "sk_test_51InyxjLzbTTaQxk5V8hslPv0OK11QrVYOShDVOw38xxfhglJU3lIVxwbeq1Ogagc975c3tkzJNJzAScBA1HRE7xP00x5Jue5LM"
+);
+
 // const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
 
 const resolvers = {
@@ -81,6 +85,45 @@ const resolvers = {
         const inventory = await Inventory.find();
         return inventory;
       }
+      throw new AuthenticationError("Not logged in");
+    },
+
+    checkout: async (parent, args, context) => {
+      if (context.user) {
+        const url = new URL(context.headers.referer).origin;
+        console.log("URL: " + url);
+
+        const { price } = args.price;
+        console.log("Price: " + price);
+
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ["card"],
+          line_items: [
+            {
+              price_data: {
+                currency: "usd",
+                product_data: {
+                  name: "Parking Place",
+                  images: ["https://i.imgur.com/EHyR2nP.png"],
+                },
+                // todo: retrieve from request.body
+                unit_amount: 2000,
+                // unit_amount: price * 100,
+              },
+              quantity: 1,
+            },
+          ],
+          mode: "payment",
+          success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${url}/`,
+          // // Redirect to reservations page
+          // success_url: `http://localhost:3000/checkout?success=true`,
+          // // Redirect to search page
+          // cancel_url: `http://localhost:3000/checkout?canceled=true`,
+        });
+        return { session: session.id };
+      }
+      throw new AuthenticationError("Not logged in");
     },
   },
   Mutation: {

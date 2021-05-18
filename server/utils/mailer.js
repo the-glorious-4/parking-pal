@@ -54,7 +54,8 @@ const resolveTemplate = (template, formData, receipt) => {
   }
 };
 
-const sendEmail = (template, formData, receipt) => {
+// const sendEmail = (template, formData, receipt) => {
+  const sendEmail = (template, formData, receipt) => {
   const emailTemplate = resolveTemplate(template, formData, receipt);
   transporter.sendMail(emailTemplate, function (err, info) {
     if (err) console.log(err);

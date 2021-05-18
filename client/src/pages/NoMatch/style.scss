@@ -1,6 +1,3 @@
-img {
-    height: 80vh;
-}
 
 .sorryBody {
     height: 100vh;
@@ -8,8 +5,16 @@ img {
     justify-content: center;
     align-items: center;
 
-    div {
-        justify-self: center;
-        align-self: center;
+    p {
+        padding: 20px 60px;
     }
+    img {
+        max-height: 80vh;
+        max-width: 50%;
+        margin: auto;
+    }
+    div {
+        width: 50%;
+    }
+
 }

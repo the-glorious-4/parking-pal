@@ -1,13 +1,14 @@
 import React from 'react';
 import SearchInput from '../SearchInput';
 import FindMeBtn from '../FindMeBtn';
-
+import { Link } from "react-router-dom";
 import './style.scss';
 
 const Quickbook = () => {
-    
-    const handleSubmit = (event) =>{
+
+    const handleSubmit = (event) => {
         event.preventDefault();
+
     }
 
     return (<>
@@ -31,10 +32,12 @@ const Quickbook = () => {
                         </select>
                     </div> */}
                     <div className='buttonDiv'>
-                        <button className='searchBtn' type='submit'>🔍</button>
+                        <Link to='/findparking'>
+                            <button className='searchBtn' type='submit'>🔍</button>
+                        </Link>
                         <FindMeBtn className='qbFindMe' />
                     </div>
-                {/* <div className='buttonDiv'>
+                    {/* <div className='buttonDiv'>
                     <FindMeBtn className='qbFindMe' />
                 </div> */}
                 </form>

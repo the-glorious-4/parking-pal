@@ -8,6 +8,7 @@ import Auth from "./utils/auth";
 import Home from './pages/Home';
 import Dashboard from "./pages/Dashboard";
 import History from "./pages/History";
+import FindASpot from './pages/FindASpot';
 import NoMatch from './pages/NoMatch';
 
 const client = new ApolloClient({
@@ -30,17 +31,21 @@ function App() {
         <div>
             <StoreProvider>
               <Switch>
+                
                 <Route exact path="/" component={Home}>
                   {Auth.loggedIn() ? <Redirect to="/dashboard" /> : null}
                 </Route>
+                
                 <Route exact path="/dashboard" component={Dashboard}>
                   {!Auth.loggedIn() ? <Redirect to="/" /> : null}
                 </Route>
+                
                 <Route exact path="/history" component={History}>
                   {!Auth.loggedIn() ? <Redirect to="/" /> : null}
                 </Route>
-                {/* <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} /> */}
+                
+                <Route exact path="/findparking" component={FindASpot}></Route>
+
                 <Route component={NoMatch} />
               </Switch>
             </StoreProvider>

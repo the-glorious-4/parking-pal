@@ -144,7 +144,6 @@ const resolvers = {
           { $push: { inventory: inventory._id } }
         );
 
-        // push to user
         return inventory;
       }
 
@@ -170,7 +169,7 @@ const resolvers = {
           { new: true }
         );
 
-        // push to user who is booking/consumer
+        // push to consumer side
         await User.findByIdAndUpdate(
           { _id: consumer },
           { $push: { bookings: reservation._id } }

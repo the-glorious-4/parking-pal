@@ -39,7 +39,6 @@ const userSchema = new Schema({
     required: [true, "User phone number required"],
   },
   parkingPlace: [{ type: Schema.Types.ObjectId, ref: "ParkingPlace" }],
-  // inventory: [{ type: Schema.Types.ObjectId, ref: "Inventory" }],
   bookings: [{ type: Schema.Types.ObjectId, ref: "Reservation" }],
 });
 

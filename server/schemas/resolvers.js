@@ -63,19 +63,24 @@ const resolvers = {
       return parkingPlacesInv;
     },
 
-    // //Get all reservations for given Provider
-    // getActiveReservation: async (parent, {searchDate}, context) => {
-    //   if (context.user) {
-    //     const reservedParkingPlaces = await Reservation.find({ startDate :{ $gt: searchDate}})
-    //       .populate({
-    //         path: "parkingplace",
-    //         match: { "provider" : context.user._id}
-    //      })
-    //     return reservedParkingPlaces
-    //   }
+    //Get Consumers current and future resesrvation based on date criteria.
+    getConsumerReservations: async (parent, args, context) => {
+      const { startDate } = args;
+      const params = startDate
+        ? { startDate: { $gte: startDate }, consumer: context.user._id }
+        : { consumer: context.user._id };
 
-    //   throw new AuthenticationError("No logged in user found");
-    // },
+      if (context.user) {
+        const reservedParkingPlaces = await Reservation.find(params).populate({
+          path: "parkingplace",
+          model: "ParkingPlace",
+        });
+        return reservedParkingPlaces;
+      }
+
+      throw new AuthenticationError("No logged in user found");
+    },
+
     inventory: async (parent, args, context) => {
       if (context.user) {
         const inventory = await Inventory.find();
@@ -83,6 +88,7 @@ const resolvers = {
       }
     },
   },
+
   Mutation: {
     addUser: async (parent, args) => {
       const user = await User.create(args);

@@ -17,6 +17,7 @@ export const QUERY_USER = gql`
                 zip
                 isCoveredParking
                 capacity
+                latLng
             }
         }
     }
@@ -37,6 +38,7 @@ query getAllParking($city: String,$startDate:String){
           state
           isCoveredParking
           capacity
+          latLng
         }
       }
 }

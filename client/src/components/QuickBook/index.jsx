@@ -1,27 +1,37 @@
 import React from 'react';
 import SearchInput from '../SearchInput';
 import FindMeBtn from '../FindMeBtn';
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 import './style.scss';
 import { todaysDate } from '../../utils/helpers';
 import { useStoreContext } from '../../utils/GlobalState';
-import { UPDATE_MAP_DATE } from '../../utils/actions';
+import { UPDATE_MAP_DATE, UPDATE_QUERY_CITY } from '../../utils/actions';
+
+import { getGeocode } from 'use-places-autocomplete';
 
 const Quickbook = () => {
 
-    const [state, dispatch] = useStoreContext();
-
-    console.log(state);
+    const [, dispatch] = useStoreContext();
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        // let place = event.target[0].value;
+        let place = event.target[0].value;
+
+        getGeocode({address: place})
+        .then(result => ((result[0].address_components.filter(place => place.types[0] === 'locality'))[0].long_name))
+        .then(city => {
+            dispatch({
+                type: UPDATE_QUERY_CITY,
+                mapCity: city
+            });
+        })
+
         let date = (event.target[1].value).toString();
-        console.log(date);
         dispatch({
             type: UPDATE_MAP_DATE,
             mapDate: date
-        })
+        });
+        <Redirect to="/findparking" />
     }
 
 
@@ -38,12 +48,13 @@ const Quickbook = () => {
                         <input min={todaysDate()} type="date" />
                     </div>
                     <div className='buttonDiv'>
-                        <Link to='/findparking'>
+
                             <button className='searchBtn' type='submit'>🔍</button>
-                        </Link>
+
                         <Link to='/findparking'>
                             <FindMeBtn className='qbFindMe' />
                         </Link>
+
                     </div>
                 </form>
             </div>

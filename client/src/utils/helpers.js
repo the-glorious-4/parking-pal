@@ -90,5 +90,5 @@ export function todaysDate(){
         mm = '0' + mm
     }
     today = yyyy + '-' + mm + '-' + dd;
-    return today;
+    return today.toString();
 }

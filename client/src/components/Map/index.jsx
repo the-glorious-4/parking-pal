@@ -1,4 +1,4 @@
-import React, { useState, useRef, useCallback } from 'react'
+import React, { useState, useRef } from 'react'
 import {
     GoogleMap,
     Marker,
@@ -13,7 +13,7 @@ import { useStoreContext } from '../../utils/GlobalState';
 
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_ALL_PARKING } from "../../utils/queries";
-import { getGeocode, getLatLng } from 'use-places-autocomplete';
+// import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 
 const containerStyle = {
@@ -36,33 +36,25 @@ function MyMapComponent(props) {
     const [selected, setSelected] = useState(null)
     const mapRef = useRef();
 
-    const onLoad = useCallback((map) => {
+    const onLoad = (map) => {
         mapRef.current = map;
         setMap(mapRef)
-    });
+    };
 
     const parkingRedirect = () => {
         console.log(features.filter(marker => marker.geometry.coordinates === selected));
     }
 
-       let date = "2021-05-18"
-        const { loading, data } = useQuery(QUERY_ALL_PARKING,
-            { variables: { city: "san francisco", startDate: date } },
-        );
-        console.log(data.getAllParking);
-
-    // if (data) {
-    //     let { apt, street, city, state, zip } = data.getAllParking[0].parkingPlace;
-
-    //     let addressToGet = apt + ' ' + street + ', ' + city + ', ' + state + ', ' + zip;
-
-    //     getGeocode({address: addressToGet})
-    //     .then((results) => getLatLng(results[0]))
-    //     .then(({lat, lng}) => {
-    //         console.log(lat,lng);
-    //     })
-    //     .catch(err => console.log(err))
-    // }
+    const { loading, data } = useQuery(QUERY_ALL_PARKING,
+        { variables: { city: state.mapCity, startDate: state.mapDate } },
+    );
+    if (loading) {
+        // console.log('loading');
+    } 
+    
+    if(data){
+        // console.log(data);
+    }
 
     return (
         <div className='mapBody'>
@@ -73,7 +65,7 @@ function MyMapComponent(props) {
             {props.searchBar ? <div className='searchBoxMap'>
                 <Search />
             </div> : null}
-            
+
             <GoogleMap
                 key={new Date().getTime()}
                 mapContainerStyle={containerStyle}

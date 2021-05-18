@@ -15,7 +15,10 @@ const resolvers = {
             populate: {
               path: "inventory",
               model: "Inventory",
-              match: { "isAvailable" : true}
+              populate: {
+                path: "reservation",
+                moodel: "Reservation",
+              },
             },
           });
 
@@ -25,36 +28,37 @@ const resolvers = {
       throw new AuthenticationError("Not logged in");
     },
 
-
-    getAllParking : async( parent , args) => {
-      const { city , startDate} = args;
-      const parkingPlacesInv = await Inventory.find({"startDate":startDate,"isAvailable":true})
-      .populate({ 
-                path: "parkingPlace",
-                model: "ParkingPlace",
-                match: { "city" : city}});
+    getAllParking: async (parent, args) => {
+      const { city, startDate } = args;
+      const parkingPlacesInv = await Inventory.find({
+        startDate: startDate,
+        isAvailable: true,
+      }).populate({
+        path: "parkingPlace",
+        model: "ParkingPlace",
+        match: { city: city },
+      });
 
       return parkingPlacesInv;
     },
-  //User passing Inventory ID
-    getParkingByInventoryId : async( parent , {_id }) => {
+    //User passing Inventory ID
+    getParkingByInventoryId: async (parent, { _id }) => {
       // const { _id } = args;
-      const parkingPlacesInv = await Inventory.findById({ _id })
-          .populate({
-              path:"parkingPlace",
-              model:ParkingPlace});
+      const parkingPlacesInv = await Inventory.findById({ _id }).populate({
+        path: "parkingPlace",
+        model: ParkingPlace,
+      });
 
       return parkingPlacesInv;
     },
-  
-  
- //Assuming ParkingById returns ParkingplaceID
-    getAllInventoriesByProviderID : async( parent , args,context) => {
-      const parkingPlacesInv = await Inventory.find()
-      .populate({ 
-                path: "parkingPlace",
-                model: "ParkingPlace",
-                match: { "provider" : context.user._id }});
+
+    //Assuming ParkingById returns ParkingplaceID
+    getAllInventoriesByProviderID: async (parent, args, context) => {
+      const parkingPlacesInv = await Inventory.find().populate({
+        path: "parkingPlace",
+        model: "ParkingPlace",
+        match: { provider: context.user._id },
+      });
 
       return parkingPlacesInv;
     },
@@ -63,13 +67,13 @@ const resolvers = {
     // getActiveReservation: async (parent, {searchDate}, context) => {
     //   if (context.user) {
     //     const reservedParkingPlaces = await Reservation.find({ startDate :{ $gt: searchDate}})
-    //       .populate({ 
+    //       .populate({
     //         path: "parkingplace",
     //         match: { "provider" : context.user._id}
     //      })
     //     return reservedParkingPlaces
     //   }
-    
+
     //   throw new AuthenticationError("No logged in user found");
     // },
     inventory: async (parent, args, context) => {
@@ -87,8 +91,12 @@ const resolvers = {
       return { token, user };
     },
 
-    editUser:async (parent, args, context ) => {
-      const user = await User.findByIdAndUpdate({"_id":context.user._id},args,{new:true})
+    editUser: async (parent, args, context) => {
+      const user = await User.findByIdAndUpdate(
+        { _id: context.user._id },
+        args,
+        { new: true }
+      );
       return user;
     },
 
@@ -111,8 +119,12 @@ const resolvers = {
 
     editParkingPlace: async (parent, args, context) => {
       if (context.user) {
-        const { _id , parkingData } = args;
-        const parkingLot = await ParkingPlace.findByIdAndUpdate( _id,parkingData,{ new :true}); 
+        const { _id, parkingData } = args;
+        const parkingLot = await ParkingPlace.findByIdAndUpdate(
+          _id,
+          parkingData,
+          { new: true }
+        );
         return parkingLot;
       }
 
@@ -127,14 +139,44 @@ const resolvers = {
           ...args,
         });
 
-        const updatedParkingPlace = await ParkingPlace.findByIdAndUpdate(
+        await ParkingPlace.findByIdAndUpdate(
           { _id: parkingPlaceId },
           { $push: { inventory: inventory._id } }
-          // { new: true }
         );
+
         return inventory;
       }
 
+      throw new AuthenticationError("Not logged in");
+    },
+
+    addReservation: async (parent, args, context) => {
+      const consumer = context.user._id;
+      const { inventoryId, parkingPlace, startDate, stripeTransaction } = args;
+
+      if (context.user) {
+        const reservation = await Reservation.create({
+          consumer,
+          inventoryId,
+          parkingPlace,
+          startDate,
+          stripeTransaction,
+        });
+
+        await Inventory.findByIdAndUpdate(
+          { _id: inventoryId },
+          { isAvailable: false },
+          { new: true }
+        );
+
+        // push to consumer side
+        await User.findByIdAndUpdate(
+          { _id: consumer },
+          { $push: { bookings: reservation._id } }
+        );
+
+        return reservation;
+      }
       throw new AuthenticationError("Not logged in");
     },
 

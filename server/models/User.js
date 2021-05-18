@@ -39,6 +39,7 @@ const userSchema = new Schema({
     required: [true, "User phone number required"],
   },
   parkingPlace: [{ type: Schema.Types.ObjectId, ref: "ParkingPlace" }],
+  bookings: [{ type: Schema.Types.ObjectId, ref: "Reservation" }],
 });
 
 // set up pre-save middleware to create password

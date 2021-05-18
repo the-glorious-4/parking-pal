@@ -34,7 +34,7 @@ const Nav = () => {
                     <span><Link to="/dashboard">Your Dashboard</Link></span>
                     <span><Link to="/findparking">Find a Space</Link></span>
                     <span><Link to="/addparking">Host a Spot</Link></span>
-                    <span><Link>Edit Profile</Link></span>
+                    <span><Link to="/profile">Edit Profile</Link></span>
                     <span><Link to="/history">History</Link></span>
                     <span onClick={logout}>Log-Out</span>
                 </>

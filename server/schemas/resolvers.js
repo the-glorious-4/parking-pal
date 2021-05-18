@@ -15,7 +15,6 @@ const resolvers = {
             populate: {
               path: "inventory",
               model: "Inventory",
-              // match: { isAvailable: true },
               populate: {
                 path: "reservation",
                 moodel: "Reservation",
@@ -154,12 +153,9 @@ const resolvers = {
 
     addReservation: async (parent, args, context) => {
       const consumer = context.user._id;
-      const { inventoryId, parkingPlace, startDate, stripeTransaction } =
-        args;
+      const { inventoryId, parkingPlace, startDate, stripeTransaction } = args;
 
       if (context.user) {
-        console.log("ARGS" + JSON.stringify(args));
-
         const reservation = await Reservation.create({
           consumer,
           inventoryId,

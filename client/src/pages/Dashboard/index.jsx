@@ -7,9 +7,12 @@ import Nav from '../../components/Nav';
 
 const Dashboard = () => {
     const { loading, data } = useQuery(QUERY_USER);
-    let user;
+    /* TODO: query all reservations that list this user as a consumer */
+    let user, reservations;
     
     user = data?.user || {};
+    /* TODO: populate reservations with real data */
+    reservations = [{ _id: "007", street: "111 testdrive lane", city: "San Antonio", state: "CA", zip: "65432", startDate: "May 04, 2021" }];
 
     if (loading) {
         return <h1>Loading...</h1>;
@@ -21,16 +24,31 @@ const Dashboard = () => {
     console.log(user);
 
     return (
-        <div className="content-container">
+        <div className="dashboard-content-container">
             <Nav />
+            {user ?
             <div className="dashboard">
                 <h1>Welcome, {user.firstName}!</h1>
                 <div className="active-lists">
                     <div className="dash-list">
                         <h2>Current and Upcoming Reservations</h2>
-                        <ul>
-                            {/* TODO: query all reservations that list this user as a consumer */}
-                        </ul>
+                        {
+                            // if user has any active reservations, display them
+                            // NOTE: reservation query likely to be: filter mongo document by userid and isactive
+                            reservations ?
+                            <ul>
+                                {reservations.map(({ _id, street, city, state, zip, startDate }) => (
+                                    <li key={_id}>
+                                        <span className="dateheader">{startDate}</span>
+                                        {`${street} ${city}, ${state} ${zip}`}
+                                    </li>
+                                ))}
+                            </ul>
+                            :
+                            <span className="dashboard-nolist">
+                                You currently have no active reservations.
+                            </span>
+                        }
                         <button>Reserve a Parking Space</button>
                     </div>
                     <div className="dash-list">
@@ -47,12 +65,16 @@ const Dashboard = () => {
                                 ))}
                             </ul>
                             :
-                            <span>You are currently not a Parking Space Provider.</span>
+                            <span className="dashboard-nolist">
+                                You are currently not a Parking Space Provider.
+                            </span>
                         }
                         <button>Add a new Parking Space</button>
                     </div>
                 </div>
             </div>
+            :
+            <h1 className="page-error">Something went wrong!</h1>}
         </div>
     );
 };

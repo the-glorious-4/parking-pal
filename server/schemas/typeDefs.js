@@ -35,10 +35,9 @@ const typeDefs = gql`
   type Inventory {
     _id: ID
     startDate: String
-    price:Int
-    isAvailable:Boolean
+    price: Int
+    isAvailable: Boolean
     parkingPlace: ParkingPlace
-    reservation: Reservation 
   }
 
   type Reservation {
@@ -54,12 +53,14 @@ const typeDefs = gql`
     user: User
   }
 
- 
-type Query {
-    user: User  
+  type Query {
+    user: User
     inventory(inventory: ID): [Inventory]
-    getAllParking(city:String,startDate:String): [Inventory]
-    getParkingByInventoryId(_id:ID!):Inventory
+    getAllParking(city: String, startDate: String): [Inventory]
+    getParkingByInventoryId(_id: ID!): Inventory
+    getAllInventoriesByProviderID: [Inventory]
+    getUsersHistory: User
+  }
 
   type Mutation {
     addUser(
@@ -68,6 +69,14 @@ type Query {
       email: String!
       password: String!
       phone: String!
+    ): Auth
+
+    editUser(
+      firstName: String
+      lastName: String
+      email: String
+      password: String
+      phone: String
     ): Auth
 
     addParkingPlace(
@@ -80,72 +89,30 @@ type Query {
       capacity: Int!
     ): ParkingPlace
 
-    addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
+    editParkingPlace(
+      _id: ID!
+      apt: String
+      street: String
+      city: String
+      state: String
+      zip: String
+      isCoveredParking: Boolean
+      capacity: Int
+    ): ParkingPlace
 
+    addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
+    login(email: String!, password: String!): Auth
     addReservation(
       startDate: String!
+      parkingPlace: ID!
       inventoryId: ID!
-      stripeTransaction: String!
+      stripeTransaction: String!  
     ): Reservation
-
-    availParking(startDate: String, endDate: String): Inventory
-    login(email: String!, password: String!): Auth
   }
-=======
-=======
-    getAllInventoriesByProviderID:[Inventory]
-    getUsersHistory:User
->>>>>>> main
-}
-
-type Mutation {
-  
-  addUser(
-    firstName: String!
-    lastName: String!
-    email: String!
-    password: String!
-    phone: String!
-  ): Auth
-  
-  editUser(
-    firstName: String
-    lastName: String
-    email: String
-    password: String
-    phone: String
-  ): Auth
-
-
-  addParkingPlace(
-    apt: String!
-    street: String!
-    city: String!
-    state: String!
-    zip: String!
-    isCoveredParking: Boolean!
-    capacity: Int!
-  ): ParkingPlace
-
-  editParkingPlace(
-    _id:ID!
-    apt: String
-    street: String
-    city: String
-    state: String
-    zip: String
-    isCoveredParking: Boolean
-    capacity: Int
-  ): ParkingPlace
-
-  addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
-  login(email: String!, password: String!): Auth
-}
->>>>>>> main
 `;
 
 module.exports = typeDefs;
 
-    // getAllInventoryByParkingId(startDate:String!,parkingPlace:ID!) : Inventory
-    // getAllInventory(_id : ID!) : User
-    // getActiveReservation(startDate:String): [ParkingPlace]
+// getAllInventoryByParkingId(startDate:String!,parkingPlace:ID!) : Inventory
+// getAllInventory(_id : ID!) : User
+// getActiveReservation(startDate:String): [ParkingPlace]

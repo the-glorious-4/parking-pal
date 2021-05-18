@@ -15,7 +15,7 @@ const resolvers = {
             populate: {
               path: "inventory",
               model: "Inventory",
-              match: { isAvailable: true },
+              // match: { isAvailable: true },
               populate: {
                 path: "reservation",
                 moodel: "Reservation",
@@ -153,38 +153,32 @@ const resolvers = {
     },
 
     addReservation: async (parent, args, context) => {
-      const { inventoryId } = args;
       const consumer = context.user._id;
+      const { inventoryId, parkingPlace, startDate, stripeTransaction } =
+        args;
 
-      console.log("YULDUZ   " + consumer);
       if (context.user) {
-        const updatedInventory = await Inventory.findByIdAndUpdate(
-          { _id: inventoryId },
-          [{ isAvailable: false }]
-        );
-
-        const parkingPlace = updatedInventory.parkingPlace;
+        console.log("ARGS" + JSON.stringify(args));
 
         const reservation = await Reservation.create({
-          ...args,
           consumer,
+          inventoryId,
           parkingPlace,
+          startDate,
+          stripeTransaction,
         });
 
-        const updatedParkingPlace = await ParkingPlace.findByIdAndUpdate(
-          { _id: parkingPlace },
-          { $push: { reservations: reservation._id } }
+        await Inventory.findByIdAndUpdate(
+          { _id: inventoryId },
+          { isAvailable: false },
+          { new: true }
         );
 
-        const user = await User.findByIdAndUpdate(
+        // push to user who is booking/consumer
+        await User.findByIdAndUpdate(
           { _id: consumer },
           { $push: { bookings: reservation._id } }
         );
-
-        console.log("RESERVATION: " + reservation);
-        console.log("PARKINGPLACE: " + updatedParkingPlace);
-        console.log("INVENTORY: " + updatedInventory);
-        console.log("USER: " + user);
 
         return reservation;
       }

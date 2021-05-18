@@ -1,5 +1,26 @@
+.history-content-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: #7daacc;
+    background-position: center;
+}
+
 .history {
     margin-top: 14vh;
     margin-left: 2em;
     margin-right: 2em;
+}
+
+.history-heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

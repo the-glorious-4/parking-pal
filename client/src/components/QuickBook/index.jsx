@@ -3,13 +3,27 @@ import SearchInput from '../SearchInput';
 import FindMeBtn from '../FindMeBtn';
 import { Link } from "react-router-dom";
 import './style.scss';
+import { todaysDate } from '../../utils/helpers';
+import { useStoreContext } from '../../utils/GlobalState';
+import { UPDATE_MAP_DATE } from '../../utils/actions';
 
 const Quickbook = () => {
 
+    const [state, dispatch] = useStoreContext();
+
+    console.log(state);
+
     const handleSubmit = (event) => {
         event.preventDefault();
-
+        // let place = event.target[0].value;
+        let date = (event.target[1].value).toString();
+        console.log(date);
+        dispatch({
+            type: UPDATE_MAP_DATE,
+            mapDate: date
+        })
     }
+
 
     return (<>
         <main className='quickBook'>
@@ -21,25 +35,16 @@ const Quickbook = () => {
                     </div>
                     <div className='dateSearch'>
                         <label htmlFor="quickBookDateSearch">Date</label>
-                        <input type="date" />
+                        <input min={todaysDate()} type="date" />
                     </div>
-                    {/* <div className='prefSearch'>
-                        <label htmlFor="preferenceSearch">Preferences</label>
-                        <select name="preferenceSearch" id="preferenceSearch">
-                            <option value="">indoor</option>
-                            <option value="">outside</option>
-                            <option value="">i dont care</option>
-                        </select>
-                    </div> */}
                     <div className='buttonDiv'>
                         <Link to='/findparking'>
                             <button className='searchBtn' type='submit'>🔍</button>
                         </Link>
-                        <FindMeBtn className='qbFindMe' />
+                        <Link to='/findparking'>
+                            <FindMeBtn className='qbFindMe' />
+                        </Link>
                     </div>
-                    {/* <div className='buttonDiv'>
-                    <FindMeBtn className='qbFindMe' />
-                </div> */}
                 </form>
             </div>
         </main>

@@ -10,27 +10,25 @@ import Search from '../SearchInput'
 import FindMeBtn from '../FindMeBtn'
 import prkingLogo from './images/mapPic.png'
 import { useStoreContext } from '../../utils/GlobalState';
+
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_ALL_PARKING } from "../../utils/queries";
+import { getGeocode, getLatLng } from 'use-places-autocomplete';
+
 
 const containerStyle = {
     width: '80vw',
     height: '70vh'
 };
-// const center = { lat: 37.774, lng: -122.419 }
-// const libraries = ['places'];
 const options = {
     disableDefaultUI: true,
     zoomControl: true
 }
+
 const plots = features.map(location => (location.geometry.coordinates))
 
 function MyMapComponent(props) {
 
-    // const { loading, data } = useQuery(QUERY_ALL_PARKING);
-
-    // console.log(loading);
-    // console.log(data);
 
     const [state,] = useStoreContext();
     const [markers,] = useState(plots)
@@ -46,6 +44,25 @@ function MyMapComponent(props) {
     const parkingRedirect = () => {
         console.log(features.filter(marker => marker.geometry.coordinates === selected));
     }
+
+       let date = "2021-05-18"
+        const { loading, data } = useQuery(QUERY_ALL_PARKING,
+            { variables: { city: "san francisco", startDate: date } },
+        );
+        console.log(data.getAllParking);
+
+    // if (data) {
+    //     let { apt, street, city, state, zip } = data.getAllParking[0].parkingPlace;
+
+    //     let addressToGet = apt + ' ' + street + ', ' + city + ', ' + state + ', ' + zip;
+
+    //     getGeocode({address: addressToGet})
+    //     .then((results) => getLatLng(results[0]))
+    //     .then(({lat, lng}) => {
+    //         console.log(lat,lng);
+    //     })
+    //     .catch(err => console.log(err))
+    // }
 
     return (
         <div className='mapBody'>

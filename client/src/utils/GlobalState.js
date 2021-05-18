@@ -8,7 +8,8 @@ const StoreProvider = ({ value = [], ...props }) => {
     const [state, dispatch] = useModalReducer({
         loginRendered: false,
         signupRendered: false,
-        mapLocation: { lat: 37.774, lng: -122.419 }
+        mapLocation: { lat: 37.774, lng: -122.419 },
+        mapDate: ''
     });
     return <Provider value={[state, dispatch]} {...props} />;
 };

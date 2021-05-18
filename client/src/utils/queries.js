@@ -23,15 +23,21 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_ALL_PARKING = gql`
-  {
-    getAllParking {
-      _id
-      apt
-      street
-      city
-      state
-      zip
-      isCoveredParking
-    }
-  }
+query getAllParking($city: String,$startDate:String){
+      getAllParking(city: $city, startDate:$startDate){
+        _id
+        startDate,
+        price
+        isAvailable
+        parkingPlace{
+          _id
+          apt
+          street
+          city
+          state
+          isCoveredParking
+          capacity
+        }
+      }
+}
 `;

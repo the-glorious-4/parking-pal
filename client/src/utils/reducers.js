@@ -3,7 +3,8 @@ import {
     RENDER_LOGIN_MODAL,
     RENDER_SIGNUP_MODAL,
     REMOVE_MODAL,
-    UPDATE_MAP_LOCATION
+    UPDATE_MAP_LOCATION,
+    UPDATE_MAP_DATE
 } from "./actions";
 
 /*
@@ -19,6 +20,11 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 mapLocation: action.location
+            }
+        case UPDATE_MAP_DATE:
+            return {
+                ...state,
+                mapDate: action.mapDate
             }
         case RENDER_LOGIN_MODAL:
             return {

@@ -24,7 +24,7 @@ const Dashboard = () => {
     console.log(user);
 
     return (
-        <div className="dashboard-content-container">
+        <div className="dashboard-bg content-container">
             <Nav />
             {user ?
             <div className="dashboard">

@@ -23,7 +23,7 @@ const History = () => {
     console.log(inventory);
 
     return (
-        <div className="history-content-container">
+        <div className="history-bg content-container">
             <Nav />
             {user?
             <div className="history">

@@ -1,4 +1,4 @@
-.dashboard-content-container {
+.content-container {
     position: absolute;
     top: 0;
     left: 0;
@@ -9,6 +9,9 @@
     overflow-y: auto;
     display: flex;
     flex-direction: column;
+}
+
+.dashboard-bg {
     background-image:
         linear-gradient(rgba(171, 171, 171, 0.3), rgba(171, 171, 171, 0.3)),
         url("../../images/bg-sunny-parking-lot.jpeg");

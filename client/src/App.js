@@ -10,7 +10,7 @@ import Dashboard from "./pages/Dashboard";
 import History from "./pages/History";
 import FindASpot from './pages/FindASpot';
 import NoMatch from './pages/NoMatch';
-import addParkingForm from './components/AddParkingForm'
+import AddASpot from './pages/AddASpot';
 
 const client = new ApolloClient({
   request: operation => {
@@ -41,10 +41,9 @@ function App() {
                   {!Auth.loggedIn() ? <Redirect to="/" /> : null}
                 </Route>
                 
-                <Route exact path="/addParkingForm" component={addParkingForm}>
+                <Route exact path="/addparking" component={AddASpot}>
                   {!Auth.loggedIn() ? <Redirect to="/" /> : null}
                 </Route>
-                
 
                 <Route exact path="/history" component={History}>
                   {!Auth.loggedIn() ? <Redirect to="/" /> : null}

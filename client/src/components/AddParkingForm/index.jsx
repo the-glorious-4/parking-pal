@@ -35,7 +35,11 @@ const AddParkingForm = () => {
   const handleChange = (event) => {
     // destructure event target
     const { name, value } = event.target;
-    // update state
+    // // update state
+    // if(name == "isCoveredParking")
+    // {
+    //     value = event.target.checked;
+    // }
     setFormState({ ...ppformState, [name]: value });
   };
   const handleFormSubmit = async (event) => {
@@ -55,7 +59,6 @@ const AddParkingForm = () => {
   return (
     <div>
       <form className="addParkingPlaceForm" onSubmit={handleFormSubmit}>
-        <div class="col-md-8">
           <div className="field">
             <label htmlFor="apt">Apartment #</label>
             <input
@@ -66,7 +69,6 @@ const AddParkingForm = () => {
               onChange={handleChange}
               onBlur={handleBlur}
             />
-          </div>
         </div>
         <div className="field">
           <label htmlFor="street">Street Address</label>
@@ -123,8 +125,7 @@ const AddParkingForm = () => {
             placeholder="isCoveredParking"
             name="isCoveredParking"
             type="checkbox"
-            onChange={handleChange}
-            onBlur={handleBlur}
+            checked={handleChange}
           />
         </div>
         <div className="field">

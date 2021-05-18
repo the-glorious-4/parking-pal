@@ -67,9 +67,6 @@ const AddParkingForm = () => {
               onBlur={handleBlur}
             />
           </div>
-          <div class="invalid-feedback">
-            Please provide a valid aparment number.
-          </div>
         </div>
         <div className="field">
           <label htmlFor="street">Street Address</label>
@@ -82,9 +79,6 @@ const AddParkingForm = () => {
             onBlur={handleBlur}
           />
         </div>
-        <div class="invalid-feedback">
-          Please provide a valid street address.
-        </div>
         <div className="field">
           <label htmlFor="city">city</label>
           <input
@@ -96,9 +90,6 @@ const AddParkingForm = () => {
             onBlur={handleBlur}
           />
         </div>
-
-        <div class="invalid-feedback">Please provide a valid city.</div>
-
         <div className="field">
           <label htmlFor="state">State</label>
           <input
@@ -114,8 +105,7 @@ const AddParkingForm = () => {
                         <option selected disabled value="">Choose...</option>
                         {{>states}}
                     </select> */}
-        <div class="invalid-feedback">Please select a valid state.</div>
-
+  
         <div className="field">
           <label htmlFor="zip">ZipCode</label>
           <input

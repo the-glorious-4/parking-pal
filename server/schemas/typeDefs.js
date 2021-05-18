@@ -14,7 +14,7 @@ const typeDefs = gql`
     firstName: String
     lastName: String
     email: String
-    phone: Int
+    phone: String
     parkingPlace: [ParkingPlace]
     bookings: [Reservation]
   }
@@ -61,7 +61,6 @@ type Query {
     getAllParking(city:String,startDate:String): [Inventory]
     getParkingByInventoryId(_id:ID!):Inventory
 
-<<<<<<< HEAD
   type Mutation {
     addUser(
       firstName: String!
@@ -93,6 +92,10 @@ type Query {
     login(email: String!, password: String!): Auth
   }
 =======
+=======
+    getAllInventoriesByProviderID:[Inventory]
+    getUsersHistory:User
+>>>>>>> main
 }
 
 type Mutation {
@@ -104,6 +107,15 @@ type Mutation {
     password: String!
     phone: String!
   ): Auth
+  
+  editUser(
+    firstName: String
+    lastName: String
+    email: String
+    password: String
+    phone: String
+  ): Auth
+
 
   addParkingPlace(
     apt: String!
@@ -115,6 +127,17 @@ type Mutation {
     capacity: Int!
   ): ParkingPlace
 
+  editParkingPlace(
+    _id:ID!
+    apt: String
+    street: String
+    city: String
+    state: String
+    zip: String
+    isCoveredParking: Boolean
+    capacity: Int
+  ): ParkingPlace
+
   addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
   login(email: String!, password: String!): Auth
 }
@@ -123,9 +146,6 @@ type Mutation {
 
 module.exports = typeDefs;
 
-
-
-  
     // getAllInventoryByParkingId(startDate:String!,parkingPlace:ID!) : Inventory
     // getAllInventory(_id : ID!) : User
     // getActiveReservation(startDate:String): [ParkingPlace]

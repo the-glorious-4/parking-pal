@@ -1,17 +1,27 @@
 /* LoginModal/index.js: Login form for users of the app. */ 
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
-import "./style.scss";
+// import "./style.scss";
 import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 import { validateEmail } from "../../utils/helpers";
+import { RENDER_SIGNUP_MODAL, REMOVE_MODAL } from "../../utils/actions";
+import { useStoreContext } from "../../utils/GlobalState";
 
 // render login page wrapped in a Modal.
 const LoginModal = () => {
     const [formState, setFormState] = useState({ email: "", password: "" });
     const [errFlags, setErrFlags] = useState({ emailError: false });
     const [login, { error }] = useMutation(LOGIN_USER);
+
+    const [state, dispatch] = useStoreContext();
+
+    const renderSignupModal = (event) => {
+        event.preventDefault();
+        dispatch({ type: REMOVE_MODAL });
+        dispatch({ type: RENDER_SIGNUP_MODAL });
+    };
 
     const handleChange = event => {
         // destructure event target
@@ -61,7 +71,7 @@ const LoginModal = () => {
         <Modal>
             <div className="modal-bg">
                 <h2>Log In</h2>
-                <form className="loginForm" onSubmit={handleFormSubmit}>
+                <form className="loginForm signupForm" onSubmit={handleFormSubmit}>
                     <div className="field">
                         <label htmlFor="email">Email:</label>
                         <input
@@ -73,7 +83,7 @@ const LoginModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.emailError &&
-                        <span className="login-form-err">This is not a valid email address.</span>}
+                        <span className="form-err">This is not a valid email address.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="pass">Password:</label>
@@ -85,13 +95,16 @@ const LoginModal = () => {
                             onChange={handleChange}
                         />
                     </div>
-                    <div className="login-submit">
+                    <div className="signup-submit">
                         <div>
                         <button type="submit">Submit</button>
                         </div>
+                        <div>
+                        <button className='insteadBtn' onClick={renderSignupModal}>Sign-Up Instead</button>
+                        </div>
                     </div>
                 </form>
-                {error && <span className="login-form-err">Something went wrong with your log-in!</span>}
+                {error && <span className="form-err">Something went wrong with your log-in!</span>}
             </div>
         </Modal>
     );

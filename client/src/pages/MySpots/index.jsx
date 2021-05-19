@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "./style.scss";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
 import Nav from "../../components/Nav";
+import NewInventory from "../../components/NewInventory";
 import Auth from "../../utils/auth";
 import { formatDate } from "../../utils/helpers";
 import { QUERY_USER } from "../../utils/queries";
-import { ADD_INVENTORY } from "../../utils/mutations";
 
 const MySpots = () => {
-    const [inventory, setInventory] = useState({ display: false, space: "", invList: [] });
+    const [inventory, setInventory] = useState({ display: false, spaceId: "", spaceName: "", invList: [] });
     const { loading, data } = useQuery(QUERY_USER);
     let spaces;
 
@@ -30,7 +30,8 @@ const MySpots = () => {
         // set inventory state by info in spaces array
         setInventory({
             display: true,
-            space: event.target.innerHTML,
+            spaceId: targetId,
+            spaceName: event.target.innerHTML,
             invList: [...currentSpace.inventory]
         });
         console.log(inventory.invList)
@@ -69,7 +70,7 @@ const MySpots = () => {
                     <div className="inventory-container spaces-container">
                         <h2>
                             Availability Information for:
-                            <span className="space-span"> {inventory.space}</span>
+                            <span className="space-span"> {inventory.spaceName}</span>
                         </h2>
                         {inventory.invList.length ?
                         <ul className="availability-list">
@@ -86,7 +87,7 @@ const MySpots = () => {
                         <span className="dashboard-nolist">
                             You have not added any availabilities for this space.
                         </span>}
-                        <button>Add an Availability</button>
+                        <NewInventory _id={inventory.spaceId} />
                     </div>}
                 </div>
             </div>

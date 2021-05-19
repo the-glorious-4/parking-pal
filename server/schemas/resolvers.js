@@ -1,4 +1,5 @@
 const { AuthenticationError } = require("apollo-server-express");
+const { useStoreContext } = require("../../client/src/utils/GlobalState");
 const { User, ParkingPlace, Inventory, Reservation } = require("../models");
 const { signToken } = require("../utils/auth");
 // const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
@@ -27,8 +28,9 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-
-    getAllParking: async (parent, args) => {
+    
+    //Get all Inventories by StartDate and City
+    getAllInventories: async (parent, args) => {
       const { city, startDate } = args;
       const parkingPlacesInv = await Inventory.find({
         startDate: startDate,
@@ -41,9 +43,9 @@ const resolvers = {
 
       return parkingPlacesInv;
     },
-    //User passing Inventory ID
-    getParkingByInventoryId: async (parent, { _id }) => {
-      // const { _id } = args;
+
+    //Get all Inventories by InventoryID 
+    getInventoryById: async (parent, { _id }) => {
       const parkingPlacesInv = await Inventory.findById({ _id }).populate({
         path: "parkingPlace",
         model: ParkingPlace,
@@ -52,8 +54,8 @@ const resolvers = {
       return parkingPlacesInv;
     },
 
-    //Assuming ParkingById returns ParkingplaceID
-    getAllInventoriesByProviderID: async (parent, args, context) => {
+    //Get All inventory by Providers Id.
+    getMyInventories: async (parent, args, context) => {
       const parkingPlacesInv = await Inventory.find().populate({
         path: "parkingPlace",
         model: "ParkingPlace",
@@ -74,6 +76,19 @@ const resolvers = {
         const reservedParkingPlaces = await Reservation.find(params).populate({
           path: "parkingplace",
           model: "ParkingPlace",
+        });
+        return reservedParkingPlaces;
+      }
+
+      throw new AuthenticationError("No logged in user found");
+    },
+
+    //Get All Reservations of users
+    getMyReservations: async (parent, args, context) => {
+      if (context.user) {
+        const reservedParkingPlaces = await User.findById(context.user._id).populate({
+          path: "bookings",
+          model: "Reservations",
         });
         return reservedParkingPlaces;
       }

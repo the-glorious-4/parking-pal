@@ -20,11 +20,11 @@ const NoMatch = () => {
         <Nav />
         <div className='sorryBody'>
         {{
-            '1': <img src={bounce} alt="loading..." />,
-            '2': <img src={bang} alt="loading..." />,
-            '3': <img src={crash} alt="loading..." />,
-            '4': <img src={ouch} alt="loading..." />,
-            '5': <img src={whoops} alt="loading..." />
+            '1': <img src={bounce} alt="bounce" />,
+            '2': <img src={bang} alt="bang" />,
+            '3': <img src={crash} alt="crash" />,
+            '4': <img src={ouch} alt="ouch" />,
+            '5': <img src={whoops} alt="whoops" />
         }[imgPicker]}
 
         <div>

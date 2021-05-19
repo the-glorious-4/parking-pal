@@ -1,6 +1,6 @@
 {"getAllParking": [{
   "_id": "60a45acf1beb42284e15f515",
-  "startDate": "1621296000000",
+  "startDate": "1621382400000",
   "price": 25,
   "isAvailable": true,
   "parkingPlace": {
@@ -20,7 +20,7 @@
   "__typename": "Inventory"
 },{
   "_id": "60a45acf1beb42284e15f515",
-  "startDate": "1621296000000",
+  "startDate": "1621382400000",
   "price": 25,
   "isAvailable": true,
   "parkingPlace": {
@@ -32,15 +32,15 @@
       "isCoveredParking": true,
       "capacity": 2,
       "latLng": [
-        "-122.4067421",
-        "37.7875475"
+        "37.7875475",
+        "-122.4067421"
       ],
       "__typename": "ParkingPlace"
   },
   "__typename": "Inventory"
 },{
   "_id": "60a45acf1beb42284e15f515",
-  "startDate": "1621296000000",
+  "startDate": "1621382400000",
   "price": 25,
   "isAvailable": true,
   "parkingPlace": {
@@ -52,15 +52,15 @@
       "isCoveredParking": true,
       "capacity": 2,
       "latLng": [
-        "-122.4126145",
-            "37.7786972"
+        "37.7786972",
+        "-122.4126145"
       ],
       "__typename": "ParkingPlace"
   },
   "__typename": "Inventory"
 },{
   "_id": "60a45acf1beb42284e15f515",
-  "startDate": "1621296000000",
+  "startDate": "1621382400000",
   "price": 25,
   "isAvailable": true,
   "parkingPlace": {
@@ -72,8 +72,8 @@
       "isCoveredParking": true,
       "capacity": 2,
       "latLng": [
-        "-122.4125538",
-            "37.7804778"
+        "37.7804778",
+        "-122.4125538"
       ],
       "__typename": "ParkingPlace"
   },

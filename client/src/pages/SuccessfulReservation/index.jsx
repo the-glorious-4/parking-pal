@@ -1,6 +1,14 @@
 import React, { useEffect } from "react";
 import { ADD_RESERVATION } from "../../utils/mutations";
 import { useMutation } from "@apollo/react-hooks";
+import Nav from '../../components/Nav';
+
+import './style.scss';
+
+import win from './gifs/win.gif';
+import elmo from './gifs/elmo.gif';
+import nailed from './gifs/nailed.gif';
+import zac from './gifs/zac.gif';
 
 const SuccessfulReservation = () => {
   const [addReservation, { error }] = useMutation(ADD_RESERVATION);
@@ -24,20 +32,34 @@ const SuccessfulReservation = () => {
       const { data } = await addReservation({
         variables: { ...dummyData },
       });
-      setTimeout(() => {
-        window.location.assign("/");
-      }, 3000);
+      // setTimeout(() => {
+      //   window.location.assign("/");
+      // }, 6000);
     }
 
     saveReservation();
   }, [addReservation]);
 
-  return (
-    <div>
-      <section>
-        <p>Your payment has been successfully submitted</p>
-      </section>
+  let imgPicker = Math.floor(Math.random() * 4 + 1);
+
+  return (<>
+    <Nav />
+    <div className='successContainer'>
+      <div className='gifDiv'>
+        {{
+          '1': <img src={elmo} alt="elmo" />,
+          '2': <img src={nailed} alt="nailed" />,
+          '3': <img src={win} alt="win" />,
+          '4': <img src={zac} alt="zac" />
+        }[imgPicker]}
+      </div>
+      <div className='messageDiv'>
+        <h1>SUCCESS!</h1>
+        <h2>Your payment was submitted</h2>
+        <p>redirecting back to dashboard...</p>
+      </div>
     </div>
+  </>
   );
 };
 

@@ -17,21 +17,23 @@ const Quickbook = () => {
         event.preventDefault();
         let place = event.target[0].value;
 
-        getGeocode({address: place})
-        .then(result => ((result[0].address_components.filter(place => place.types[0] === 'locality'))[0].long_name))
-        .then(city => {
-            dispatch({
-                type: UPDATE_QUERY_CITY,
-                mapCity: city
-            });
-        })
+        getGeocode({ address: place })
+            .then(result => ((result[0].address_components.filter(place => place.types[0] === 'locality'))[0].long_name))
+            .then(city => {
+                dispatch({
+                    type: UPDATE_QUERY_CITY,
+                    mapCity: city
+                });
+            })
+            .catch(err => console.log(err))
 
         let date = (event.target[1].value).toString();
         dispatch({
             type: UPDATE_MAP_DATE,
             mapDate: date
         });
-        <Redirect to="/findparking" />
+        console.log('redirect');
+        return <Redirect to={{pathname: "/findparking"}} />
     }
 
 
@@ -48,9 +50,9 @@ const Quickbook = () => {
                         <input min={todaysDate()} type="date" />
                     </div>
                     <div className='buttonDiv'>
-
+                        <Link to='/findparking'>
                             <button className='searchBtn' type='submit'>🔍</button>
-
+                        </Link>
                         <Link to='/findparking'>
                             <FindMeBtn className='qbFindMe' />
                         </Link>

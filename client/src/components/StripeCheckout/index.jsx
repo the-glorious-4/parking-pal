@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useMutation } from "@apollo/react-hooks";
+import { useLazyQuery } from "@apollo/react-hooks";
 
 import { ADD_RESERVATION } from "../../utils/mutations";
+import { QUERY_CHECKOUT } from "../../utils/queries";
 
 const dummyData = {
   inventoryId: "60a341fd64942fbf1e92b087",
@@ -46,9 +48,17 @@ const Message = ({ message }) => (
 );
 
 export default function StripeCheckout() {
+  const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const [message, setMessage] = useState("");
-
   const [addReservation, { error }] = useMutation(ADD_RESERVATION);
+
+  useEffect(() => {
+    if (data) {
+      stripePromise.then((res) => {
+        res.redirectToCheckout({ sessionId: data.checkout.session });
+      });
+    }
+  }, [data]);
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout
@@ -66,35 +76,23 @@ export default function StripeCheckout() {
   }, []);
 
   const handleReservation = async (event) => {
-    const stripe = await handleClick(event);
+    const session_id = await redirectToStripeCheckout(event);
+    console.log("SESSION_ID" + session_id);
 
-    try {
-      const { data } = await addReservation({
-        variables: dummyData, // TODO: put actual data here
+    if (session_id) {
+      addReservation({
+        variables: {
+          inventoryId: "60a341fd64942fbf1e92b087",
+          parkingPlace: "60a33a5f05923f7599b9d0c4",
+          startDate: "2021-05-15T20:26:39Z",
+          stripeTransaction: "1234567890",
+        },
       });
-      // send emails
-      if (data) {
-        console.log("YAY");
-      }
-    } catch (e) {
-      console.error(e);
     }
   };
 
-  const handleClick = async (event) => {
-    const stripe = await stripePromise;
-
-    const response = await fetch("/checkout", {
-      method: "POST",
-    });
-
-    const session = await response.json();
-
-    // When the customer clicks on the button, redirect them to Checkout.
-    const result = await stripe.redirectToCheckout({
-      sessionId: session.id,
-    });
-    return result;
+  const redirectToStripeCheckout = async (event) => {
+    checkout();
   };
 
   return message ? (

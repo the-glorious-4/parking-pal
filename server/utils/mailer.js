@@ -20,7 +20,6 @@ const transporter = nodemailer.createTransport({
 
 const resolveTemplate = (template, formData, receipt) => {
   const { name, lastName, email, reservationDetails } = formData;
-  //   const { stripeConfirmation: attachment } = receipt; // replace w/ the actual response property
 
   switch (template) {
     case EmailTemplate.BOOKING_CONFIRMATION_CONSUMER:
@@ -35,7 +34,6 @@ const resolveTemplate = (template, formData, receipt) => {
         <p>${reservationDetails.date}</p>
         <p>${reservationDetails.address}</p>
         `,
-        // TODO: handle receipt attachment
       };
 
     case EmailTemplate.BOOKING_CONFIRMATION_PROVIDER:
@@ -55,7 +53,7 @@ const resolveTemplate = (template, formData, receipt) => {
 };
 
 // const sendEmail = (template, formData, receipt) => {
-  const sendEmail = (template, formData, receipt) => {
+const sendEmail = (template, formData, receipt) => {
   const emailTemplate = resolveTemplate(template, formData, receipt);
   transporter.sendMail(emailTemplate, function (err, info) {
     if (err) console.log(err);

@@ -64,7 +64,7 @@ const typeDefs = gql`
     getParkingByInventoryId(_id: ID!): Inventory
     getAllInventoriesByProviderID: [Inventory]
     getUsersHistory: User
-    checkout(products: [ID]!): Checkout
+    checkout: Checkout
   }
 
   type Mutation {

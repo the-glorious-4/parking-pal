@@ -1,11 +1,10 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, ParkingPlace, Inventory, Reservation } = require("../models");
 const { signToken } = require("../utils/auth");
-const stripe = require("stripe")(
-  "sk_test_51InyxjLzbTTaQxk5V8hslPv0OK11QrVYOShDVOw38xxfhglJU3lIVxwbeq1Ogagc975c3tkzJNJzAScBA1HRE7xP00x5Jue5LM"
-);
 
-// const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+const { sendEmail, EmailTemplate } = require("../utils/mailer");
 
 const resolvers = {
   Query: {
@@ -93,9 +92,6 @@ const resolvers = {
         const url = new URL(context.headers.referer).origin;
         console.log("URL: " + url);
 
-        const { price } = args.price;
-        console.log("Price: " + price);
-
         const session = await stripe.checkout.sessions.create({
           payment_method_types: ["card"],
           line_items: [
@@ -104,9 +100,8 @@ const resolvers = {
                 currency: "usd",
                 product_data: {
                   name: "Parking Place",
-                  images: ["https://i.imgur.com/EHyR2nP.png"],
+                  images: ["https://i.imgur.com/UfRvNq5.jpg"],
                 },
-                // todo: retrieve from request.body
                 unit_amount: 2000,
                 // unit_amount: price * 100,
               },
@@ -114,13 +109,11 @@ const resolvers = {
             },
           ],
           mode: "payment",
-          success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
-          cancel_url: `${url}/`,
-          // // Redirect to reservations page
-          // success_url: `http://localhost:3000/checkout?success=true`,
-          // // Redirect to search page
-          // cancel_url: `http://localhost:3000/checkout?canceled=true`,
+          success_url: `${url}/history`,
+          cancel_url: `${url}/dashboard`,
         });
+
+        console.log("SESSION ID: " + session.id);
         return { session: session.id };
       }
       throw new AuthenticationError("Not logged in");
@@ -194,6 +187,19 @@ const resolvers = {
     },
 
     addReservation: async (parent, args, context) => {
+      const formData = {
+        name: "Yulduz",
+        lastName: "Test",
+        email: "yulduz83@gmail.com",
+        reservationDetails: {
+          date: "11/14/2021",
+          address: "123 Pine Street, NY, 12345",
+          stripeTransactionId: "ipi_1GtFmN2eZvKYlo2CBramsMXt",
+          price: 2000,
+        },
+      };
+      sendEmail(EmailTemplate.BOOKING_CONFIRMATION_CONSUMER, formData);
+
       const consumer = context.user._id;
       const { inventoryId, parkingPlace, startDate, stripeTransaction } = args;
 

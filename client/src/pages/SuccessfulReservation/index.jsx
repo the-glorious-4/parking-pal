@@ -32,9 +32,9 @@ const SuccessfulReservation = () => {
       const { data } = await addReservation({
         variables: { ...dummyData },
       });
-      // setTimeout(() => {
-      //   window.location.assign("/");
-      // }, 6000);
+      setTimeout(() => {
+        window.location.assign("/");
+      }, 6000);
     }
 
     saveReservation();

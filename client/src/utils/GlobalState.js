@@ -11,7 +11,9 @@ const StoreProvider = ({ value = [], ...props }) => {
         signupRendered: false,
         mapLocation: { lat: 37.774, lng: -122.419 },
         mapDate: todaysDate(),
-        mapCity: 'San Francisco'
+        mapCity: 'San Francisco',
+        selectedInventory: {},
+        currentUser: {}
     });
     return <Provider value={[state, dispatch]} {...props} />;
 };

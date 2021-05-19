@@ -13,6 +13,7 @@ import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_MAP_LOCATION } from '../../utils/actions';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_ALL_PARKING } from "../../utils/queries";
+import { Link, Redirect } from "react-router-dom";
 // import { getGeocode, getLatLng } from 'use-places-autocomplete';
 
 
@@ -52,15 +53,13 @@ function MyMapComponent(props) {
     if (loading) {
         console.log('loading');
     }
-    // console.log(selected);
+    console.log(selected);
 
     useEffect(() => {
-
         if (data) {
             console.log(data.getAllInventories);
             setMarkers(data.getAllInventories);
         }
-
     }, [data])
 
 // console.log(markers);
@@ -110,10 +109,13 @@ function MyMapComponent(props) {
                         position={{ lat: parseFloat(selected.parkingPlace.latLng[0]), lng: parseFloat(selected.parkingPlace.latLng[1]) }}
                         onCloseClick={() => { setSelected(null) }}
                     >
-                        <div>
-                            <h3 style={{ textAlign: 'center' }}>Parking</h3>
-                            <p>This is a pretty great spot</p>
-                            <button onClick={parkingRedirect}>check it out</button>
+                        <div className='mapInfoWindow'>
+                            <h3 style={{ textAlign: 'center' }}>${selected.price}/day</h3>
+                            <p>{selected.parkingPlace.street}, {selected.parkingPlace.city}<br/>
+                            {selected.parkingPlace.isCoveredParking ? 'Indoor Parking' : 'Outdoor Parking'}</p>
+                            <Link to='whereverYulduzWantsToGo'>
+                            <button style={{ textAlign: 'center' }}>Reserve</button>
+                            </Link>
                         </div>
                     </InfoWindow>
                 ) : null}

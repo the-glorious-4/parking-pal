@@ -4,3 +4,48 @@
         url("../../images/bg-sunny-parking-lot.jpeg");
     background-position: center;
 }
+
+.my-parking {
+    margin-top: 14vh;
+    margin-left: 2em;
+    margin-right: 2em;
+    flex-grow: 1;
+    
+    h1 {
+        text-align: center;
+        text-shadow: #f1f3f4 0 0 2px;
+    }
+}
+
+.inventory-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.spaces-container {
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(241, 243, 244, 0.8);
+    
+    button {
+        margin-bottom: 1em;
+    }
+}
+
+.space-list {
+    padding: 1rem;
+    padding-inline-start: 0;
+    list-style-type: none;
+    border: 1px solid black;
+    overflow-y: scroll;
+
+    li {
+        padding: 0.5rem;
+    }
+}
+
+.inventory-container {
+    flex: 0 0 calc(100% * 7 / 12 - 0.5%);
+}

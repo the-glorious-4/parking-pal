@@ -54,14 +54,19 @@ const typeDefs = gql`
     user: User
   }
 
+  type Checkout {
+    session: ID
+  }
+
   type Query {
     user: User
     inventory(inventory: ID): [Inventory]
     getAllInventories(city: String, startDate: String): [Inventory]
     getInventoryById(_id: ID!): Inventory
     getMyInventories: [Inventory]
-    getConsumerReservations(startDate:String): [Reservation]
+    getConsumerReservations(startDate: String): [Reservation]
     getMyReservations: [Reservation]
+    checkout(price: Int!): Checkout
   }
 
   type Mutation {
@@ -110,7 +115,12 @@ const typeDefs = gql`
       startDate: String!
       parkingPlace: ID!
       inventoryId: ID!
-      stripeTransaction: String!  
+      stripeTransaction: String!
+      name: String!
+      lastName: String!
+      email: String!
+      address: String!
+      price: Int!
     ): Reservation
   }
 `;

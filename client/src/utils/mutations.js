@@ -47,6 +47,7 @@ export const ADD_PARKINGPLACE = gql`
     $zip: String!
     $isCoveredParking: Boolean!
     $capacity: Int!
+    $latLng: [String]
   ) {
     addParkingPlace(
       apt: $apt
@@ -56,17 +57,20 @@ export const ADD_PARKINGPLACE = gql`
       zip: $zip
       isCoveredParking: $isCoveredParking
       capacity: $capacity
+      latLng: $latLng
     ) {
-      user {
+      _id
+      apt
+      street
+      city
+      state
+      zip
+      isCoveredParking
+      capacity
+      latLng
+      provider {
         _id
-        apt
-        street
-        city
-        state
-        zip
-        isCoveredParking
-        capacity
-        latLng
+        email
       }
     }
   }

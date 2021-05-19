@@ -1,7 +1,10 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User, ParkingPlace, Inventory, Reservation } = require("../models");
 const { signToken } = require("../utils/auth");
-// const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
+const { sendEmail, EmailTemplate } = require("../utils/mailer");
 
 const resolvers = {
   Query: {
@@ -100,6 +103,40 @@ const resolvers = {
         const inventory = await Inventory.find();
         return inventory;
       }
+      throw new AuthenticationError("Not logged in");
+    },
+
+    checkout: async (parent, args, context) => {
+      const { price } = args;
+
+      if (context.user) {
+        const url = new URL(context.headers.referer).origin;
+        console.log("URL: " + url);
+
+        const session = await stripe.checkout.sessions.create({
+          payment_method_types: ["card"],
+          line_items: [
+            {
+              price_data: {
+                currency: "usd",
+                product_data: {
+                  name: "Parking Place",
+                  images: ["https://i.imgur.com/UfRvNq5.jpg"],
+                },
+                unit_amount: price * 100,
+              },
+              quantity: 1,
+            },
+          ],
+          mode: "payment",
+          success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${url}/cancel`,
+        });
+
+        console.log("SESSION ID: " + session.id);
+        return { session: session.id };
+      }
+      throw new AuthenticationError("Not logged in");
     },
   },
 
@@ -171,8 +208,11 @@ const resolvers = {
     },
 
     addReservation: async (parent, args, context) => {
+      sendEmail(EmailTemplate.BOOKING_CONFIRMATION_CONSUMER, args);
+
       const consumer = context.user._id;
-      const { inventoryId, parkingPlace, startDate, stripeTransaction } = args;
+      const { inventoryId, parkingPlace, startDate, stripeTransaction } =
+        args;
 
       if (context.user) {
         const reservation = await Reservation.create({

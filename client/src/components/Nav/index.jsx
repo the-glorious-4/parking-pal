@@ -32,7 +32,7 @@ const Nav = () => {
             <div className='menu'>
                 {Auth.loggedIn() ?
                 <>
-                    <span><Link>Find a Space</Link></span>
+                    <span><Link to='/findparking' >Find a Space</Link></span>
                     <span><Link to="/addParkingForm">Host a Spot</Link></span>
                     {/* <span><Link>Edit Profile</Link></span> */}
                     <span><Link to="/history">History</Link></span>

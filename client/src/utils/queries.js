@@ -25,7 +25,7 @@ export const QUERY_USER = gql`
 
 export const INVENTORY_HISTORY = gql`
     {
-        getAllInventoriesByProviderID {
+        getMyInventories {
             _id
             startDate
             price
@@ -45,8 +45,8 @@ export const INVENTORY_HISTORY = gql`
 `;
 
 export const QUERY_ALL_PARKING = gql`
-query getAllParking($city: String,$startDate:String){
-      getAllParking(city: $city, startDate:$startDate){
+query getAllInventories($city: String,$startDate:String){
+    getAllInventories(city: $city, startDate:$startDate){
         _id
         startDate,
         price

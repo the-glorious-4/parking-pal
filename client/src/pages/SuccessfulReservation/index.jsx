@@ -14,10 +14,6 @@ const SuccessfulReservation = () => {
           stripeTransaction: "1234567890",
         },
       });
-      const reservationData = data.addReservation._id;
-
-      // send email
-
       setTimeout(() => {
         window.location.assign("/");
       }, 3000);

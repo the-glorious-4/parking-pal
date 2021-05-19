@@ -1,5 +1,4 @@
 const { AuthenticationError } = require("apollo-server-express");
-const { useStoreContext } = require("../../client/src/utils/GlobalState");
 const { User, ParkingPlace, Inventory, Reservation } = require("../models");
 const { signToken } = require("../utils/auth");
 // const stripe = require('stripe')('sk_test_4eC39HqLyjWDarjtT1zdp7dc');

@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import './style.scss';
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
-
+import garage from '../../images/garage.png';
 import Auth from "../../utils/auth";
 import { RENDER_LOGIN_MODAL, RENDER_SIGNUP_MODAL } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
@@ -28,6 +28,7 @@ const Nav = () => {
         <Link to='/'>
         <span className='title'>Parking-Pal</span>
         </Link>
+        <img src={garage} onClick className='menuBtn' alt="menu button"/>
             <div className='menu'>
                 {Auth.loggedIn() ?
                 <>

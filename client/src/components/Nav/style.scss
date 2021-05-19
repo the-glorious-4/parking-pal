@@ -75,3 +75,17 @@ button:hover {
 	background:linear-gradient(to bottom, #72b352 5%, #77b55a 100%);
 	background-color:#72b352;
 }
+.menuBtn {
+    height: 5vh;
+    margin: auto 20px auto auto;
+    display: none;
+}
+
+@media screen and (max-width: 700px){
+    .menu {
+        display: none;
+    }
+    .menuBtn {
+        display: unset;
+    }
+}

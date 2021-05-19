@@ -112,6 +112,11 @@ const typeDefs = gql`
       parkingPlace: ID!
       inventoryId: ID!
       stripeTransaction: String!
+      name: String!
+      lastName: String!
+      email: String!
+      address: String!
+      price: Int!
     ): Reservation
   }
 `;

@@ -188,21 +188,11 @@ const resolvers = {
     },
 
     addReservation: async (parent, args, context) => {
-      const formData = {
-        name: "Yulduz",
-        lastName: "Test",
-        email: "yulduz83@gmail.com",
-        reservationDetails: {
-          date: "11/14/2021",
-          address: "123 Pine Street, NY, 12345",
-          stripeTransactionId: "ipi_1GtFmN2eZvKYlo2CBramsMXt",
-          price: 2000,
-        },
-      };
-      sendEmail(EmailTemplate.BOOKING_CONFIRMATION_CONSUMER, formData);
+      sendEmail(EmailTemplate.BOOKING_CONFIRMATION_CONSUMER, args);
 
       const consumer = context.user._id;
-      const { inventoryId, parkingPlace, startDate, stripeTransaction } = args;
+      const { inventoryId, parkingPlace, startDate, stripeTransaction } =
+        args;
 
       if (context.user) {
         const reservation = await Reservation.create({

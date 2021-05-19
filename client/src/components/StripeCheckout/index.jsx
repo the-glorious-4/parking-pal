@@ -4,13 +4,6 @@ import { useLazyQuery } from "@apollo/react-hooks";
 
 import { QUERY_CHECKOUT } from "../../utils/queries";
 
-const dummyData = {
-  inventoryId: "60a341fd64942fbf1e92b087",
-  parkingPlace: "60a33a5f05923f7599b9d0c4",
-  startDate: "2021-05-15T20:26:39Z",
-  stripeTransaction: "1234567890",
-};
-
 const stripePromise = loadStripe(
   "pk_test_51InyxjLzbTTaQxk5EdjCWbj0CjXJoh7lPICpUdwvL8JhnLxqldfzi81FoyJVB8Hli3eUEgB2bTjcPy2iyglLsAQi006PhzzGwf"
 );

@@ -18,8 +18,8 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
-const resolveTemplate = (template, formData) => {
-  const { name, lastName, email, reservationDetails } = formData;
+const resolveTemplate = (template, args) => {
+  const { name, lastName, email, startDate, address } = args;
 
   switch (template) {
     case EmailTemplate.BOOKING_CONFIRMATION_CONSUMER:
@@ -31,8 +31,8 @@ const resolveTemplate = (template, formData) => {
         html: `
         <b>Hey there, ${name} ${lastName}!</b> 
         <br>Here are your reservation details<br/>
-        <p>${reservationDetails.date}</p>
-        <p>${reservationDetails.address}</p>
+        <p>${startDate}</p>
+        <p>${address}</p>
         `,
       };
 
@@ -45,16 +45,16 @@ const resolveTemplate = (template, formData) => {
         html: `
         <b>Hey there, ${name} ${lastName}!</b> 
         <br>Here are your reservation details and receipt attached<br/>
-        <p>${reservationDetails.date}</p>
-        <p>${reservationDetails.address}</p>
+        <p>${startDate}</p>
+        <p>${address}</p>
         `,
       };
   }
 };
 
 // const sendEmail = (template, formData, receipt) => {
-const sendEmail = (template, formData) => {
-  const emailTemplate = resolveTemplate(template, formData);
+const sendEmail = (template, args) => {
+  const emailTemplate = resolveTemplate(template, args);
   transporter.sendMail(emailTemplate, function (err, info) {
     if (err) console.log(err);
     else console.log(info);

@@ -95,12 +95,22 @@ export const ADD_RESERVATION = gql`
     $startDate: String!
     $stripeTransaction: String!
     $parkingPlace: ID!
+    $name: String!
+    $lastName: String!
+    $email: String!
+    $address: String!
+    $price: Int!
   ) {
     addReservation(
       inventoryId: $inventoryId
       startDate: $startDate
       stripeTransaction: $stripeTransaction
       parkingPlace: $parkingPlace
+      name: $name
+      lastName: $lastName
+      email: $email
+      address: $address
+      price: $price
     ) {
       _id
       startDate

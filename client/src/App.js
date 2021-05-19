@@ -16,6 +16,8 @@ import History from "./pages/History";
 import NoMatch from "./pages/NoMatch";
 import ParkingPlace from "./pages/ParkingPlace";
 import SuccessfulReservation from "./pages/SuccessfulReservation";
+import FindASpot from "./pages/FindASpot";
+import AddASpot from "./pages/AddASpot";
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -40,20 +42,29 @@ function App() {
               <Route exact path="/" component={Home}>
                 {Auth.loggedIn() ? <Redirect to="/dashboard" /> : null}
               </Route>
+
               <Route exact path="/dashboard" component={Dashboard}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
+
+              <Route exact path="/addparking" component={AddASpot}>
+                {!Auth.loggedIn() ? <Redirect to="/" /> : null}
+              </Route>
+
               <Route exact path="/history" component={History}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
+
               <Route exact path="/parking-place" component={ParkingPlace}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
+
               <Route exact path="/success" component={SuccessfulReservation}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
-              {/* <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={Signup} /> */}
+
+              <Route exact path="/findparking" component={FindASpot}></Route>
+
               <Route component={NoMatch} />
             </Switch>
           </StoreProvider>

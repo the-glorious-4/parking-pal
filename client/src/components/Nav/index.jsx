@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import './style.scss';
 import LoginModal from '../LoginModal';
 import SignupModal from '../SignupModal';
+
 import Auth from "../../utils/auth";
 import { RENDER_LOGIN_MODAL, RENDER_SIGNUP_MODAL } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
@@ -24,14 +25,16 @@ const Nav = () => {
 
     return (<>
         <nav>
-            <a href='/' className='title'>Parking-Pal</a>
-            {/* <div>look for parking</div> */}
+        <Link to='/'>
+        <span className='title'>Parking-Pal</span>
+        </Link>
             <div className='menu'>
                 {Auth.loggedIn() ?
                 <>
-                    <span><Link>Find a Space</Link></span>
-                    <span><Link>Host a Page</Link></span>
-                    <span><Link>Edit Profile</Link></span>
+                    <span><Link to="/dashboard">Your Dashboard</Link></span>
+                    <span><Link to="/findparking">Find a Space</Link></span>
+                    <span><Link to="/addparking">Host a Spot</Link></span>
+                    <span><Link to="/profile">Edit Profile</Link></span>
                     <span><Link to="/history">History</Link></span>
                     <span onClick={logout}>Log-Out</span>
                 </>

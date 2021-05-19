@@ -11,6 +11,7 @@ const parkingPlaceSchema = new Schema(
       required: true,
     },
     zip: Number,
+    latLng: [String],
     isCoveredParking: Boolean,
     capacity: Number,
     provider: {

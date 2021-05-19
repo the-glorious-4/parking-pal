@@ -28,6 +28,7 @@ const typeDefs = gql`
     zip: String
     isCoveredParking: Boolean
     capacity: Int
+    latLng: [String]
     provider: User
     inventory: [Inventory]
   }
@@ -60,10 +61,11 @@ const typeDefs = gql`
   type Query {
     user: User
     inventory(inventory: ID): [Inventory]
-    getAllParking(city: String, startDate: String): [Inventory]
-    getParkingByInventoryId(_id: ID!): Inventory
-    getAllInventoriesByProviderID: [Inventory]
-    getUsersHistory: User
+    getAllInventories(city: String, startDate: String): [Inventory]
+    getInventoryById(_id: ID!): Inventory
+    getMyInventories: [Inventory]
+    getConsumerReservations(startDate: String): [Reservation]
+    getMyReservations: [Reservation]
     checkout(price: Int!): Checkout
   }
 
@@ -92,6 +94,7 @@ const typeDefs = gql`
       zip: String!
       isCoveredParking: Boolean!
       capacity: Int!
+      latLng: [String]
     ): ParkingPlace
 
     editParkingPlace(
@@ -103,6 +106,7 @@ const typeDefs = gql`
       zip: String
       isCoveredParking: Boolean
       capacity: Int
+      latLng: [String]
     ): ParkingPlace
 
     addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory
@@ -122,7 +126,3 @@ const typeDefs = gql`
 `;
 
 module.exports = typeDefs;
-
-// getAllInventoryByParkingId(startDate:String!,parkingPlace:ID!) : Inventory
-// getAllInventory(_id : ID!) : User
-// getActiveReservation(startDate:String): [ParkingPlace]

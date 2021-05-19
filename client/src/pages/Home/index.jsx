@@ -10,7 +10,8 @@ import { RENDER_SIGNUP_MODAL } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 
 const Home = () => {
-    const [state, dispatch] = useStoreContext();
+
+    const [, dispatch] = useStoreContext();
 
     const renderSignupModal = () => {
         dispatch({ type: RENDER_SIGNUP_MODAL });
@@ -38,7 +39,7 @@ const Home = () => {
             <InfoSection />
         </section>
         <section>
-            <MyMapComponent
+            <MyMapComponent findMeBtn={true} searchBar={true}
             // isMarkerShown
             // googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places &key=${process.env.REACT_APP_GOOGLE_API}`}
                                                                    

@@ -32,7 +32,7 @@ const Quickbook = () => {
             type: UPDATE_MAP_DATE,
             mapDate: date
         });
-        console.log('redirect');
+        // console.log('redirect');
         return <Redirect to={{pathname: "/findparking"}} />
     }
 

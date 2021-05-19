@@ -43,7 +43,7 @@ const AddASpot = () => {
       // get latitude and longitude from full address
       const geocode = await getGeocode({address});
       const {lat, lng} = await getLatLng(geocode[0]);
-      console.log(lat, lng);
+      // console.log(lat, lng);
 
       // if everything is in place, add new ParkingPlace to database
       const { data: addParkingResponse } = await addParkingPlace({
@@ -53,26 +53,17 @@ const AddASpot = () => {
         }
       });
 
-      console.log(addParkingResponse);
+      // console.log(addParkingResponse);
       window.location.assign("/dashboard");
     }
     // on error: set form message
     catch (e) {
       setFormErr("This is not a valid address.");
     }
-    // try {
-    //   await addParkingPlace({
-    //     variables: {
-    //       ...formState,
-    //     },
-    //   });
-    // } catch (e) {
-    //   console.error(e);
-    // }
   };
 
   return (
-    <div className="content-container">
+    <div className="add-parking-bg content-container">
       <Nav />
       <div className="add-parking">
         <h1>Host a New Parking Spot</h1>

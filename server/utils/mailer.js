@@ -18,7 +18,7 @@ const transporter = nodemailer.createTransport({
   secure: true,
 });
 
-const resolveTemplate = (template, formData, receipt) => {
+const resolveTemplate = (template, formData) => {
   const { name, lastName, email, reservationDetails } = formData;
 
   switch (template) {
@@ -27,10 +27,10 @@ const resolveTemplate = (template, formData, receipt) => {
         from: process.env.EMAIL_SENDER_USERNAME, // sender address
         to: email, // list of receivers
         subject: "Your booking confirmation",
-        text: "Please find your reservation details and receipt below",
+        text: "Please find your reservation details below",
         html: `
         <b>Hey there, ${name} ${lastName}!</b> 
-        <br>Here are your reservation details and receipt attached<br/>
+        <br>Here are your reservation details<br/>
         <p>${reservationDetails.date}</p>
         <p>${reservationDetails.address}</p>
         `,
@@ -53,8 +53,8 @@ const resolveTemplate = (template, formData, receipt) => {
 };
 
 // const sendEmail = (template, formData, receipt) => {
-const sendEmail = (template, formData, receipt) => {
-  const emailTemplate = resolveTemplate(template, formData, receipt);
+const sendEmail = (template, formData) => {
+  const emailTemplate = resolveTemplate(template, formData);
   transporter.sendMail(emailTemplate, function (err, info) {
     if (err) console.log(err);
     else console.log(info);

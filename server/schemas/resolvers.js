@@ -88,6 +88,8 @@ const resolvers = {
     },
 
     checkout: async (parent, args, context) => {
+      const { price } = args;
+
       if (context.user) {
         const url = new URL(context.headers.referer).origin;
         console.log("URL: " + url);
@@ -102,15 +104,14 @@ const resolvers = {
                   name: "Parking Place",
                   images: ["https://i.imgur.com/UfRvNq5.jpg"],
                 },
-                unit_amount: 2000,
-                // unit_amount: price * 100,
+                unit_amount: price * 100,
               },
               quantity: 1,
             },
           ],
           mode: "payment",
-          success_url: `${url}/history`,
-          cancel_url: `${url}/dashboard`,
+          success_url: `${url}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${url}/cancel`,
         });
 
         console.log("SESSION ID: " + session.id);

@@ -23,8 +23,8 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_CHECKOUT = gql`
-  {
-    checkout {
+  query checkout ($price: Int!) {
+    checkout(price: $price) {
       session
     }
   }

@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard";
 import History from "./pages/History";
 import NoMatch from "./pages/NoMatch";
 import ParkingPlace from "./pages/ParkingPlace";
+import SuccessfulReservation from "./pages/SuccessfulReservation";
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -46,6 +47,9 @@ function App() {
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
               <Route exact path="/parking-place" component={ParkingPlace}>
+                {!Auth.loggedIn() ? <Redirect to="/" /> : null}
+              </Route>
+              <Route exact path="/success" component={SuccessfulReservation}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
               {/* <Route exact path="/login" component={Login} />

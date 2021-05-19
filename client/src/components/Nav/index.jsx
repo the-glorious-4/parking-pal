@@ -25,30 +25,44 @@ const Nav = () => {
 
     return (<>
         <nav>
-        <Link to='/'>
-        <span className='title'>Parking-Pal</span>
-        </Link>
-        <img src={garage} onClick className='menuBtn' alt="menu button"/>
-            <div className='menu'>
+            <Link to='/'>
+                <span className='title'>Parking-Pal</span>
+            </Link>
+            <img src={garage}
+                className='menuBtn'
+                alt="menu button"
+                onClick={() => {
+                    console.log('click')
+                    let x = document.getElementById('navMenu');
+                    console.log(x)
+                    if (x.className === "menu") {
+                        x.className += " responsive";
+                    } else {
+                        x.className = "menu";
+                    }
+                }} />
+
+            <div id='navMenu' className='menu'>
+            
                 {Auth.loggedIn() ?
-                <>
-                    <span><Link to="/dashboard">Your Dashboard</Link></span>
-                    <span><Link to="/findparking">Find a Space</Link></span>
-                    <span><Link to="/addparking">Host a Spot</Link></span>
-                    <span><Link to="/profile">Edit Profile</Link></span>
-                    <span><Link to="/history">History</Link></span>
-                    <span onClick={logout}>Log-Out</span>
-                </>
-                :
-                <>
-                    <span><a href='#infoSection'>How It Works</a></span>
-                    <span onClick={renderLoginModal}>Log-In</span>
-                    <span onClick={renderSignupModal}>Sign-Up</span>
-                </>}
+                    <>
+                        <span><Link className='menuSpan' to="/dashboard">Dashboard</Link></span>
+                        <span><Link className='menuSpan' to="/findparking">Find a Space</Link></span>
+                        <span><Link className='menuSpan' to="/addparking">Host a Spot</Link></span>
+                        <span><Link className='menuSpan' to="/profile">Edit Profile</Link></span>
+                        <span><Link className='menuSpan' to="/history">History</Link></span>
+                        <span className='menuSpan'  onClick={logout}>Log-Out</span>
+                    </>
+                    :
+                    <>
+                        <span><a href='#infoSection'>How It Works</a></span>
+                        <span onClick={renderLoginModal}>Log-In</span>
+                        <span onClick={renderSignupModal}>Sign-Up</span>
+                    </>}
             </div>
         </nav>
         {state.loginRendered ? <LoginModal /> :
-         state.signupRendered ? <SignupModal /> : null}
+            state.signupRendered ? <SignupModal /> : null}
 
         <div className='staticBG'></div>
         <div className='stickyBG'></div>

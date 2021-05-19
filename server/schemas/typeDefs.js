@@ -57,11 +57,11 @@ const typeDefs = gql`
   type Query {
     user: User
     inventory(inventory: ID): [Inventory]
-    getAllParking(city: String, startDate: String): [Inventory]
-    getParkingByInventoryId(_id: ID!): Inventory
-    getAllInventoriesByProviderID: [Inventory]
+    getAllInventories(city: String, startDate: String): [Inventory]
+    getInventoryById(_id: ID!): Inventory
+    getMyInventories: [Inventory]
     getConsumerReservations(startDate:String): [Reservation]
-    getUsersHistory: User
+    getMyReservations: [Reservation]
   }
 
   type Mutation {

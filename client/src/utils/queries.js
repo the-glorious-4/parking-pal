@@ -18,6 +18,12 @@ export const QUERY_USER = gql`
         isCoveredParking
         capacity
         latLng
+        inventory {
+          _id
+          startDate
+          price
+          isAvailable
+        }
       }
     }
   }

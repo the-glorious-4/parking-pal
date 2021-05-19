@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "./style.scss";
-import { useQuery, useLazyQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { Link } from "react-router-dom";
 import Nav from "../../components/Nav";
 import Auth from "../../utils/auth";
-import { QUERY_USER,  } from "../../utils/queries";
+import { formatDate } from "../../utils/helpers";
+import { QUERY_USER } from "../../utils/queries";
 import { ADD_INVENTORY } from "../../utils/mutations";
 
 const MySpots = () => {
+    const [inventory, setInventory] = useState({ display: false, space: "", invList: [] });
     const { loading, data } = useQuery(QUERY_USER);
     let spaces;
 
@@ -16,9 +18,22 @@ const MySpots = () => {
     if (loading) return <h1>Loading...</h1>;
     if (!Auth.loggedIn) return <h1>Returning to Homepage...</h1>;
 
+    // render parking space inventory information
     function renderInfo(event) {
         event.preventDefault();
-        console.log(event.target);
+
+        // get id of selected parking space and find it in spaces array
+        const targetId = event.target.getAttribute("data-id");
+        const currentSpace = spaces.find(ele => ele._id === targetId);
+        console.log(currentSpace);
+
+        // set inventory state by info in spaces array
+        setInventory({
+            display: true,
+            space: event.target.innerHTML,
+            invList: [...currentSpace.inventory]
+        });
+        console.log(inventory.invList)
     }
 
     console.log(spaces);
@@ -48,9 +63,29 @@ const MySpots = () => {
                         <Link to="/addparking"><button>Add a new Parking Space</button></Link>
                     </div>
                     {/* Scheduling calendar */}
-                    <div className="inventory-container">
-                        {/*  */}
-                    </div>
+                    {inventory.display &&
+                    <div className="inventory-container spaces-container">
+                        <h2>
+                            Availability Information for
+                            <span> {inventory.space}</span>
+                        </h2>
+                        {inventory.invList.length ?
+                        <ul className="availability-list">
+                            {/* List inventory for this space */}
+                            {inventory.invList.map(({ _id, startDate, price, isAvailable }) => (
+                                <li key={_id} className={!isAvailable && "unavailable"}>
+                                    Availability: {isAvailable ? "Open" : "Closed"}  ●  
+                                    Date: {formatDate(startDate)}  ●  
+                                    Price: ${price}
+                                </li>
+                            ))}
+                        </ul>
+                        :
+                        <span className="dashboard-nolist">
+                            You have not added any availabilities for this space.
+                        </span>}
+                        <button>Add an Availability</button>
+                    </div>}
                 </div>
             </div>
         </div>

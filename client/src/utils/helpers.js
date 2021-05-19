@@ -17,22 +17,28 @@ export function idbPromise(storeName, method, object) {
         let db, tx, store;
 
         // if version changed / first time using this, create object stores
-        request.onupgradeneeded = function(e) {
+        request.onupgradeneeded = function (e) {
             const db = request.result;
             // create object store for each type of data.
             // set primary key index to be the _id of the data
-            db.createObjectStore("spaces", { keyPath: "_id" }); // spaces owned by user
-            db.createObjectStore("inventory", { keyPath: "_id" }); // user's space inventory
-            db.createObjectStore("reservations", { keyPath: "_id" }); // user's reservations
+            db.createObjectStore("spaces", {
+                keyPath: "_id"
+            }); // spaces owned by user
+            db.createObjectStore("inventory", {
+                keyPath: "_id"
+            }); // user's space inventory
+            db.createObjectStore("reservations", {
+                keyPath: "_id"
+            }); // user's reservations
         };
 
         // handle any errors with connecting
-        request.onerror = function(e) {
+        request.onerror = function (e) {
             console.error("Error:", e);
         };
 
         // on database open success
-        request.onsuccess = function(e) {
+        request.onsuccess = function (e) {
             // save reference of the database
             db = request.result;
             // open a transaction for one of the object stores
@@ -41,7 +47,7 @@ export function idbPromise(storeName, method, object) {
             store = tx.objectStore(storeName);
 
             // if an error occurs, log it
-            db.onerror = function(e) {
+            db.onerror = function (e) {
                 console.error("Error: ", e);
             };
 
@@ -52,7 +58,7 @@ export function idbPromise(storeName, method, object) {
                     break;
                 case "get":
                     const all = store.getAll();
-                    all.onsuccess = function() {
+                    all.onsuccess = function () {
                         resolve(all.result);
                     };
                     break;
@@ -65,9 +71,24 @@ export function idbPromise(storeName, method, object) {
             }
 
             // when transaction completes, close connection
-            tx.oncomplete = function() {
+            tx.oncomplete = function () {
                 db.close();
             };
         };
     });
+}
+
+export function todaysDate(){
+    let today = new Date();
+    let dd = today.getDate();
+    let mm = today.getMonth() + 1;
+    let yyyy = today.getFullYear();
+    if (dd < 10) {
+        dd = '0' + dd
+    }
+    if (mm < 10) {
+        mm = '0' + mm
+    }
+    today = yyyy + '-' + mm + '-' + dd;
+    return today.toString();
 }

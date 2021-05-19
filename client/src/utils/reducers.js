@@ -5,7 +5,9 @@ import {
     REMOVE_MODAL,
     UPDATE_MAP_LOCATION,
     UPDATE_MAP_DATE,
-    UPDATE_QUERY_CITY
+    UPDATE_QUERY_CITY,
+    UPDATE_SELECTED_INVENTORY,
+    SET_CURRENT_USER
 } from "./actions";
 
 /*
@@ -17,6 +19,11 @@ state: {
 
 export const reducer = (state, action) => {
     switch (action.type) {
+        case SET_CURRENT_USER:
+            return {
+                ...state,
+                currentUser: action.currentUser
+            }
         case UPDATE_MAP_LOCATION:
             return {
                 ...state,
@@ -31,6 +38,11 @@ export const reducer = (state, action) => {
             return {
                 ...state,
                 mapCity: action.mapCity
+            }
+        case UPDATE_SELECTED_INVENTORY:
+            return {
+                ...state,
+                selectedInventory: action.selectedInventory
             }
         case RENDER_LOGIN_MODAL:
             return {

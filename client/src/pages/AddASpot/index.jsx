@@ -1,13 +1,14 @@
 import React, { useState } from "react";
 import "./style.scss";
 // import { useMutation } from "@apollo/react-hooks";
-// import { ADD_PARKINGPLACE } from "../../utils/mutations";
+import { getGeocode, getLatLng } from "use-places-autocomplete";
 import Nav from '../../components/Nav';
+// import { ADD_PARKINGPLACE } from "../../utils/mutations";
 
 const AddASpot = () => {
   
   const [formState, setFormState] = useState({
-    apt: "", street: "", city: "", state: "", zip: "", isCoveredParking: false, capacity: 0,
+    apt: "", street: "", city: "", state: "", zip: "", isCoveredParking: false, capacity: 1
   });
 
   // const [errFlags, setErrFlags] = useState({ addrError: false});
@@ -16,6 +17,7 @@ const AddASpot = () => {
 
   // validate form and set error messages.
   const validateForm = () => {
+    // if any fields were left blank, set errFlag
     return true;
     // if geolocation fails on this address, turn on error message
   };
@@ -23,14 +25,31 @@ const AddASpot = () => {
   const handleChange = event => {
     // destructure event target
     const { type, name, value } = event.target;
+    console.log(value);
     // if (event.target.type === "checkbox") console.log(event.target.checked, event.target.value);
     // update state
-    setFormState({ ...formState, [name]: (type) ? event.target.checked : value });
+    setFormState({ ...formState, [name]: (type === "checkbox") ? event.target.checked : value });
   };
   
   const handleFormSubmit = async event => {
     event.preventDefault();
     if (!validateForm()) return false;
+    
+    const address = `${formState.street}, ${formState.city}, ${formState.state}, ${formState.zip}`;
+
+    try {
+      // get latitude and longitude from full address
+      const geocode = await getGeocode({address});
+      const latLng = await getLatLng(geocode[0]);
+      console.log(latLng);
+
+      // if everything is in place, add new ParkingPlace to database
+      // TODO
+    }
+    // on error: set form message
+    catch (e) {
+      console.log(e);
+    }
     // try {
     //   await addParkingPlace({
     //     variables: {
@@ -48,42 +67,38 @@ const AddASpot = () => {
       <div className="add-parking">
         <h1>Host a New Parking Spot</h1>
         <form className="addParkingForm" onSubmit={handleFormSubmit}>
-            <div className="field">
-              <label htmlFor="apt">Apartment #</label>
-              <input
-                placeholder="Apartment #"
-                name="apt"
-                type="apt"
-                id="apt"
-                onChange={handleChange}
-              />
-          </div>
           <div className="field">
-            <label htmlFor="street">Street Address</label>
+            <label htmlFor="street">Street Address <span className="required-field">*</span></label>
             <input
               placeholder="Street Address"
               name="street"
-              type="street"
               id="street"
               onChange={handleChange}
             />
           </div>
           <div className="field">
-            <label htmlFor="city">city</label>
+            <label htmlFor="apt">Apartment #</label>
+            <input
+              placeholder="Apartment #"
+              name="apt"
+              id="apt"
+              onChange={handleChange}
+            />
+          </div>
+          <div className="field">
+            <label htmlFor="city">City <span className="required-field">*</span></label>
             <input
               placeholder="City"
               name="city"
-              type="city"
               id="city"
               onChange={handleChange}
             />
           </div>
           <div className="field">
-            <label htmlFor="state">State</label>
+            <label htmlFor="state">State <span className="required-field">*</span></label>
             <input
               placeholder="State"
               name="state"
-              type="state"
               id="state"
               onChange={handleChange}
             />
@@ -94,11 +109,10 @@ const AddASpot = () => {
                       </select> */}
     
           <div className="field">
-            <label htmlFor="zip">ZipCode</label>
+            <label htmlFor="zip">Zip Code <span className="required-field">*</span></label>
             <input
               placeholder="zipcode"
               name="zip"
-              type="zip"
               id="zip"
               onChange={handleChange}
             />
@@ -113,11 +127,12 @@ const AddASpot = () => {
             />
           </div>
           <div className="field">
-            <label htmlFor="capacity">capacity</label>
+            <label htmlFor="capacity">Parking Space Capacity <span className="required-field">*</span></label>
             <input
-              placeholder="capacity"
+              type="number"
+              placeholder="1"
+              defaultValue="1"
               name="capacity"
-              type="capacity"
               id="capacity"
               onChange={handleChange}
             />

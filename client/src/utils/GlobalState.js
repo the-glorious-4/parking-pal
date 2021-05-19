@@ -12,7 +12,7 @@ const StoreProvider = ({ value = [], ...props }) => {
         mapLocation: { lat: 37.774, lng: -122.419 },
         mapDate: todaysDate(),
         mapCity: 'San Francisco',
-        selectedInventory: {},
+        selectedInventory: null,
         currentUser: {}
     });
     return <Provider value={[state, dispatch]} {...props} />;

@@ -18,6 +18,7 @@ import ParkingPlace from "./pages/ParkingPlace";
 import SuccessfulReservation from "./pages/SuccessfulReservation";
 import FindASpot from "./pages/FindASpot";
 import AddASpot from "./pages/AddASpot";
+import MySpots from "./pages/MySpots";
 
 const client = new ApolloClient({
   request: (operation) => {
@@ -48,6 +49,10 @@ function App() {
               </Route>
 
               <Route exact path="/addparking" component={AddASpot}>
+                {!Auth.loggedIn() ? <Redirect to="/" /> : null}
+              </Route>
+
+              <Route exact path="/myspots" component={MySpots}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
 

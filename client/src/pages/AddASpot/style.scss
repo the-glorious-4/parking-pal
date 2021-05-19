@@ -1,3 +1,7 @@
+.add-parking-bg {
+    background-color: #7daacc;
+}
+
 .add-parking {
     margin-top: 14vh;
     margin-left: 2em;
@@ -7,6 +11,15 @@
     h1, h2 {
         text-shadow: #f1f3f4 0 0 2px;
     }
+}
+
+.required-field {
+    color: red;
+}
+
+.add-space-err {
+    display: block;
+    margin-top: 1rem;
 }
 /*
 .field {

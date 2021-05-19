@@ -46,6 +46,7 @@ const AddASpot = () => {
     <div className="content-container">
       <Nav />
       <div className="add-parking">
+        <h1>Host a New Parking Spot</h1>
         <form className="addParkingForm" onSubmit={handleFormSubmit}>
             <div className="field">
               <label htmlFor="apt">Apartment #</label>

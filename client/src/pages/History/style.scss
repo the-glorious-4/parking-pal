@@ -1,5 +1,16 @@
+.history-bg {
+    background-color: #7daacc;
+    background-position: center;
+}
+
 .history {
     margin-top: 14vh;
     margin-left: 2em;
     margin-right: 2em;
+}
+
+.history-heading {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }

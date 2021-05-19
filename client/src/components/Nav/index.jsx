@@ -28,13 +28,13 @@ const Nav = () => {
         <Link to='/'>
         <span className='title'>Parking-Pal</span>
         </Link>
-            {/* <div>look for parking</div> */}
             <div className='menu'>
                 {Auth.loggedIn() ?
                 <>
-                    <span><Link to='/findparking' >Find a Space</Link></span>
-                    <span><Link to="/addParkingForm">Host a Spot</Link></span>
-                    {/* <span><Link>Edit Profile</Link></span> */}
+                    <span><Link to="/dashboard">Your Dashboard</Link></span>
+                    <span><Link to="/findparking">Find a Space</Link></span>
+                    <span><Link to="/addparking">Host a Spot</Link></span>
+                    <span><Link to="/profile">Edit Profile</Link></span>
                     <span><Link to="/history">History</Link></span>
                     <span onClick={logout}>Log-Out</span>
                 </>

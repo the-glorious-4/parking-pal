@@ -15,7 +15,7 @@ const LoginModal = () => {
     const [errFlags, setErrFlags] = useState({ emailError: false });
     const [login, { error }] = useMutation(LOGIN_USER);
 
-    const [state, dispatch] = useStoreContext();
+    const [, dispatch] = useStoreContext();
 
     const renderSignupModal = (event) => {
         event.preventDefault();

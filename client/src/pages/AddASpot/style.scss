@@ -1,4 +1,14 @@
+.add-parking {
+    margin-top: 14vh;
+    margin-left: 2em;
+    margin-right: 2em;
+    flex-grow: 1;
 
+    h1, h2 {
+        text-shadow: #f1f3f4 0 0 2px;
+    }
+}
+/*
 .field {
     display: flex;
     justify-content: flex-start;
@@ -61,3 +71,4 @@ form {
     font-weight: 400;
     text-shadow: black 1px 1px;
 }
+*/

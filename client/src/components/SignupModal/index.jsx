@@ -14,7 +14,7 @@ const SignupModal = () => {
     const [formState, setFormState] = useState({ firstName: "", lastName: "", email: "", password: "", phone: "" });
     const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false });
     const [addUser, { error }] = useMutation(ADD_USER);
-    const [state, dispatch] = useStoreContext();
+    const [, dispatch] = useStoreContext();
 
     const renderLoginModal = (event) => {
         event.preventDefault();

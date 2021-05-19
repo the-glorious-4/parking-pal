@@ -1,37 +1,59 @@
 import React from "react";
 import "./style.scss";
+import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import Auth from "../../utils/auth";
-import { QUERY_USER } from "../../utils/queries";
+import { formatDate } from "../../utils/helpers";
+import { QUERY_USER, QUERY_ACTIVE_RESERVATIONS } from "../../utils/queries";
 import Nav from '../../components/Nav';
+
+const today = Date.now().toString();
 
 const Dashboard = () => {
     const { loading, data } = useQuery(QUERY_USER);
-    let user;
-    
-    user = data?.user || {};
+    const { loading: rloading, data: rdata } = useQuery(QUERY_ACTIVE_RESERVATIONS, {
+        variables: { startDate: today }
+    });
+    let user, reservations;
 
-    if (loading) {
+    user = data?.user || {};
+    reservations = rdata?.getConsumerReservations || {};
+
+    if (loading || rloading) {
         return <h1>Loading...</h1>;
     }
     if (!Auth.loggedIn) {
         return <h1>Returning to Homepage...</h1>;
     }
 
-    console.log(user);
-
     return (
-        <div className="content-container">
+        <div className="dashboard-bg content-container">
             <Nav />
+            {user ?
             <div className="dashboard">
                 <h1>Welcome, {user.firstName}!</h1>
                 <div className="active-lists">
                     <div className="dash-list">
                         <h2>Current and Upcoming Reservations</h2>
-                        <ul>
-                            {/* TODO: query all reservations that list this user as a consumer */}
-                        </ul>
-                        <button>Reserve a Parking Space</button>
+                        {
+                            // if user has any active reservations, display them
+                            reservations ?
+                            <ul>
+                                {reservations.map(({
+                                    startDate, parkingPlace: { _id, street, apt, city, state, zip }
+                                }) => (
+                                    <li key={_id}>
+                                        <span className="dateheader">{formatDate(startDate)}</span>
+                                        {`${street} ${apt} ${city}, ${state} ${zip}`}
+                                    </li>
+                                ))}
+                            </ul>
+                            :
+                            <span className="dashboard-nolist">
+                                You currently have no active reservations.
+                            </span>
+                        }
+                        <Link to="/findparking"><button>Reserve a Parking Space</button></Link>
                     </div>
                     <div className="dash-list">
                         <h2>Your Spaces</h2>
@@ -39,20 +61,23 @@ const Dashboard = () => {
                             // if user is a provider, display parking spaces they own
                             user.parkingPlace ?
                             <ul>
-                                {user.parkingPlace.map(({ _id, street, city, state, zip }) => (
+                                {user.parkingPlace.map(({ _id, street, apt, city, state, zip }) => (
                                     <li key={_id}>
-                                        {/* TODO: Link to detail view. Endpoint: `/${space._id}` */}
-                                        {`${street} ${city}, ${state} ${zip}`}
+                                        {`${street} ${apt} ${city}, ${state} ${zip}`}
                                     </li>
                                 ))}
                             </ul>
                             :
-                            <span>You are currently not a Parking Space Provider.</span>
+                            <span className="dashboard-nolist">
+                                You are currently not a Parking Space Provider.
+                            </span>
                         }
-                        <button>Add a new Parking Space</button>
+                        <Link to="/addparking"><button>Add a new Parking Space</button></Link>
                     </div>
                 </div>
             </div>
+            :
+            <h1 className="page-error">Something went wrong!</h1>}
         </div>
     );
 };

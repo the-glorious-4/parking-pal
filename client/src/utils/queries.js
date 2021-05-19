@@ -23,9 +23,55 @@ export const QUERY_USER = gql`
     }
 `;
 
+export const INVENTORY_HISTORY = gql`
+    {
+        getMyInventories {
+            _id
+            startDate
+            price
+            isAvailable
+            parkingPlace {
+                _id
+                apt
+                street
+                city
+                state
+                zip
+                isCoveredParking
+                capacity
+                latLng
+            }
+        }
+    }
+`;
+
+export const QUERY_ACTIVE_RESERVATIONS = gql`
+    query getConsumerReservations ($startDate: String) {
+        getConsumerReservations (startDate: $startDate) {
+            _id
+            startDate
+            consumer {
+                _id
+            }
+            parkingPlace {
+                _id
+                apt
+                street
+                city
+                state
+                zip
+                isCoveredParking
+                capacity
+                latLng
+            }
+            stripeTransaction
+        }
+    }
+`;
+
 export const QUERY_ALL_PARKING = gql`
-query getAllParking($city: String,$startDate:String){
-      getAllParking(city: $city, startDate:$startDate){
+query getAllInventories($city: String,$startDate:String){
+    getAllInventories(city: $city, startDate:$startDate){
         _id
         startDate,
         price

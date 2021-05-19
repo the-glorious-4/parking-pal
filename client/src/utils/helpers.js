@@ -8,6 +8,12 @@ export function formatPhoneNumber(str) {
     return `${str.slice(0,3)}-${str.slice(3,6)}-${str.slice(6,10)}`;
 }
 
+export function formatDate(str) {
+    let date = new Date(parseInt(str));
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return date.toLocaleDateString("en-US", options);
+}
+
 // store data from database queries in indexedDB
 export function idbPromise(storeName, method, object) {
     return new Promise((resolve, reject) => {

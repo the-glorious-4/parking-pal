@@ -45,9 +45,24 @@ export const INVENTORY_HISTORY = gql`
 `;
 
 export const QUERY_ACTIVE_RESERVATIONS = gql`
-    {
-        getConsumerReservations {
+    query getConsumerReservations ($startDate: String) {
+        getConsumerReservations (startDate: $startDate) {
             _id
+            startDate
+            consumer {
+                _id
+            }
+            parkingPlace {
+                _id
+                apt
+                street
+                city
+                state
+                zip
+                isCoveredParking
+                capacity
+            }
+            stripeTransaction
         }
     }
 `;

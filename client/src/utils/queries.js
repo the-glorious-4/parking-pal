@@ -39,6 +39,7 @@ export const INVENTORY_HISTORY = gql`
                 zip
                 isCoveredParking
                 capacity
+                latLng
             }
         }
     }
@@ -61,6 +62,7 @@ export const QUERY_ACTIVE_RESERVATIONS = gql`
                 zip
                 isCoveredParking
                 capacity
+                latLng
             }
             stripeTransaction
         }

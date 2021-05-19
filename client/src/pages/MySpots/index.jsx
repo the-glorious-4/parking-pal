@@ -47,7 +47,9 @@ const MySpots = () => {
                 <div className="inventory-main">
                     {/* Parking Space List */}
                     <div className="spaces-container">
-                        <p>Select a space to view and edit its availability information.</p>
+                        <p style={{textAlign: "center"}}>
+                            Select a space to view and edit its availability information.
+                        </p>
                         {spaces ?
                         <ul className="space-list">
                             {spaces.map(({ _id, street, apt, city, state, zip }) => (
@@ -66,14 +68,14 @@ const MySpots = () => {
                     {inventory.display &&
                     <div className="inventory-container spaces-container">
                         <h2>
-                            Availability Information for
-                            <span> {inventory.space}</span>
+                            Availability Information for:
+                            <span className="space-span"> {inventory.space}</span>
                         </h2>
                         {inventory.invList.length ?
                         <ul className="availability-list">
                             {/* List inventory for this space */}
                             {inventory.invList.map(({ _id, startDate, price, isAvailable }) => (
-                                <li key={_id} className={!isAvailable && "unavailable"}>
+                                <li key={_id} className={!isAvailable ? "unavailable": "available"}>
                                     Availability: {isAvailable ? "Open" : "Closed"}  ●  
                                     Date: {formatDate(startDate)}  ●  
                                     Price: ${price}

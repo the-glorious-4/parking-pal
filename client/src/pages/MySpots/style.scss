@@ -45,6 +45,11 @@
     }
 }
 
+.space-span {
+    display: block;
+    margin: 0.5rem 0;
+}
+
 .space-list {
     padding: 1rem 1rem;
     padding-inline-start: 0;
@@ -59,6 +64,11 @@
         margin: 0.1rem;
         padding: 1rem 0.3rem;
         border: 1px solid gray;
+
+        &:hover {
+            cursor: pointer;
+            background-color: white;
+        }
     }
 }
 
@@ -78,7 +88,12 @@
     }
 }
 
+.available {
+    color: black;
+    background-color: rgba(241, 243, 244, 1);
+}
+
 .unavailable {
     color: white;
-    background-color: rgba(190, 67, 48, 0.8);
+    background-color: rgba(190, 67, 48, 1);
 }

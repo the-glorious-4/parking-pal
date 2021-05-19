@@ -30,7 +30,7 @@ const resolvers = {
 
       throw new AuthenticationError("Not logged in");
     },
-    
+
     //Get all Inventories by StartDate and City
     getAllInventories: async (parent, args) => {
       const { city, startDate } = args;
@@ -46,7 +46,7 @@ const resolvers = {
       return parkingPlacesInv;
     },
 
-    //Get all Inventories by InventoryID 
+    //Get all Inventories by InventoryID
     getInventoryById: async (parent, { _id }) => {
       const parkingPlacesInv = await Inventory.findById({ _id }).populate({
         path: "parkingPlace",
@@ -88,7 +88,9 @@ const resolvers = {
     //Get All Reservations of users
     getMyReservations: async (parent, args, context) => {
       if (context.user) {
-        const reservedParkingPlaces = await User.findById(context.user._id).populate({
+        const reservedParkingPlaces = await User.findById(
+          context.user._id
+        ).populate({
           path: "bookings",
           model: "Reservations",
         });
@@ -211,8 +213,7 @@ const resolvers = {
       sendEmail(EmailTemplate.BOOKING_CONFIRMATION_CONSUMER, args);
 
       const consumer = context.user._id;
-      const { inventoryId, parkingPlace, startDate, stripeTransaction } =
-        args;
+      const { inventoryId, parkingPlace, startDate, stripeSessionId } = args;
 
       if (context.user) {
         const reservation = await Reservation.create({
@@ -220,7 +221,7 @@ const resolvers = {
           inventoryId,
           parkingPlace,
           startDate,
-          stripeTransaction,
+          stripeSessionId,
         });
 
         await Inventory.findByIdAndUpdate(

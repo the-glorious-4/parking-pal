@@ -39,6 +39,7 @@ const Message = ({ message }) => (
 
 export const StripeCheckout = () => {
   const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+  // TODO: read from global state
   const price = 100;
   const [message, setMessage] = useState("");
 

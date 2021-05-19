@@ -95,7 +95,7 @@ export const ADD_RESERVATION = gql`
   mutation addReservation(
     $inventoryId: ID!
     $startDate: String!
-    $stripeTransaction: String!
+    $stripeSessionId: String!
     $parkingPlace: ID!
     $name: String!
     $lastName: String!
@@ -106,7 +106,7 @@ export const ADD_RESERVATION = gql`
     addReservation(
       inventoryId: $inventoryId
       startDate: $startDate
-      stripeTransaction: $stripeTransaction
+      stripeSessionId: $stripeSessionId
       parkingPlace: $parkingPlace
       name: $name
       lastName: $lastName

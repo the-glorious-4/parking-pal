@@ -46,7 +46,7 @@ const typeDefs = gql`
     startDate: String
     parkingPlace: ParkingPlace
     consumer: User
-    stripeTransaction: String
+    stripeSessionId: String
   }
 
   type Auth {
@@ -115,7 +115,7 @@ const typeDefs = gql`
       startDate: String!
       parkingPlace: ID!
       inventoryId: ID!
-      stripeTransaction: String!
+      stripeSessionId: String!
       name: String!
       lastName: String!
       email: String!

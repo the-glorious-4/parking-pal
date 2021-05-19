@@ -13,14 +13,14 @@ const History = () => {
     user = userQuery.data?.user || {};
     inventory = inventoryQuery.data?.getAllInventoriesByProviderID || {};
 
-    if (userQuery.loading) {
+    if (userQuery.loading || !user) {
         return <h1>Loading...</h1>;
     }
     if (!Auth.loggedIn()) {
         return <h1>Returning to Homepage...</h1>;
     }
 
-    console.log(inventory);
+    console.log("loading", inventoryQuery.loading, "inventory: ", inventory);
 
     return (
         <div className="history-bg content-container">

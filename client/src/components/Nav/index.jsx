@@ -50,7 +50,7 @@ const Nav = () => {
                         <span><Link className='menuSpan' to="/findparking">Find a Space</Link></span>
                         <span><Link className='menuSpan' to="/addparking">Host a Spot</Link></span>
                         <span><Link className='menuSpan' to="/profile">Edit Profile</Link></span>
-                        <span><Link className='menuSpan' to="/history">History</Link></span>
+                        {/* <span><Link className='menuSpan' to="/history">History</Link></span> */}
                         <span className='menuSpan'  onClick={logout}>Log-Out</span>
                     </>
                     :

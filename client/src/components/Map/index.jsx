@@ -57,12 +57,13 @@ function MyMapComponent(props) {
     useEffect(() => {
 
         if (data) {
-            console.log(data.getAllParking);
-            setMarkers(data.getAllParking);
+            console.log(data.getAllInventories);
+            setMarkers(data.getAllInventories);
         }
 
     }, [data])
-console.log(markers);
+
+// console.log(markers);
 
     return (
         <div className='mapBody'>
@@ -96,17 +97,17 @@ console.log(markers);
                         setSelected(marker)
                         dispatch({
                             type: UPDATE_MAP_LOCATION,
-                            location: { lat: parseFloat(marker.parkingPlace.latLng[1]), lng: parseFloat(marker.parkingPlace.latLng[0]) }
+                            location: { lat: parseFloat(marker.parkingPlace.latLng[0]), lng: parseFloat(marker.parkingPlace.latLng[1]) }
                         })
                     }}
-                    position={{ lat: parseFloat(marker.parkingPlace.latLng[1]), lng: parseFloat(marker.parkingPlace.latLng[0]) }}
+                    position={{ lat: parseFloat(marker.parkingPlace.latLng[0]), lng: parseFloat(marker.parkingPlace.latLng[1]) }}
                     id={markers.indexOf(marker)}
-                    onLoad={console.log(marker, 'heres the marker')}
+                    // onLoad={console.log(marker, 'heres the marker')}
                 />))}
 
                 {selected ? (
                     <InfoWindow
-                        position={{ lat: parseFloat(selected.parkingPlace.latLng[1]), lng: parseFloat(selected.parkingPlace.latLng[0]) }}
+                        position={{ lat: parseFloat(selected.parkingPlace.latLng[0]), lng: parseFloat(selected.parkingPlace.latLng[1]) }}
                         onCloseClick={() => { setSelected(null) }}
                     >
                         <div>

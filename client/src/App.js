@@ -12,7 +12,7 @@ import Auth from "./utils/auth";
 
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
-import History from "./pages/History";
+// import History from "./pages/History";
 import NoMatch from "./pages/NoMatch";
 import ParkingPlace from "./pages/ParkingPlace";
 import SuccessfulReservation from "./pages/SuccessfulReservation";
@@ -51,9 +51,9 @@ function App() {
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
 
-              <Route exact path="/history" component={History}>
+              {/* <Route exact path="/history" component={History}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
-              </Route>
+              </Route> */}
 
               <Route exact path="/parking-place" component={ParkingPlace}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}

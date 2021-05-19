@@ -44,6 +44,14 @@ export const INVENTORY_HISTORY = gql`
     }
 `;
 
+export const QUERY_ACTIVE_RESERVATIONS = gql`
+    {
+        getConsumerReservations {
+            _id
+        }
+    }
+`;
+
 export const QUERY_ALL_PARKING = gql`
 query getAllInventories($city: String,$startDate:String){
     getAllInventories(city: $city, startDate:$startDate){

@@ -28,7 +28,7 @@ const typeDefs = gql`
     zip: String
     isCoveredParking: Boolean
     capacity: Int
-    latlong : [String]
+    latLng: [String]
     provider: User
     inventory: [Inventory]
   }
@@ -89,6 +89,7 @@ const typeDefs = gql`
       zip: String!
       isCoveredParking: Boolean!
       capacity: Int!
+      latLng: [String]
     ): ParkingPlace
 
     editParkingPlace(
@@ -100,6 +101,7 @@ const typeDefs = gql`
       zip: String
       isCoveredParking: Boolean
       capacity: Int
+      latLng: [String]
     ): ParkingPlace
 
     addInventory(startDate: String!, price: Int!, parkingPlace: ID!): Inventory

@@ -38,6 +38,7 @@ export const ADD_PARKINGPLACE = gql`
                 zip
                 isCoveredParking
                 capacity
+                latLng
             }
         }
     }
@@ -52,6 +53,7 @@ export const ADD_INVENTORY = gql`
             isAvailable
             parkingPlace{
               _id
+              latLng
             }
           }
     }

@@ -1,20 +1,24 @@
 
 .sorryBody {
-    height: 100vh;
+    position: absolute;
+    top: 10vh;
+    height: 80vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap;
 
     p {
-        padding: 20px 60px;
+        padding: 20px 5vw;
     }
     img {
         max-height: 80vh;
-        max-width: 50%;
+        min-width: 40%;
         margin: auto;
     }
     div {
-        width: 50%;
+        min-width: 40%;
     }
 
 }

@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import SearchInput from '../SearchInput';
 import FindMeBtn from '../FindMeBtn';
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import './style.scss';
 import { todaysDate } from '../../utils/helpers';
 import { useStoreContext } from '../../utils/GlobalState';
@@ -13,9 +13,12 @@ import { withRouter } from 'react-router-dom';
 
 const Quickbook = () => {
 
+    let history = useHistory();
+
     const [state, dispatch] = useStoreContext();
 
     const handleSubmit = (event) => {
+        
         console.log('submit');
         event.preventDefault();
         let place = event.target[0].value;
@@ -34,10 +37,13 @@ const Quickbook = () => {
         dispatch({
             type: UPDATE_MAP_DATE,
             mapDate: date
-        });
+        })
         console.log('redirect');
-       
+
+        history.push('/findparking');
     }
+
+
     // const handleSubmit = (event) => { event.preventDefault(); console.log('submit') }
 
     // useEffect(() => {

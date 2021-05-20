@@ -32,9 +32,9 @@ function MyMapComponent(props) {
 
 
     const [state, dispatch] = useStoreContext();
-    const [markers, setMarkers] = useState(plots)
-    const [, setMap] = useState(null)
-    const [selected, setSelected] = useState(null)
+    const [markers, setMarkers] = useState(null)
+    // const [, setMap] = useState(null)
+    // const [selected, setSelected] = useState(null)
 
     // const mapRef = useRef();
 
@@ -54,7 +54,7 @@ function MyMapComponent(props) {
         console.log('loading');
     }
 
-    console.log(state.selectedInventory);
+    // console.log(state.selectedInventory);
 
     useEffect(() => {
         if (data) {
@@ -63,7 +63,7 @@ function MyMapComponent(props) {
         }
     }, [data])
 
-    // console.log(markers);
+    markers && markers.map(marker => marker.parkingPlace && console.log(marker))
 
     return (
         <div className='mapBody'>
@@ -83,8 +83,8 @@ function MyMapComponent(props) {
                 options={options}
             // onLoad={onLoad}
             >
-                {markers &&
-                    (markers.map(marker => <Marker
+                {markers ?
+                    (markers.map(marker => marker.parkingPlace && <Marker
 
                         icon={{
                             url: prkingLogo,
@@ -106,7 +106,7 @@ function MyMapComponent(props) {
                         position={{ lat: parseFloat(marker.parkingPlace.latLng[0]), lng: parseFloat(marker.parkingPlace.latLng[1]) }}
                         id={markers.indexOf(marker)}
                     // onLoad={console.log(marker, 'heres the marker')}
-                    />))}
+                    />)) : null}
 
                 {state.selectedInventory ? (
                     <InfoWindow

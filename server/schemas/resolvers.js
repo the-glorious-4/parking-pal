@@ -34,14 +34,27 @@ const resolvers = {
     //Get all Inventories by StartDate and City
     getAllInventories: async (parent, args) => {
       const { city, startDate } = args;
-      const parkingPlacesInv = await Inventory.find({
-        startDate: startDate,
-        isAvailable: true,
-      }).populate({
-        path: "parkingPlace",
-        model: "ParkingPlace",
-        match: { city: city },
-      });
+      const params = startDate
+        ? { startDate: startDate , isAvailable: true}
+        : { startDate: { $gte: new Date() } ,isAvailable: true };
+
+      const matchParam = city
+      ? {match: { city: city }} : "";
+        const parkingPlacesInv = await Inventory.find(params).populate({
+          path: "parkingPlace",
+          model: "ParkingPlace",
+          matchParam
+        });
+
+
+      // const parkingPlacesInv = await Inventory.find({
+      //   startDate: startDate,
+      //   isAvailable: true,
+      // }).populate({
+      //   path: "parkingPlace",
+      //   model: "ParkingPlace",
+      //   match: { city: city },
+      // });
 
       return parkingPlacesInv;
     },

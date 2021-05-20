@@ -17,8 +17,8 @@ import { Link } from "react-router-dom";
 
 
 const containerStyle = {
-    width: '80vw',
-    height: '70vh'
+    width: '85vw',
+    height: '67vh'
 };
 const options = {
     disableDefaultUI: true,

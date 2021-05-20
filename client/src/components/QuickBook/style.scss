@@ -52,7 +52,6 @@
         display: block;
         height: 40px;
         padding: 0 10px;
-        // display: none;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
     select {
@@ -64,7 +63,6 @@
         width: 100%;
     }
     .buttonDiv{
-        // width: 10%;
         flex-direction: row;
         justify-content: space-between;
     }
@@ -73,4 +71,22 @@
 .comboOption {
     z-index: 5;
     width: 20%;
+}
+
+@media screen and (max-width: 750px){
+    #findMeBtn {
+        display: none;
+    }
+    .buttonDiv {
+        justify-content: flex-end;
+    }
+    .mainBubble div{
+        width: unset;
+    }
+    
+}
+@media screen and (max-width: 500px){
+    .mainBubble input {
+        width: 100px;
+    }
 }

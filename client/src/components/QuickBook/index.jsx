@@ -55,7 +55,7 @@ const Quickbook = () => {
                         {/* <Link type='submit' to={{pathname: "/findparking"}}> */}
                         <button className='searchBtn' type='submit'>🔍</button>
                         {/* </Link> */}
-                        <Link to='/findparking'>
+                        <Link id='findMeBtn' to='/findparking'>
                             <FindMeBtn className='qbFindMe' />
                         </Link>
 

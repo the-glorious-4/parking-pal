@@ -27,6 +27,7 @@ nav {
     margin-top: 20vh;
 }
 
+
 section {
     height: calc(100vh);
     scroll-snap-align: start;
@@ -97,5 +98,11 @@ section {
         font-size: larger;
         text-decoration: underline 3px;
         
+    }
+}
+
+@media screen and (max-width:700px){
+    .hostSignDiv {
+        display: none;
     }
 }

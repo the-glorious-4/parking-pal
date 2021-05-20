@@ -5,6 +5,7 @@
     height: 100%;
     overflow: scroll;
 }
+
 .infoBody {
     display: flex;
     width: 100%;
@@ -14,26 +15,27 @@
 }
 
 @keyframes boxSlide {
-    from {margin-top: 1000px;}
-    to {margin-top: 0;}
+    from {
+        margin-top: 1000px;
+    }
+
+    to {
+        margin-top: 0;
+    }
 }
 
-.info1, .info2, .info3 {
-    width: 300px;
-    height: 50vh;
-    border: 1px solid black;
-    box-shadow:20px 20px 20px grey;
-    border-radius: 20px;
-    display: flex;
+.info1,
+.info2,
+.info3 {
+    // width: 300px;
+    // height: 50vh;
+    // border: 1px solid black;
+    // box-shadow: 20px 20px 20px grey;
+    // border-radius: 20px;
+    // display: flex;
     justify-content: center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-
-    h2 {
-        font-family: 'Black Han Sans', sans-serif;
-        font-weight: 100;
-        text-shadow: 0 0 5px #fff, 0 0 5px #fff;
-    }
 }
 
 .boxGrow {
@@ -41,16 +43,128 @@
 }
 
 @keyframes boxGrow {
-    from {transform: scale(0);}
-    to {transform: scale(1);}
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
 }
 
 .info1 {
     background-image: url('../../images/mapPic.png');
 }
+
 .info2 {
     background-image: url('../../images/reserved.png');
 }
+
 .info3 {
     background-image: url('../../images/roadRage.png');
+}
+
+.cardBody {
+    display: flex;
+    height: 100%;
+    width: 70vw;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+    overflow: scroll;
+}
+
+.flip-card {
+    background-color: transparent;
+    width: 80%;
+    height: 50vh;
+    perspective: 1000px;
+    padding: 20px;
+    margin: 20vh;
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+}
+
+.flip-card-front img {
+    height: 100%;
+    width: 100%;
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border: 1px solid black;
+    box-shadow: 20px 20px 20px grey;
+    border-radius: 20px;
+    font-family: 'Black Han Sans', sans-serif;
+    h2 {
+        text-shadow: 0 0 5px #fff, 0 0 5px #fff;
+        font-size: 4vw;
+    }
+    p {
+        font-size: 2.5vw;
+        text-shadow: 0 0 5px #000;
+        padding: 25px;
+    }
+    span {
+        text-decoration: underline;
+    }
+}
+
+.flip-card-front {
+    background-color: #bbb;
+    color: black;
+}
+
+.flip-card-back {
+    background-color: #2980b9;
+    color: white;
+    transform: rotateY(180deg);
+    // padding: 30px 20px;
+    overflow: scroll;
+    // width: 300px;
+}
+
+.flip-card-back div {
+    padding: 10px;
+}
+
+.iphoneDiv {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.appPic {
+    position: absolute;
+    // padding-top: 4vh;
+    height: 70vh;
+    right: 18vh;
+    top: 123.5vh;
+}
+
+.iphone {
+    position: absolute;
+    height: 80vh;
+    top: 120vh;
+    // margin-left: -22vw;
 }

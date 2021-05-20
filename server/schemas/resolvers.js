@@ -36,7 +36,7 @@ const resolvers = {
       const { city, startDate } = args;
       const params = startDate
         ? { startDate: startDate , isAvailable: true}
-        : { isAvailable: true };
+        : { startDate: { $gte: new Date() } ,isAvailable: true };
 
       const matchParam = city
       ? {match: { city: city }} : "";

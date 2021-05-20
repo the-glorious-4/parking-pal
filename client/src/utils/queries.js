@@ -70,7 +70,7 @@ export const QUERY_ACTIVE_RESERVATIONS = gql`
         capacity
         latLng
       }
-      stripeTransaction
+      stripeSessionId
     }
   }
 `;

@@ -14,7 +14,7 @@ const reservationSchema = new Schema({
     ref: "User",
     required: true,
   },
-  stripeTransaction: {
+  stripeSessionId: {
     type: String,
     required: true,
   },

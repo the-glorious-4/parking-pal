@@ -48,7 +48,7 @@ const MySpots = () => {
                 <div className="inventory-main">
                     {/* Parking Space List */}
                     <div className="spaces-container">
-                        <p style={{textAlign: "center"}}>
+                        <p style={{ textAlign: "center", fontWeight: "bolder" }}>
                             Select a space to view and edit its availability information.
                         </p>
                         {spaces ?

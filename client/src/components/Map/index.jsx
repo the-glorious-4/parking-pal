@@ -107,7 +107,7 @@ function MyMapComponent(props) {
                             <h3 style={{ textAlign: 'center' }}>${state.selectedInventory.price}/day</h3>
                             <p>{state.selectedInventory.parkingPlace.street}, {state.selectedInventory.parkingPlace.city}<br />
                                 {state.selectedInventory.parkingPlace.isCoveredParking ? 'Indoor Parking' : 'Outdoor Parking'}</p>
-                            <Link to='whereverYulduzWantsToGo'>
+                            <Link to='checkout'>
                                 <button style={{ textAlign: 'center' }}>Reserve</button>
                             </Link>
                         </div>

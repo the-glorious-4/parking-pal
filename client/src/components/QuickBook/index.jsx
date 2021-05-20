@@ -9,8 +9,6 @@ import { UPDATE_MAP_DATE, UPDATE_QUERY_CITY } from '../../utils/actions';
 
 import { getGeocode } from 'use-places-autocomplete';
 
-import { withRouter } from 'react-router-dom';
-
 const Quickbook = () => {
 
     let history = useHistory();
@@ -19,7 +17,6 @@ const Quickbook = () => {
 
     const handleSubmit = (event) => {
         
-        console.log('submit');
         event.preventDefault();
         let place = event.target[0].value;
         getGeocode({ address: place })
@@ -38,7 +35,6 @@ const Quickbook = () => {
             type: UPDATE_MAP_DATE,
             mapDate: date
         })
-        console.log('redirect');
 
         history.push('/findparking');
     }
@@ -71,4 +67,4 @@ const Quickbook = () => {
     )
 }
 
-export default withRouter(Quickbook);
+export default Quickbook;

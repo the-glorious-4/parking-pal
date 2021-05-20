@@ -31,25 +31,26 @@ function MyMapComponent(props) {
 
 
     const [state, dispatch] = useStoreContext();
-    const [markers, setMarkers] = useState(null)
+    const [markers, setMarkers] = useState(plots)
 
     const { loading, data } = useQuery(QUERY_ALL_PARKING,
         { variables: { city: state.mapCity, startDate: state.mapDate } },
     );
     if (loading) {
-        console.log('loading');
+        // console.log('loading');
     }
 
     // console.log(state.selectedInventory);
 
     useEffect(() => {
         if (data) {
-            console.log(data.getAllInventories);
+            // console.log(data.getAllInventories);
             setMarkers(data.getAllInventories);
         }
     }, [data])
 
-    markers && markers.map(marker => marker.parkingPlace && console.log(marker))
+    // THIS MAPS OVER THE MARKERS THAT !!SHOULD!! BE RENDERED
+    // markers && markers.map(marker => marker.parkingPlace && console.log(marker))
 
     return (
         <div className='mapBody'>

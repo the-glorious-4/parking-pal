@@ -14,7 +14,7 @@ import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";
 // import History from "./pages/History";
 import NoMatch from "./pages/NoMatch";
-import ParkingPlace from "./pages/ParkingPlace";
+import Checkout from "./pages/Checkout";
 import SuccessfulReservation from "./pages/SuccessfulReservation";
 import FindASpot from "./pages/FindASpot";
 import AddASpot from "./pages/AddASpot";
@@ -60,7 +60,7 @@ function App() {
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route> */}
 
-              <Route exact path="/parking-place" component={ParkingPlace}>
+              <Route exact path="/checkout" component={Checkout}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
 

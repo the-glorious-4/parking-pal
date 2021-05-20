@@ -32,6 +32,11 @@ section {
     height: calc(100vh);
     scroll-snap-align: start;
     overflow: hidden;
+    
+    &:nth-of-type(2){
+        background-color: #effffb;
+    }
+
     &:nth-of-type(3) {
         background-image: url('../../images/garage.jpeg');
         background-size: 100% 100%;
@@ -69,8 +74,9 @@ section {
     }
     p {
         font-family: 'Black Han Sans', sans-serif;
+        color: #50d890;
         font-size: 4vh;
-        text-shadow: lightgrey 1px 1px;
+        text-shadow: black 2px 2px;
         padding:0 0 1vh 4vw;
     }
 }
@@ -85,18 +91,18 @@ section {
         margin: 0;
         padding: 0;
         height: 300px;
-        cursor: pointer;
     }
     .hostCTA {
         font-family: 'Black Han Sans', sans-serif;
-        text-shadow: lightgrey 1px 1px;
+        text-shadow: white 1px 1px;
         position: absolute;
-        bottom: 52%;
-        right: 37%;
-        width: 25%;
+        bottom: 59%;
+        right: 2%;
         cursor: pointer;
-        font-size: larger;
+        font-size: 40px;
         text-decoration: underline 3px;
+        transform: rotate(-3deg)
+        // transform: skew(10deg);
         
     }
 }

@@ -49,12 +49,13 @@ const NewInventory = ({ parkingId }) => {
                 />
             </div>
             <div className="field">
-                <label htmlFor="price">Price $</label>
+                <label htmlFor="price">Price </label>
                 <input
                     placeholder="1.00"
                     name="price"
                     id="price"
                     type="number"
+                    step="any"
                     min="0" // min="0.00"
                     defaultValue="1"
                     // step="0.01" // database typeDefs use Int for now

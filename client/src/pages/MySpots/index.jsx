@@ -51,8 +51,8 @@ const MySpots = () => {
                 <div className="inventory-main">
                     {/* Parking Space List */}
                     <div className="spaces-container">
-                        <p style={{ textAlign: "center", fontWeight: "bolder" }}>
-                            Select a space to view and edit its availability information.
+                        <p>
+                            EDIT A SPACE OR ADD A NEW ONE!.
                         </p>
                         {spaces ?
                         <ul className="space-list">
@@ -66,7 +66,7 @@ const MySpots = () => {
                         <span className="dashboard-nolist">
                                 You are currently not a Parking Space Provider.
                         </span>}
-                        <Link to="/addparking"><button>Add a new Parking Space</button></Link>
+                        <Link to="/addparking"><button>Add New Parking Space</button></Link>
                     </div>
                     {/* Scheduling calendar */}
                     {inventory.display &&

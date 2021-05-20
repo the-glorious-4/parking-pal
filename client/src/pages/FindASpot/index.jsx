@@ -7,7 +7,7 @@ import './style.scss';
 const FindASpot = () => {
 
     return (
-        <div>
+        <div className='findParking'>
         <Nav />
         <QuickBook />
         <Map findMeBtn={false} searchBar={false} />

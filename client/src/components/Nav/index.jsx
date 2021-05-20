@@ -55,9 +55,10 @@ const Nav = () => {
                     </>
                     :
                     <>
-                        <span><a href='#infoSection'>How It Works</a></span>
-                        <span onClick={renderLoginModal}>Log-In</span>
-                        <span onClick={renderSignupModal}>Sign-Up</span>
+                        <span><a className='menuSpan' href='/#infoSection'>How It Works</a></span>
+                        <span><a className='menuSpan' href='/#aboutUs'>About Us</a></span>
+                        <span className='menuSpan' onClick={renderLoginModal}>Log-In</span>
+                        <span className='menuSpan' onClick={renderSignupModal}>Sign-Up</span>
                     </>}
             </div>
         </nav>

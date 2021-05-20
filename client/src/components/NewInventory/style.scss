@@ -1,7 +1,18 @@
 
 .add-inventory-form {
+    label {
+        padding-right: 20px;
+    }
+    input{
+        width: 300px;
+    }
     button {
         display: block;
         margin: 1rem auto 0.5rem auto;
     }
+}
+.field {
+    display: flex;
+    justify-content: space-between;
+    max-width: 200px;
 }

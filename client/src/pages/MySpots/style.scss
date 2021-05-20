@@ -12,8 +12,9 @@
     flex-grow: 1;
     
     h1 {
+        font-family: 'Black Han Sans', sans-serif;
         text-align: center;
-        text-shadow: #f1f3f4 0 0 2px;
+        text-shadow: #fff 1px 1px;
     }
 }
 
@@ -23,14 +24,25 @@
     justify-content: space-between;
     align-items: flex-start;
     // align-items: stretch;
+
+    font-family: 'Black Han Sans', sans-serif;
+    font-weight: 100;
 }
 
 .spaces-container {
     padding: 1rem;
     margin: 0.5rem;
     border-radius: 0.5rem;
-    background-color: rgba(241, 243, 244, 0.8);
+    background-color: #effffb;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 33%;
     
+    p{
+        text-align: center;
+        font-size: 4vh;
+    }
     button {
         margin-bottom: 1em;
     }
@@ -50,7 +62,7 @@
     padding-inline-start: 0;
     list-style-type: none;
     border: 1px solid black;
-    border-radius: 1.5rem;
+    border-radius: 20px;
     overflow-y: scroll;
     max-height: 20vh;
     background-color: rgba(196, 212, 224, 0.4);
@@ -61,12 +73,13 @@
         margin: 0.1rem;
         padding: 1rem 0.3rem;
         border: 1px solid gray;
-        border-radius: 1rem;
+        border-radius: 20px;
         background-color: rgba(241, 243, 244, 0.8);
 
         &:hover {
             cursor: pointer;
-            background-color: white;
+            background-color: #4f98ca;
+            color: #fff;
         }
     }
 }
@@ -98,4 +111,10 @@
 .unavailable {
     color: white;
     background-color: rgba(190, 67, 48, 1);
+}
+.add-inventory-form {
+    label {
+        font-size: 4vh;
+
+    }
 }

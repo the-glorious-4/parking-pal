@@ -34,39 +34,28 @@ const client = new ApolloClient({
 });
 
 function App() {
+
   return (
     <ApolloProvider client={client}>
       <Router>
         <div>
           <StoreProvider>
             <Switch>
-              <Route exact path="/" component={Home}>
-                {Auth.loggedIn() ? <Redirect to="/dashboard" /> : null}
-              </Route>
+              <Route exact path="/" component={Home}></Route>
 
-              <Route exact path="/dashboard" component={Dashboard}>
-                {!Auth.loggedIn() ? <Redirect to="/" /> : null}
-              </Route>
+              <Route exact path="/dashboard" component={Dashboard}></Route>
 
-              <Route exact path="/addparking" component={AddASpot}>
-                {!Auth.loggedIn() ? <Redirect to="/" /> : null}
-              </Route>
+              <Route exact path="/addparking" component={AddASpot}></Route>
 
-              <Route exact path="/myspots" component={MySpots}>
-                {!Auth.loggedIn() ? <Redirect to="/" /> : null}
-              </Route>
+              <Route exact path="/myspots" component={MySpots}></Route>
 
               {/* <Route exact path="/history" component={History}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route> */}
 
-              <Route exact path="/checkout" component={Checkout}>
-                {!Auth.loggedIn() ? <Redirect to="/" /> : null}
-              </Route>
+              <Route exact path="/checkout" component={Checkout}></Route>
 
-              <Route exact path="/success" component={SuccessfulReservation}>
-                {!Auth.loggedIn() ? <Redirect to="/" /> : null}
-              </Route>
+              <Route exact path="/success" component={SuccessfulReservation}></Route>
 
               <Route exact path="/findparking" component={FindASpot}></Route>
 

@@ -10,6 +10,9 @@ import Nav from '../../components/Nav';
 const today = Date.now().toString();
 
 const Dashboard = () => {
+
+    Auth.loggedIn() === false && window.location.assign('/');
+
     const { loading, data } = useQuery(QUERY_USER);
     const { loading: rloading, data: rdata } = useQuery(QUERY_ACTIVE_RESERVATIONS, {
         variables: { startDate: today }

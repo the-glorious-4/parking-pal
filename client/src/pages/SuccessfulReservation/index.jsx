@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ADD_RESERVATION } from "../../utils/mutations";
 import { useMutation } from "@apollo/react-hooks";
 import Nav from '../../components/Nav';
+import Auth from "../../utils/auth";
 
 import './style.scss';
 
@@ -11,6 +12,8 @@ import nailed from './gifs/nailed.gif';
 import zac from './gifs/zac.gif';
 
 const SuccessfulReservation = () => {
+    Auth.loggedIn() === false && window.location.assign('/');
+
   const [addReservation, { error }] = useMutation(ADD_RESERVATION);
 
   // TODO: Replace with the actual data

@@ -9,6 +9,9 @@ import { formatDate } from "../../utils/helpers";
 import { QUERY_USER } from "../../utils/queries";
 
 const MySpots = () => {
+
+    Auth.loggedIn() === false && window.location.assign('/');
+
     const [inventory, setInventory] = useState({ display: false, spaceId: "", spaceName: "", invList: [] });
     const { loading, data } = useQuery(QUERY_USER);
     let spaces;

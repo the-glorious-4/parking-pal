@@ -7,7 +7,8 @@ import {
     UPDATE_MAP_DATE,
     UPDATE_QUERY_CITY,
     UPDATE_SELECTED_INVENTORY,
-    SET_CURRENT_USER
+    SET_CURRENT_USER,
+    REDIRECT_ON_LOGIN
 } from "./actions";
 
 /*
@@ -19,6 +20,11 @@ state: {
 
 export const reducer = (state, action) => {
     switch (action.type) {
+        case REDIRECT_ON_LOGIN:
+            return {
+                ...state,
+                initialRedirect: !state.initialRedirect
+            }
         case SET_CURRENT_USER:
             return {
                 ...state,

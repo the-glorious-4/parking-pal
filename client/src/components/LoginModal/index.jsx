@@ -6,16 +6,16 @@ import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 import { validateEmail } from "../../utils/helpers";
-import { RENDER_SIGNUP_MODAL, REMOVE_MODAL } from "../../utils/actions";
+import { RENDER_SIGNUP_MODAL, REMOVE_MODAL, SET_CURRENT_USER, REDIRECT_ON_LOGIN } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
+import { withRouter, Redirect } from "react-router-dom";
 
 // render login page wrapped in a Modal.
 const LoginModal = () => {
     const [formState, setFormState] = useState({ email: "", password: "" });
     const [errFlags, setErrFlags] = useState({ emailError: false });
     const [login, { error }] = useMutation(LOGIN_USER);
-
-    const [, dispatch] = useStoreContext();
+    const [state, dispatch] = useStoreContext();
 
     const renderSignupModal = (event) => {
         event.preventDefault();
@@ -48,7 +48,7 @@ const LoginModal = () => {
     const handleBlur = event => {
         validateForm(event.target.name);
     };
-
+    
     const handleFormSubmit = async event => {
         event.preventDefault();
         validateForm();
@@ -58,8 +58,17 @@ const LoginModal = () => {
                 const { data } = await login({
                     variables: { ...formState }
                 });
-    
+                dispatch({
+                  type: SET_CURRENT_USER,
+                  currentUser: data.login.user
+                })
+
                 Auth.login(data.login.token);
+
+                Auth.loggedIn() && dispatch({type: REDIRECT_ON_LOGIN})
+                
+                dispatch({ type: REMOVE_MODAL });
+                
             }
             catch (e) {
                 console.error(e);
@@ -67,8 +76,12 @@ const LoginModal = () => {
         }
     };
 
+    //THIS WILL GIVE YOU CURRENT USER STATE ON LOGIN 
+    // console.log(state.currentUser);
+
     return (
         <Modal>
+        {state.initialRedirect ? <Redirect to='/dashboard' /> : null}
             <div className="modal-bg">
                 <h2>Log In</h2>
                 <form className="loginForm signupForm" onSubmit={handleFormSubmit}>
@@ -110,4 +123,4 @@ const LoginModal = () => {
     );
 };
 
-export default LoginModal;
+export default withRouter(LoginModal);

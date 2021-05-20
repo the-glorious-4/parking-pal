@@ -1,7 +1,7 @@
 import React from 'react';
 import SearchInput from '../SearchInput';
 import FindMeBtn from '../FindMeBtn';
-import { Link, useHistory } from "react-router-dom";
+import { Link, withRouter, useHistory } from "react-router-dom";
 import './style.scss';
 import { todaysDate } from '../../utils/helpers';
 import { useStoreContext } from '../../utils/GlobalState';
@@ -37,6 +37,7 @@ const Quickbook = () => {
         })
 
         history.push('/findparking');
+        
     }
 
     return (<>
@@ -67,4 +68,4 @@ const Quickbook = () => {
     )
 }
 
-export default Quickbook;
+export default withRouter(Quickbook);

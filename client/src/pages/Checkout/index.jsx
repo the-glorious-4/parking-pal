@@ -41,7 +41,6 @@ const StripeCheckout = () => {
   const price = state.selectedInventory.price;
 
   const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
-  // TODO: read from global state
   const [message, setMessage] = useState("");
 
   useEffect(() => {

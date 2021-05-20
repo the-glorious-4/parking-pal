@@ -49,6 +49,7 @@ const AddASpot = () => {
       const { data: addParkingResponse } = await addParkingPlace({
         variables: {
           ...formState,
+          capacity: parseInt(formState.capacity),
           latLng: [lat.toString(), lng.toString()]
         }
       });

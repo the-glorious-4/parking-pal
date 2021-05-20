@@ -4,9 +4,11 @@ import { useMutation } from "@apollo/react-hooks";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 import Nav from '../../components/Nav';
 import { ADD_PARKINGPLACE } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 const AddASpot = () => {
-  
+    Auth.loggedIn() === false && window.location.assign('/');
+
   const [formState, setFormState] = useState({
     apt: "", street: "", city: "", state: "", zip: "", isCoveredParking: false, capacity: 1
   });

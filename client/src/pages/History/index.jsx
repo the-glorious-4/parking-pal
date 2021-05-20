@@ -6,6 +6,8 @@ import { QUERY_USER, INVENTORY_HISTORY } from "../../utils/queries";
 import Nav from '../../components/Nav';
 
 const History = () => {
+    Auth.loggedIn() === false && window.location.assign('/');
+
     const userQuery = useQuery(QUERY_USER);
     const inventoryQuery = useQuery(INVENTORY_HISTORY);
     let user, inventory;

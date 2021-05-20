@@ -6,15 +6,16 @@ import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils/mutations";
 import { validateEmail, formatPhoneNumber } from "../../utils/helpers";
-import { RENDER_LOGIN_MODAL, REMOVE_MODAL } from "../../utils/actions";
+import { RENDER_LOGIN_MODAL, REMOVE_MODAL, REDIRECT_ON_LOGIN } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
+import { Redirect } from "react-router-dom";
 
 // render signup page wrapped in a Modal.
 const SignupModal = () => {
     const [formState, setFormState] = useState({ firstName: "", lastName: "", email: "", password: "", phone: "" });
     const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false });
     const [addUser, { error }] = useMutation(ADD_USER);
-    const [, dispatch] = useStoreContext();
+    const [state, dispatch] = useStoreContext();
 
     const renderLoginModal = (event) => {
         event.preventDefault();
@@ -74,6 +75,10 @@ const SignupModal = () => {
                 });
                 
                 Auth.login(data.addUser.token);
+
+                Auth.loggedIn() && dispatch({type: REDIRECT_ON_LOGIN})
+                
+                dispatch({ type: REMOVE_MODAL });
             }
             catch (e) {
                 console.error(e);
@@ -83,6 +88,7 @@ const SignupModal = () => {
 
     return (
         <Modal>
+        {state.initialRedirect ? <Redirect to='/dashboard' /> : null}
             <div className="modal-bg">
                 <h2>Create An Account</h2>
                 <form className="signupForm" onSubmit={handleFormSubmit}>

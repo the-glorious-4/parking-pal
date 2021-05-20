@@ -13,7 +13,8 @@ const StoreProvider = ({ value = [], ...props }) => {
         mapDate: todaysDate(),
         mapCity: 'San Francisco',
         selectedInventory: null,
-        currentUser: {}
+        currentUser: null,
+        initialRedirect: false
     });
     return <Provider value={[state, dispatch]} {...props} />;
 };

@@ -54,7 +54,7 @@ const AddASpot = () => {
       });
 
       // console.log(addParkingResponse);
-      window.location.assign("/dashboard");
+      window.location.assign("/myspots");
     }
     // on error: set form message
     catch (e) {
@@ -150,6 +150,6 @@ const AddASpot = () => {
       </div>
     </div>
   );
-}
+};
 
 export default AddASpot;

@@ -16,6 +16,11 @@
     font-size: 4vh;
     text-shadow: lightgrey 1px 1px;
 }
+.mapInfoWindow {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
 .findMeBtn {
     position: absolute;

@@ -79,8 +79,8 @@ export const ADD_PARKINGPLACE = gql`
 export const ADD_INVENTORY = gql`
   mutation addInventory($startDate: String!, $price: Int!, $parkingPlace: ID!) {
     addInventory(
-      startDate: startDate
-      price: price
+      startDate: $startDate
+      price: $price
       parkingPlace: $parkingPlace
     ) {
       _id

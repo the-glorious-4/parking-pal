@@ -1,0 +1,94 @@
+.my-parking-bg {
+    background-image:
+        linear-gradient(rgba(171, 171, 171, 0.3), rgba(171, 171, 171, 0.3)),
+        url("../../images/bg-sunny-parking-lot.jpeg");
+    background-position: center;
+}
+
+.my-parking {
+    margin-top: 14vh;
+    margin-left: 2em;
+    margin-right: 2em;
+    flex-grow: 1;
+    
+    h1 {
+        text-align: center;
+        text-shadow: #f1f3f4 0 0 2px;
+    }
+}
+
+.inventory-main {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    // align-items: stretch;
+}
+
+.spaces-container {
+    padding: 1rem;
+    margin: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(241, 243, 244, 0.8);
+    
+    button {
+        margin-bottom: 1em;
+    }
+}
+
+.inventory-container {
+    flex: 0 0 calc(100% * 7 / 12 - 0.5%);
+}
+
+.space-span {
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.space-list {
+    padding: 1rem 1rem;
+    padding-inline-start: 0;
+    list-style-type: none;
+    border: 1px solid black;
+    overflow-y: scroll;
+    max-height: 20vh;
+
+    li {
+        text-align: center;
+        width: 100%;
+        margin: 0.1rem;
+        padding: 1rem 0.3rem;
+        border: 1px solid gray;
+
+        &:hover {
+            cursor: pointer;
+            background-color: white;
+        }
+    }
+}
+
+.availability-list {
+    padding-inline-start: 0;
+    list-style-type: none;
+    overflow-y: scroll;
+    max-height: 23vh;
+
+    li {
+        padding: 1rem 0.3rem;
+        border: 1px solid gray;
+        border-radius: 2rem;
+        margin: 1rem auto;
+        text-align: center;
+        width: 70%;
+    }
+}
+
+.available {
+    color: black;
+    background-color: rgba(241, 243, 244, 1);
+}
+
+.unavailable {
+    color: white;
+    background-color: rgba(190, 67, 48, 1);
+}

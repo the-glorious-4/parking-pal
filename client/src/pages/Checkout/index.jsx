@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery } from "@apollo/react-hooks";
+import { useStoreContext } from "../../utils/GlobalState";
+
 import flyingMoney from "./gifs/flying-money.gif";
-
 import Nav from "../../components/Nav";
-
 import { QUERY_CHECKOUT } from "../../utils/queries";
 
 const stripePromise = loadStripe(
   "pk_test_51InyxjLzbTTaQxk5EdjCWbj0CjXJoh7lPICpUdwvL8JhnLxqldfzi81FoyJVB8Hli3eUEgB2bTjcPy2iyglLsAQi006PhzzGwf"
 );
 
-const ProductDisplay = ({ price, handleClick }) => {
+const Redirect = ({ redirectToStripeCheckout }) => {
   setTimeout(() => {
-    handleClick();
+    redirectToStripeCheckout();
   }, 1500);
   return (
     <>
@@ -23,8 +23,8 @@ const ProductDisplay = ({ price, handleClick }) => {
           <img src={flyingMoney} alt="flyingMoney" />{" "}
         </div>
         <div className="messageDiv">
-          <h1>Redirecting your to the payment page...!</h1>
-          <h2>Please wait</h2>
+          <h1>Redirecting you to the payment page!</h1>
+          <h2>Please wait...</h2>
         </div>
       </div>
     </>
@@ -37,9 +37,11 @@ const Message = ({ message }) => (
 );
 
 const StripeCheckout = () => {
+  const [state, _] = useStoreContext();
+  const price = state.selectedInventory.price;
+
   const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   // TODO: read from global state
-  const price = 100;
   const [message, setMessage] = useState("");
 
   useEffect(() => {
@@ -65,10 +67,6 @@ const StripeCheckout = () => {
     }
   }, []);
 
-  const handleReservation = async (event) => {
-    await redirectToStripeCheckout(event);
-  };
-
   const redirectToStripeCheckout = async (event) => {
     checkout({ variables: { price: price } });
   };
@@ -76,7 +74,7 @@ const StripeCheckout = () => {
   return message ? (
     <Message message={message} />
   ) : (
-    <ProductDisplay handleClick={handleReservation} price={price} />
+    <Redirect redirectToStripeCheckout={redirectToStripeCheckout} />
   );
 };
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import SearchInput from '../SearchInput';
 import FindMeBtn from '../FindMeBtn';
 import { Link, Redirect } from "react-router-dom";
@@ -9,14 +9,16 @@ import { UPDATE_MAP_DATE, UPDATE_QUERY_CITY } from '../../utils/actions';
 
 import { getGeocode } from 'use-places-autocomplete';
 
+import { withRouter } from 'react-router-dom';
+
 const Quickbook = () => {
 
-    const [, dispatch] = useStoreContext();
+    const [state, dispatch] = useStoreContext();
 
     const handleSubmit = (event) => {
+        console.log('submit');
         event.preventDefault();
         let place = event.target[0].value;
-
         getGeocode({ address: place })
             .then(result => ((result[0].address_components.filter(place => place.types[0] === 'locality'))[0].long_name))
             .then(city => {
@@ -28,14 +30,20 @@ const Quickbook = () => {
             .catch(err => console.log(err))
 
         let date = (event.target[1].value).toString();
+
         dispatch({
             type: UPDATE_MAP_DATE,
             mapDate: date
         });
-        // console.log('redirect');
-        return <Redirect to={{pathname: "/findparking"}} />
+        console.log('redirect');
+       
     }
+    // const handleSubmit = (event) => { event.preventDefault(); console.log('submit') }
 
+    // useEffect(() => {
+    //     console.log(state);
+    //     return <Redirect to={{pathname: "/findparking"}} />
+    // }, [state.mapDate])
 
     return (<>
         <main className='quickBook'>
@@ -50,9 +58,9 @@ const Quickbook = () => {
                         <input min={todaysDate()} type="date" />
                     </div>
                     <div className='buttonDiv'>
-                        <Link to='/findparking'>
-                            <button className='searchBtn' type='submit'>🔍</button>
-                        </Link>
+                        {/* <Link type='submit' to={{pathname: "/findparking"}}> */}
+                        <button className='searchBtn' type='submit'>🔍</button>
+                        {/* </Link> */}
                         <Link to='/findparking'>
                             <FindMeBtn className='qbFindMe' />
                         </Link>
@@ -65,4 +73,4 @@ const Quickbook = () => {
     )
 }
 
-export default Quickbook;
+export default withRouter(Quickbook);

@@ -28,7 +28,7 @@ const NewInventory = ({ parkingId }) => {
                 }
             });
 
-            console.log(response);
+            window.location.assign("/myspots");
         }
         catch (e) {
             console.error(error);

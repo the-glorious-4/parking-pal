@@ -35,17 +35,15 @@ const resolvers = {
     getAllInventories: async (parent, args) => {
       const { city, startDate } = args;
       const params = startDate
-        ? { startDate: startDate , isAvailable: true}
-        : { startDate: { $gte: new Date() } ,isAvailable: true };
+        ? { startDate: startDate, isAvailable: true }
+        : { startDate: { $gte: new Date() }, isAvailable: true };
 
-      const matchParam = city
-      ? {match: { city: city }} : "";
-        const parkingPlacesInv = await Inventory.find(params).populate({
-          path: "parkingPlace",
-          model: "ParkingPlace",
-          matchParam
-        });
-
+      const matchParam = city ? { match: { city: city } } : "";
+      const parkingPlacesInv = await Inventory.find(params).populate({
+        path: "parkingPlace",
+        model: "ParkingPlace",
+        matchParam,
+      });
 
       // const parkingPlacesInv = await Inventory.find({
       //   startDate: startDate,
@@ -223,8 +221,6 @@ const resolvers = {
     },
 
     addReservation: async (parent, args, context) => {
-      sendEmail(EmailTemplate.BOOKING_CONFIRMATION_CONSUMER, args);
-
       const consumer = context.user._id;
       const { inventoryId, parkingPlace, startDate, stripeSessionId } = args;
 
@@ -244,11 +240,17 @@ const resolvers = {
         );
 
         // push to consumer side
-        await User.findByIdAndUpdate(
+        const user = await User.findByIdAndUpdate(
           { _id: consumer },
           { $push: { bookings: reservation._id } }
         );
 
+        const { firstName, lastName, email } = user;
+        args.firstName = firstName;
+        args.lastName = lastName;
+        args.email = email;
+
+        sendEmail(EmailTemplate.BOOKING_CONFIRMATION_CONSUMER, args);
         return reservation;
       }
       throw new AuthenticationError("Not logged in");

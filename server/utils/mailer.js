@@ -6,6 +6,12 @@ const EmailTemplate = {
   BOOKING_CONFIRMATION_PROVIDER: "booking_confirmation_provider",
 };
 
+const formattedDate = (startDate) => {
+  let date = new Date(parseInt(startDate));
+  const options = { year: "numeric", month: "long", day: "numeric" };
+  return date.toLocaleDateString("en-US", options);
+};
+
 // Email configuration
 // create reusable transporter object using the default SMTP transport
 const transporter = nodemailer.createTransport({
@@ -19,7 +25,7 @@ const transporter = nodemailer.createTransport({
 });
 
 const resolveTemplate = (template, args) => {
-  const { name, lastName, email, startDate, address } = args;
+  const { firstName, lastName, email, startDate, address, stripeSessionId: confirmationNumber } = args;
 
   switch (template) {
     case EmailTemplate.BOOKING_CONFIRMATION_CONSUMER:
@@ -29,10 +35,11 @@ const resolveTemplate = (template, args) => {
         subject: "Your booking confirmation",
         text: "Please find your reservation details below",
         html: `
-        <b>Hey there, ${name} ${lastName}!</b> 
+        <h2>Hey there, ${firstName} ${lastName}!</h2> 
         <br>Here are your reservation details<br/>
-        <p>${startDate}</p>
+        <p>${formattedDate(startDate)}</p>
         <p>${address}</p>
+        <br>Your confirmation number is: ${confirmationNumber}</br>
         `,
       };
 
@@ -43,9 +50,9 @@ const resolveTemplate = (template, args) => {
         subject: "Your parking lot has been reserved!",
         text: "Please find the reservation details and receipt below",
         html: `
-        <b>Hey there, ${name} ${lastName}!</b> 
+        <b>Hey there, ${firstName} ${lastName}!</b> 
         <br>Here are your reservation details and receipt attached<br/>
-        <p>${startDate}</p>
+        <p>${formattedDate(startDate)}</p>
         <p>${address}</p>
         `,
       };

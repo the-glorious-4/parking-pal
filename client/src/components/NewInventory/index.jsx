@@ -4,8 +4,9 @@ import { useMutation } from "@apollo/react-hooks";
 import { todaysDate } from "../../utils/helpers";
 import { ADD_INVENTORY } from "../../utils/mutations";
 
-const NewInventory = ({ _id }) => {
-    const [formState, setFormState] = useState({ date: "", price: 1 });
+const NewInventory = ({ parkingId }) => {
+    const [formState, setFormState] = useState({ date: "", price: 0 });
+    const [addInventory, { error }] = useMutation(ADD_INVENTORY);
 
     const handleChange = event => {
         // destructure event target
@@ -14,10 +15,25 @@ const NewInventory = ({ _id }) => {
         setFormState({ ...formState, [name]: value });
     }
 
-    const handleSubmit = event => {
+    const handleSubmit = async event => {
         event.preventDefault();
-        console.log(formState);
-    }
+        console.log(parkingId, formState);
+
+        try {
+            let response = await addInventory({
+                variables: {
+                    startDate: formState.date,
+                    price: parseFloat(formState.price),
+                    parkingPlace: parkingId
+                }
+            });
+
+            console.log(response);
+        }
+        catch (e) {
+            console.error(error);
+        }
+    };
 
     return (<>
         <h2>Add a New Availability</h2>
@@ -39,9 +55,9 @@ const NewInventory = ({ _id }) => {
                     name="price"
                     id="price"
                     type="number"
-                    min="0.00"
-                    defaultValue="1.00"
-                    step="0.01"
+                    min="0" // min="0.00"
+                    defaultValue="1"
+                    // step="0.01" // database typeDefs use Int for now
                     onChange={handleChange}
                 />
             </div>

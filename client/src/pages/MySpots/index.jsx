@@ -87,7 +87,7 @@ const MySpots = () => {
                         <span className="dashboard-nolist">
                             You have not added any availabilities for this space.
                         </span>}
-                        <NewInventory _id={inventory.spaceId} />
+                        <NewInventory parkingId={inventory.spaceId} />
                     </div>}
                 </div>
             </div>

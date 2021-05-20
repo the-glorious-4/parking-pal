@@ -74,11 +74,16 @@ const SignupModal = () => {
                 });
                 
                 Auth.login(data.addUser.token);
-                // set user in global state
-                dispatch({
-                    type: SET_CURRENT_USER,
-                    currentUser: data,
-                });
+                // // set user in global state
+                // const { firstName, lastName, email } = data.addUser.user;
+                // dispatch({
+                //   type: SET_CURRENT_USER,
+                //   currentUser: { firstName, lastName, email },
+                // });
+                // state.currentUser = data.addUser.user;
+
+                state.currentUser = data.addUser.user;
+                console.log('state: ' + JSON.stringify(state))
             }
             catch (e) {
                 console.error(e);

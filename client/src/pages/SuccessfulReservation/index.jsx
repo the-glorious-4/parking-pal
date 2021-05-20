@@ -1,17 +1,20 @@
 import React, { useEffect } from "react";
 import { ADD_RESERVATION } from "../../utils/mutations";
 import { useMutation } from "@apollo/react-hooks";
-import Nav from '../../components/Nav';
+import { useStoreContext } from "../../utils/GlobalState";
 
-import './style.scss';
+import Nav from "../../components/Nav";
 
-import win from './gifs/win.gif';
-import elmo from './gifs/elmo.gif';
-import nailed from './gifs/nailed.gif';
-import zac from './gifs/zac.gif';
+import "./style.scss";
+
+import win from "./gifs/win.gif";
+import elmo from "./gifs/elmo.gif";
+import nailed from "./gifs/nailed.gif";
+import zac from "./gifs/zac.gif";
 
 const SuccessfulReservation = () => {
   const [addReservation, { error }] = useMutation(ADD_RESERVATION);
+  const [state, dispatch] = useStoreContext();
 
   // TODO: Replace with the actual data
   const dummyData = {
@@ -26,39 +29,46 @@ const SuccessfulReservation = () => {
     price: 2000,
   };
 
-  useEffect(() => {
-    async function saveReservation() {
-      const { data } = await addReservation({
-        variables: { ...dummyData },
-      });
-      setTimeout(() => {
-        window.location.assign("/");
-      }, 6000);
-    }
+  console.log("Current user from state: " + JSON.stringify(state.currentUser));
+  console.log(
+    "selectedInventory from state: " + JSON.stringify(state.selectedInventory)
+  );
 
-    saveReservation();
-  }, [addReservation]);
+  // useEffect(() => {
+  //   async function saveReservation() {
+  //     const { data } = await addReservation({
+  //       variables: { ...dummyData },
+  //     });
+  //     setTimeout(() => {
+  //       window.location.assign("/");
+  //     }, 6000);
+  //   }
+  //   saveReservation();
+  // }, [addReservation]);
 
   let imgPicker = Math.floor(Math.random() * 4 + 1);
 
-  return (<>
-    <Nav />
-    <div className='successContainer'>
-      <div className='gifDiv'>
-        {{
-          '1': <img src={elmo} alt="elmo" />,
-          '2': <img src={nailed} alt="nailed" />,
-          '3': <img src={win} alt="win" />,
-          '4': <img src={zac} alt="zac" />
-        }[imgPicker]}
+  return (
+    <>
+      <Nav />
+      <div className="successContainer">
+        <div className="gifDiv">
+          {
+            {
+              1: <img src={elmo} alt="elmo" />,
+              2: <img src={nailed} alt="nailed" />,
+              3: <img src={win} alt="win" />,
+              4: <img src={zac} alt="zac" />,
+            }[imgPicker]
+          }
+        </div>
+        <div className="messageDiv">
+          <h1>SUCCESS!</h1>
+          <h2>Your payment was submitted</h2>
+          <p>redirecting back to dashboard...</p>
+        </div>
       </div>
-      <div className='messageDiv'>
-        <h1>SUCCESS!</h1>
-        <h2>Your payment was submitted</h2>
-        <p>redirecting back to dashboard...</p>
-      </div>
-    </div>
-  </>
+    </>
   );
 };
 

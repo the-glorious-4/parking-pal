@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import SearchInput from '../SearchInput';
 import FindMeBtn from '../FindMeBtn';
 import { Link, useHistory } from "react-router-dom";
@@ -15,7 +15,7 @@ const Quickbook = () => {
 
     let history = useHistory();
 
-    const [state, dispatch] = useStoreContext();
+    const [, dispatch] = useStoreContext();
 
     const handleSubmit = (event) => {
         
@@ -42,14 +42,6 @@ const Quickbook = () => {
 
         history.push('/findparking');
     }
-
-
-    // const handleSubmit = (event) => { event.preventDefault(); console.log('submit') }
-
-    // useEffect(() => {
-    //     console.log(state);
-    //     return <Redirect to={{pathname: "/findparking"}} />
-    // }, [state.mapDate])
 
     return (<>
         <main className='quickBook'>

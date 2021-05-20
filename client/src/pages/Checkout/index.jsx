@@ -37,14 +37,21 @@ const Message = ({ message }) => (
 );
 
 const StripeCheckout = () => {
+  const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
+  const [message, setMessage] = useState("");
   const [state, _] = useStoreContext();
   const price = state.selectedInventory.price;
 
-  const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
-  const [message, setMessage] = useState("");
-
   useEffect(() => {
     if (data) {
+      localStorage.setItem(
+        "selectedInventory",
+        JSON.stringify(state.selectedInventory)
+      );
+      localStorage.setItem(
+        "stripeSessionId",
+        JSON.stringify(data.checkout.session)
+      );
       stripePromise.then((res) => {
         res.redirectToCheckout({ sessionId: data.checkout.session });
       });

@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import SearchInput from '../SearchInput';
 import FindMeBtn from '../FindMeBtn';
-import { Link, Redirect } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import './style.scss';
 import { todaysDate } from '../../utils/helpers';
 import { useStoreContext } from '../../utils/GlobalState';
@@ -9,14 +9,14 @@ import { UPDATE_MAP_DATE, UPDATE_QUERY_CITY } from '../../utils/actions';
 
 import { getGeocode } from 'use-places-autocomplete';
 
-import { withRouter } from 'react-router-dom';
-
 const Quickbook = () => {
 
-    const [state, dispatch] = useStoreContext();
+    let history = useHistory();
+
+    const [, dispatch] = useStoreContext();
 
     const handleSubmit = (event) => {
-        console.log('submit');
+        
         event.preventDefault();
         let place = event.target[0].value;
         getGeocode({ address: place })
@@ -34,16 +34,10 @@ const Quickbook = () => {
         dispatch({
             type: UPDATE_MAP_DATE,
             mapDate: date
-        });
-        console.log('redirect');
-       
-    }
-    // const handleSubmit = (event) => { event.preventDefault(); console.log('submit') }
+        })
 
-    // useEffect(() => {
-    //     console.log(state);
-    //     return <Redirect to={{pathname: "/findparking"}} />
-    // }, [state.mapDate])
+        history.push('/findparking');
+    }
 
     return (<>
         <main className='quickBook'>
@@ -61,7 +55,7 @@ const Quickbook = () => {
                         {/* <Link type='submit' to={{pathname: "/findparking"}}> */}
                         <button className='searchBtn' type='submit'>🔍</button>
                         {/* </Link> */}
-                        <Link to='/findparking'>
+                        <Link id='findMeBtn' to='/findparking'>
                             <FindMeBtn className='qbFindMe' />
                         </Link>
 
@@ -73,4 +67,4 @@ const Quickbook = () => {
     )
 }
 
-export default withRouter(Quickbook);
+export default Quickbook;

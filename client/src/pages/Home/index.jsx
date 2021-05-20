@@ -4,7 +4,7 @@ import streetSign from '../../images/streetSign.png'
 import Nav from '../../components/Nav';
 import QuickBook from '../../components/QuickBook';
 import InfoSection from '../../components/InfoSection';
-import MyMapComponent from '../../components/Map';
+import Footer from '../../components/Footer';
 
 import { RENDER_SIGNUP_MODAL } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
@@ -18,7 +18,7 @@ const Home = () => {
     };
 
     return (<>
-    
+
         <Nav />
         <section className='heroSection'>
             <div className='heroImg'>
@@ -29,8 +29,8 @@ const Home = () => {
                     <p>Safe. Simple. Reliable.</p>
                 </div>
                 <div className='hostSignDiv'>
-                <img src={streetSign} alt=""/>
-                <span onClick={renderSignupModal} className='hostCTA'>Become a Host!</span>
+                    <img src={streetSign} alt="" />
+                    <span onClick={renderSignupModal} className='hostCTA'>Become a Host!</span>
                 </div>
             </div>
             <QuickBook />
@@ -39,14 +39,8 @@ const Home = () => {
             <InfoSection />
         </section>
         <section>
-            <MyMapComponent findMeBtn={true} searchBar={true}
-            // isMarkerShown
-            // googleMapURL={`https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places &key=${process.env.REACT_APP_GOOGLE_API}`}
-                                                                   
-            // loadingElement={<div className='mapBody' />}
-            // containerElement={<div className='mapBody' />}
-            // mapElement={<div className='mapBody' />}
-            />
+            {/* <MyMapComponent findMeBtn={true} searchBar={true} /> */}
+            <Footer />
         </section>
     </>)
 }

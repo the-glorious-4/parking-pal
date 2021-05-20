@@ -13,13 +13,12 @@ import { useStoreContext } from '../../utils/GlobalState';
 import { UPDATE_MAP_LOCATION, UPDATE_SELECTED_INVENTORY } from '../../utils/actions';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_ALL_PARKING } from "../../utils/queries";
-import { Link, Redirect } from "react-router-dom";
-// import { getGeocode, getLatLng } from 'use-places-autocomplete';
+import { Link } from "react-router-dom";
 
 
 const containerStyle = {
-    width: '80vw',
-    height: '70vh'
+    width: '85vw',
+    height: '67vh'
 };
 const options = {
     disableDefaultUI: true,
@@ -33,37 +32,25 @@ function MyMapComponent(props) {
 
     const [state, dispatch] = useStoreContext();
     const [markers, setMarkers] = useState(plots)
-    const [, setMap] = useState(null)
-    const [selected, setSelected] = useState(null)
-
-    // const mapRef = useRef();
-
-    // const onLoad = (map) => {
-    //     mapRef.current = map;
-    //     setMap(mapRef)
-    // };
-
-    // const parkingRedirect = () => {
-    //     console.log(markers.filter(marker => marker.parkingPlace.latLng === selected));
-    // }
 
     const { loading, data } = useQuery(QUERY_ALL_PARKING,
         { variables: { city: state.mapCity, startDate: state.mapDate } },
     );
     if (loading) {
-        console.log('loading');
+        // console.log('loading');
     }
 
-    console.log(state.selectedInventory);
+    // console.log(state.selectedInventory);
 
     useEffect(() => {
         if (data) {
-            console.log(data.getAllInventories);
+            // console.log(data.getAllInventories);
             setMarkers(data.getAllInventories);
         }
     }, [data])
 
-    console.log(markers);
+    // THIS MAPS OVER THE MARKERS THAT !!SHOULD!! BE RENDERED
+    // markers && markers.map(marker => marker.parkingPlace && console.log(marker))
 
     return (
         <div className='mapBody'>
@@ -81,10 +68,9 @@ function MyMapComponent(props) {
                 zoom={15}
                 center={state.mapLocation ? state.mapLocation : { lat: 37.774, lng: -122.419 }}
                 options={options}
-            // onLoad={onLoad}
             >
-                {markers &&
-                    (markers.map(marker => <Marker
+                {markers ?
+                    (markers.map(marker => marker.parkingPlace && <Marker
 
                         icon={{
                             url: prkingLogo,
@@ -105,8 +91,7 @@ function MyMapComponent(props) {
                         }}
                         position={{ lat: parseFloat(marker.parkingPlace.latLng[0]), lng: parseFloat(marker.parkingPlace.latLng[1]) }}
                         id={markers.indexOf(marker)}
-                    // onLoad={console.log(marker, 'heres the marker')}
-                    />))}
+                    />)) : null}
 
                 {state.selectedInventory ? (
                     <InfoWindow

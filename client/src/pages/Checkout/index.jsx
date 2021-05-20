@@ -3,7 +3,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery } from "@apollo/react-hooks";
 import flyingMoney from "./gifs/flying-money.gif";
 
-import Nav from "../Nav";
+import Nav from "../../components/Nav";
 
 import { QUERY_CHECKOUT } from "../../utils/queries";
 
@@ -36,7 +36,7 @@ const Message = ({ message }) => (
   </section>
 );
 
-export const StripeCheckout = () => {
+const StripeCheckout = () => {
   const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   // TODO: read from global state
   const price = 100;
@@ -79,3 +79,13 @@ export const StripeCheckout = () => {
     <ProductDisplay handleClick={handleReservation} price={price} />
   );
 };
+
+const Checkout = () => {
+  return (
+    <div>
+      <StripeCheckout />
+    </div>
+  );
+};
+
+export default Checkout;

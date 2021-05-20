@@ -3,6 +3,7 @@ import {
     GoogleMap,
     Marker,
     InfoWindow
+    
 } from '@react-google-maps/api';
 import { getAllParking } from '../../utils/dummyData.json';
 import './style.scss';
@@ -56,12 +57,12 @@ function MyMapComponent(props) {
 
     console.log(state.selectedInventory);
 
-    useEffect(() => {
-        if (data) {
-            console.log(data.getAllInventories);
-            setMarkers(data.getAllInventories);
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if (data) {
+    //         console.log(data.getAllInventories);
+    //         setMarkers(data.getAllInventories);
+    //     }
+    // }, [data])
 
     console.log(markers);
 

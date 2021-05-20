@@ -6,7 +6,7 @@ import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils/mutations";
 import { validateEmail, formatPhoneNumber } from "../../utils/helpers";
-import { RENDER_LOGIN_MODAL, REMOVE_MODAL } from "../../utils/actions";
+import { RENDER_LOGIN_MODAL, REMOVE_MODAL, SET_CURRENT_USER } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 
 // render signup page wrapped in a Modal.
@@ -14,7 +14,7 @@ const SignupModal = () => {
     const [formState, setFormState] = useState({ firstName: "", lastName: "", email: "", password: "", phone: "" });
     const [errFlags, setErrFlags] = useState({ emailError: false, passLengthError: false, phoneError: false });
     const [addUser, { error }] = useMutation(ADD_USER);
-    const [, dispatch] = useStoreContext();
+    const [state, dispatch] = useStoreContext();
 
     const renderLoginModal = (event) => {
         event.preventDefault();
@@ -74,6 +74,11 @@ const SignupModal = () => {
                 });
                 
                 Auth.login(data.addUser.token);
+                // set user in global state
+                dispatch({
+                    type: SET_CURRENT_USER,
+                    currentUser: data,
+                });
             }
             catch (e) {
                 console.error(e);

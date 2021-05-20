@@ -6,7 +6,7 @@ import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { LOGIN_USER } from "../../utils/mutations";
 import { validateEmail } from "../../utils/helpers";
-import { RENDER_SIGNUP_MODAL, REMOVE_MODAL } from "../../utils/actions";
+import { RENDER_SIGNUP_MODAL, REMOVE_MODAL, SET_CURRENT_USER  } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 
 // render login page wrapped in a Modal.
@@ -15,7 +15,7 @@ const LoginModal = () => {
     const [errFlags, setErrFlags] = useState({ emailError: false });
     const [login, { error }] = useMutation(LOGIN_USER);
 
-    const [, dispatch] = useStoreContext();
+    const [state, dispatch] = useStoreContext();
 
     const renderSignupModal = (event) => {
         event.preventDefault();
@@ -60,6 +60,16 @@ const LoginModal = () => {
                 });
     
                 Auth.login(data.login.token);
+                dispatch({
+                    type: SET_CURRENT_USER,
+                    currentUser: data.user,
+                });
+
+                alert('data!!! ' + JSON.stringify(data))
+                // alert('state.currentUser!!! ' + JSON.stringify(state.currentUser))
+                // alert('state!!! ' + JSON.stringify(state))
+
+                
             }
             catch (e) {
                 console.error(e);

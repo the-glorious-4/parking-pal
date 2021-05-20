@@ -55,7 +55,7 @@ function App() {
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route> */}
 
-              <Route exact path="/parking-place" component={ParkingPlace}>
+              <Route exact path="/checkout" component={ParkingPlace}>
                 {!Auth.loggedIn() ? <Redirect to="/" /> : null}
               </Route>
 

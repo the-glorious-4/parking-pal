@@ -56,14 +56,14 @@ function MyMapComponent(props) {
 
     console.log(state.selectedInventory);
 
-    useEffect(() => {
-        if (data) {
-            console.log(data.getAllInventories);
-            setMarkers(data.getAllInventories);
-        }
-    }, [data])
+    // useEffect(() => {
+    //     if (data) {
+    //         console.log(data.getAllInventories);
+    //         setMarkers(data.getAllInventories);
+    //     }
+    // }, [data])
 
-    // console.log(markers);
+    console.log(markers);
 
     return (
         <div className='mapBody'>
@@ -122,7 +122,7 @@ function MyMapComponent(props) {
                             <h3 style={{ textAlign: 'center' }}>${state.selectedInventory.price}/day</h3>
                             <p>{state.selectedInventory.parkingPlace.street}, {state.selectedInventory.parkingPlace.city}<br />
                                 {state.selectedInventory.parkingPlace.isCoveredParking ? 'Indoor Parking' : 'Outdoor Parking'}</p>
-                            <Link to='whereverYulduzWantsToGo'>
+                            <Link to='checkout'>
                                 <button style={{ textAlign: 'center' }}>Reserve</button>
                             </Link>
                         </div>

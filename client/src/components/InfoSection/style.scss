@@ -6,50 +6,12 @@
     overflow: scroll;
 }
 
-.infoBody {
-    display: flex;
-    width: 100%;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    animation: boxSlide 2s 1;
-}
-
-@keyframes boxSlide {
-    from {
-        margin-top: 1000px;
-    }
-
-    to {
-        margin-top: 0;
-    }
-}
-
 .info1,
 .info2,
 .info3 {
-    // width: 300px;
-    // height: 50vh;
-    // border: 1px solid black;
-    // box-shadow: 20px 20px 20px grey;
-    // border-radius: 20px;
-    // display: flex;
     justify-content: center;
     background-size: 100% 100%;
     background-repeat: no-repeat;
-}
-
-.boxGrow {
-    animation: boxGrow 2s 1;
-}
-
-@keyframes boxGrow {
-    from {
-        transform: scale(0);
-    }
-
-    to {
-        transform: scale(1);
-    }
 }
 
 .info1 {
@@ -137,9 +99,7 @@
     background-color: #2980b9;
     color: white;
     transform: rotateY(180deg);
-    // padding: 30px 20px;
     overflow: scroll;
-    // width: 300px;
 }
 
 .flip-card-back div {
@@ -156,7 +116,6 @@
 
 .appPic {
     position: absolute;
-    // padding-top: 4vh;
     height: 70vh;
     right: 18vh;
     top: 123.5vh;
@@ -166,5 +125,33 @@
     position: absolute;
     height: 80vh;
     top: 120vh;
-    // margin-left: -22vw;
+}
+
+@media screen and (max-width: 800px){
+    .iphoneDiv{
+        display: none;
+    }
+    .cardBody{
+        width: 100vw;
+    }
+    .flip-card{
+        margin: 3vw;
+        padding: 20px;
+    }
+    .flip-card-front,
+    .flip-card-back{
+        display: flex;
+        align-items: center;
+        h2 {
+            align-self: flex-start;
+            font-size: 5vh;
+        }
+        p {
+            font-size: 4vh;
+            padding: 5px;
+        }
+    }
+    .flipOne{
+        margin-top: 13vh;
+    }
 }

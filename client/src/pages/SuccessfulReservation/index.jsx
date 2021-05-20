@@ -35,7 +35,7 @@ const SuccessfulReservation = () => {
         variables: { ...dummyData },
       });
       setTimeout(() => {
-        window.location.assign("/");
+        window.location.assign("/dashboard");
       }, 6000);
     }
 

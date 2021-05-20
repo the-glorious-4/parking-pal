@@ -1,4 +1,4 @@
-/* SignupModal: Signup form for users of the app. */ 
+/* SignupModal: Signup form for users of the app. */
 import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import "./style.scss";
@@ -6,7 +6,7 @@ import Modal from "../Modal";
 import Auth from "../../utils/auth";
 import { ADD_USER } from "../../utils/mutations";
 import { validateEmail, formatPhoneNumber } from "../../utils/helpers";
-import { RENDER_LOGIN_MODAL, REMOVE_MODAL, REDIRECT_ON_LOGIN } from "../../utils/actions";
+import { RENDER_LOGIN_MODAL, REMOVE_MODAL, SET_CURRENT_USER, REDIRECT_ON_LOGIN } from "../../utils/actions";
 import { useStoreContext } from "../../utils/GlobalState";
 import { Redirect } from "react-router-dom";
 
@@ -32,7 +32,7 @@ const SignupModal = () => {
 
     // validate form and set error messages.
     const validateForm = fieldName => {
-        switch(fieldName) {
+        switch (fieldName) {
             case "password":
                 setErrFlags({
                     ...errFlags,
@@ -73,11 +73,15 @@ const SignupModal = () => {
                         phone: formatPhoneNumber(formState.phone)
                     }
                 });
-                
+                dispatch({
+                    type: SET_CURRENT_USER,
+                    currentUser: data.login.user
+                })
+
                 Auth.login(data.addUser.token);
 
-                Auth.loggedIn() && dispatch({type: REDIRECT_ON_LOGIN})
-                
+                Auth.loggedIn() && dispatch({ type: REDIRECT_ON_LOGIN })
+
                 dispatch({ type: REMOVE_MODAL });
             }
             catch (e) {
@@ -86,9 +90,12 @@ const SignupModal = () => {
         }
     };
 
+    //THIS WILL GIVE YOU CURRENT USER STATE ON LOGIN 
+    // console.log(state.currentUser);
+
     return (
         <Modal>
-        {state.initialRedirect ? <Redirect to='/dashboard' /> : null}
+            {state.initialRedirect ? <Redirect to='/dashboard' /> : null}
             <div className="modal-bg">
                 <h2>Create An Account</h2>
                 <form className="signupForm" onSubmit={handleFormSubmit}>
@@ -123,7 +130,7 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.emailError &&
-                        <span className="form-err">Please enter a valid email address.</span>}
+                            <span className="form-err">Please enter a valid email address.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="pwd">Password:</label>
@@ -136,7 +143,7 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.passLengthError &&
-                        <span className="form-err">Your password must be at least 6 characters long.</span>}
+                            <span className="form-err">Your password must be at least 6 characters long.</span>}
                     </div>
                     <div className="field">
                         <label htmlFor="phone">Phone Number:</label>
@@ -149,11 +156,11 @@ const SignupModal = () => {
                             onBlur={handleBlur}
                         />
                         {errFlags.phoneError &&
-                        <span className="form-err">Please enter a valid phone number.</span>}
+                            <span className="form-err">Please enter a valid phone number.</span>}
                     </div>
                     <div className="signup-submit">
                         <div>
-                        <button type="submit">Submit</button>
+                            <button type="submit">Submit</button>
                         </div>
                         <div>
                             <button className='insteadBtn' onClick={renderLoginModal}> Log-In Instead</button>

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { loadStripe } from "@stripe/stripe-js";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { useStoreContext } from "../../utils/GlobalState";
-
+import Auth from "../../utils/auth";
 import flyingMoney from "./gifs/flying-money.gif";
 import Nav from "../../components/Nav";
 import { QUERY_CHECKOUT } from "../../utils/queries";
@@ -12,6 +12,7 @@ const stripePromise = loadStripe(
 );
 
 const Redirect = ({ redirectToStripeCheckout }) => {
+  
   setTimeout(() => {
     redirectToStripeCheckout();
   }, 1500);
@@ -37,6 +38,13 @@ const Message = ({ message }) => (
 );
 
 const StripeCheckout = () => {
+<<<<<<< HEAD
+  Auth.loggedIn() === false && window.location.assign('/');
+  const [state, _] = useStoreContext();
+  const price = state.selectedInventory.price;
+
+=======
+>>>>>>> 2cf13eaf394dde94b12881fde6d976ed1855a712
   const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const [message, setMessage] = useState("");
   const [state, _] = useStoreContext();

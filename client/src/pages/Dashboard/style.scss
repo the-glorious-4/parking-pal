@@ -24,8 +24,10 @@
     margin-right: 2em;
     flex-grow: 1;
 
-    h1, h2 {
-        text-shadow: #f1f3f4 0 0 2px;
+    h1,
+    h2 {
+        text-shadow: #fff 1px 1px;
+        font-family: 'Black Han Sans', sans-serif;
     }
 }
 
@@ -47,7 +49,7 @@
         margin: 0;
         // max-height: 60%;
         // overflow-y: scroll;
-        
+
         li {
             padding: 1rem;
             margin: 0.5rem;
@@ -85,7 +87,7 @@
     margin: 0.4rem auto 1rem auto;
     padding: 1rem;
     border-radius: 0.5rem;
-    background-color: #c5cccf;//#a3a8ab;
+    background-color: #c5cccf; //#a3a8ab;
     opacity: 0.8;
 }
 

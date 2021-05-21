@@ -1,6 +1,8 @@
 import React from 'react';
 import './style.scss';
-import streetSign from '../../images/streetSign.png'
+
+import banner from '../../images/banner.png';
+
 import Nav from '../../components/Nav';
 import QuickBook from '../../components/QuickBook';
 import InfoSection from '../../components/InfoSection';
@@ -29,16 +31,16 @@ const Home = () => {
                     <p>Safe. Simple. Reliable.</p>
                 </div>
                 <div className='hostSignDiv'>
-                    <img src={streetSign} alt="" />
-                    <span onClick={renderSignupModal} className='hostCTA'>Become a Host!</span>
+                    <img src={banner} alt="" />
+                    <span onClick={renderSignupModal} className='hostCTA'>List Your Spot Free!</span>
                 </div>
             </div>
             <QuickBook />
         </section>
-        <section>
+        <section id='infoSection'>
             <InfoSection />
         </section>
-        <section>
+        <section id='aboutUs'>
             {/* <MyMapComponent findMeBtn={true} searchBar={true} /> */}
             <Footer />
         </section>

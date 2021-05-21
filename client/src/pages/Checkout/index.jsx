@@ -38,13 +38,6 @@ const Message = ({ message }) => (
 );
 
 const StripeCheckout = () => {
-<<<<<<< HEAD
-  Auth.loggedIn() === false && window.location.assign('/');
-  const [state, _] = useStoreContext();
-  const price = state.selectedInventory.price;
-  const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
-  const [message, setMessage] = useState("");
-=======
 
   Auth.loggedIn() === false && window.location.assign('/');
   const [state, _] = useStoreContext();
@@ -52,7 +45,6 @@ const StripeCheckout = () => {
   const [message, setMessage] = useState("");
   
   const price = state.selectedInventory.price;
->>>>>>> 2fe689a2684086a45ad5480f1207dfe3cf012469
 
   useEffect(() => {
     if (data) {

@@ -56,7 +56,7 @@ const NewInventory = ({ parkingId }) => {
                     id="price"
                     type="number"
                     step="any"
-                    min="0" // min="0.00"
+                    min="1" // min="1.00"
                     defaultValue="1"
                     // step="0.01" // database typeDefs use Int for now
                     onChange={handleChange}

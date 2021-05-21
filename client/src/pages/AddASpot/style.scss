@@ -9,8 +9,47 @@
     flex-grow: 1;
 
     h1, h2 {
-        text-shadow: #f1f3f4 0 0 2px;
+        font-family: 'Black Han Sans', sans-serif;
+        text-shadow: #fff 1px 1px;
     }
+}
+
+.add-parking-form {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.add-parking-fields {
+    // column 7
+    flex: 0 0 calc(100% * 7 / 12 - 0.5%);
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid black;
+    background-color: rgba($color: #fff, $alpha: .5);
+}
+
+.parkingform-field {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+    padding: .5rem;
+    align-items: flex-start;
+
+    label {
+        // column 6
+        flex: 0 0 calc(100% * 6 / 12 - 0.5%);
+        font-family: 'Black Han Sans', sans-serif;
+    }
+
+    input {
+        // column 5
+        flex: 0 0 calc(100% * 5 / 12 - 0.5%);
+    }
+}
+
+.parkingform-btn {
+    flex: 0 0 100%;
 }
 
 .required-field {
@@ -20,6 +59,10 @@
 .add-space-err {
     display: block;
     margin-top: 1rem;
+}
+
+@media (max-width: 768px) {
+    .add-parking-fields { flex: 0 0 90%; }
 }
 /*
 .field {

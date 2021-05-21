@@ -87,7 +87,7 @@ const resolvers = {
 
       if (context.user) {
         const reservedParkingPlaces = await Reservation.find(params).populate({
-          path: "parkingplace",
+          path: "parkingPlace",
           model: "ParkingPlace",
         });
         return reservedParkingPlaces;
@@ -238,6 +238,7 @@ const resolvers = {
           { isAvailable: false },
           { new: true }
         );
+
 
         // push to consumer side
         const user = await User.findByIdAndUpdate(

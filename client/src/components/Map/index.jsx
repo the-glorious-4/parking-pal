@@ -42,12 +42,12 @@ function MyMapComponent(props) {
 
     // console.log(state.selectedInventory);
 
-    // useEffect(() => {
-    //     if (data) {
-    //         // console.log(data.getAllInventories);
-    //         setMarkers(data.getAllInventories);
-    //     }
-    // }, [data])
+    useEffect(() => {
+        if (data) {
+            // console.log(data.getAllInventories);
+            setMarkers(data.getAllInventories);
+        }
+    }, [data])
 
     // THIS MAPS OVER THE MARKERS THAT !!SHOULD!! BE RENDERED
     // markers && markers.map(marker => marker.parkingPlace && console.log(marker))

@@ -6,6 +6,7 @@ import banner from '../../images/banner.png';
 import Nav from '../../components/Nav';
 import QuickBook from '../../components/QuickBook';
 import InfoSection from '../../components/InfoSection';
+import NowServing from '../../components/NowServing';
 import Footer from '../../components/Footer';
 
 import { RENDER_SIGNUP_MODAL } from "../../utils/actions";
@@ -41,7 +42,7 @@ const Home = () => {
             <InfoSection />
         </section>
         <section id='aboutUs'>
-            {/* <MyMapComponent findMeBtn={true} searchBar={true} /> */}
+            <NowServing />
             <Footer />
         </section>
     </>)

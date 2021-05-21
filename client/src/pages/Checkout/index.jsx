@@ -41,10 +41,9 @@ const StripeCheckout = () => {
 
   Auth.loggedIn() === false && window.location.assign('/');
   const [state, _] = useStoreContext();
+  const price = state.selectedInventory.price;
   const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const [message, setMessage] = useState("");
-  
-  const price = state.selectedInventory.price;
 
   useEffect(() => {
     if (data) {

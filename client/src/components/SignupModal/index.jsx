@@ -75,7 +75,7 @@ const SignupModal = () => {
                 });
                 dispatch({
                     type: SET_CURRENT_USER,
-                    currentUser: data.login.user
+                    currentUser: data.login
                 })
 
                 Auth.login(data.addUser.token);

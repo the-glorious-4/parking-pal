@@ -101,9 +101,6 @@ export const ADD_RESERVATION = gql`
     $startDate: String!
     $stripeSessionId: String!
     $parkingPlace: ID!
-    $name: String!
-    $lastName: String!
-    $email: String!
     $address: String!
     $price: Int!
   ) {
@@ -112,9 +109,6 @@ export const ADD_RESERVATION = gql`
       startDate: $startDate
       stripeSessionId: $stripeSessionId
       parkingPlace: $parkingPlace
-      name: $name
-      lastName: $lastName
-      email: $email
       address: $address
       price: $price
     ) {

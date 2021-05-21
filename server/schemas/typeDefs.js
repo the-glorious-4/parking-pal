@@ -116,9 +116,6 @@ const typeDefs = gql`
       parkingPlace: ID!
       inventoryId: ID!
       stripeSessionId: String!
-      name: String!
-      lastName: String!
-      email: String!
       address: String!
       price: Int!
     ): Reservation

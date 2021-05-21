@@ -75,88 +75,90 @@ const AddASpot = () => {
       !Auth.loggedIn() ? <Redirect to="/" /> :
       redirect ? <Redirect to="/myspots" /> : null
     }
-    <div className="add-parking-bg content-container">
+    <div className="dashboard-bg content-container">
       <Nav />
       <div className="add-parking">
         <h1>Host a New Parking Spot</h1>
-        <form className="addParkingForm" onSubmit={handleFormSubmit}>
+        <form className="add-parking-form" onSubmit={handleFormSubmit}>
+          <div className="add-parking-fields">
+            <div className="parkingform-field">
+              <label htmlFor="street">Street Address <span className="required-field">*</span></label>
+              <input
+                placeholder="Street Address"
+                name="street"
+                id="street"
+                onChange={handleChange}
+              />
+            </div>
 
-          <div className="field">
-            <label htmlFor="street">Street Address <span className="required-field">*</span></label>
-            <input
-              placeholder="Street Address"
-              name="street"
-              id="street"
-              onChange={handleChange}
-            />
+            <div className="parkingform-field">
+              <label htmlFor="apt">Apartment #</label>
+              <input
+                placeholder="Apartment #"
+                name="apt"
+                id="apt"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="parkingform-field">
+              <label htmlFor="city">City <span className="required-field">*</span></label>
+              <input
+                placeholder="City"
+                name="city"
+                id="city"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="parkingform-field">
+              <label htmlFor="state">State <span className="required-field">*</span></label>
+              <input
+                placeholder="State"
+                name="state"
+                id="state"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="parkingform-field">
+              <label htmlFor="zip">Zip Code <span className="required-field">*</span></label>
+              <input
+                placeholder="#####"
+                name="zip"
+                id="zip"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="parkingform-field">
+              <label htmlFor="isCoveredParking">Is This Parking Space Covered?</label>
+              <input
+                placeholder="isCoveredParking"
+                name="isCoveredParking"
+                type="checkbox"
+                onChange={handleChange}
+              />
+            </div>
+
+            <div className="parkingform-field">
+              <label htmlFor="capacity">Parking Space Capacity <span className="required-field">*</span></label>
+              <input
+                type="number"
+                placeholder="1"
+                defaultValue="1"
+                min="1"
+                name="capacity"
+                id="capacity"
+                onChange={handleChange}
+              />
+            </div>
           </div>
-
-          <div className="field">
-            <label htmlFor="apt">Apartment #</label>
-            <input
-              placeholder="Apartment #"
-              name="apt"
-              id="apt"
-              onChange={handleChange}
-            />
+          <div className="parkingform-btn">
+            <button className="btn col-12 col-md-3" type="submit">
+              Submit
+            </button>
           </div>
-
-          <div className="field">
-            <label htmlFor="city">City <span className="required-field">*</span></label>
-            <input
-              placeholder="City"
-              name="city"
-              id="city"
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="state">State <span className="required-field">*</span></label>
-            <input
-              placeholder="State"
-              name="state"
-              id="state"
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="zip">Zip Code <span className="required-field">*</span></label>
-            <input
-              placeholder="#####"
-              name="zip"
-              id="zip"
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="isCoveredParking">Is This Parking Space Covered?</label>
-            <input
-              placeholder="isCoveredParking"
-              name="isCoveredParking"
-              type="checkbox"
-              onChange={handleChange}
-            />
-          </div>
-
-          <div className="field">
-            <label htmlFor="capacity">Parking Space Capacity <span className="required-field">*</span></label>
-            <input
-              type="number"
-              placeholder="1"
-              defaultValue="1"
-              min="1"
-              name="capacity"
-              id="capacity"
-              onChange={handleChange}
-            />
-          </div>
-
-          <button className="btn col-12 col-md-3" type="submit">
-            Submit
-          </button>
           {(formErr) ? <div className="required-field add-space-err">{formErr}</div> : null}
         </form>
       </div>

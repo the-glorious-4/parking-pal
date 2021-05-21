@@ -4,6 +4,7 @@ import { Redirect } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import { getGeocode, getLatLng } from "use-places-autocomplete";
 import Nav from '../../components/Nav';
+import { QUERY_USER } from "../../utils/queries";
 import { ADD_PARKINGPLACE } from "../../utils/mutations";
 import Auth from "../../utils/auth";
 
@@ -16,7 +17,9 @@ const AddASpot = () => {
   
   const [redirect, setRedirect] = useState(false);
 
-  const [addParkingPlace, { error }] = useMutation(ADD_PARKINGPLACE);
+  const [addParkingPlace, { error }] = useMutation(ADD_PARKINGPLACE, {
+    refetchQueries: [ {query: QUERY_USER } ]
+  });
 
   // validate form and set null-input message
   const validateForm = () => {

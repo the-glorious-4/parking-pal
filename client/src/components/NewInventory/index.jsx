@@ -38,7 +38,7 @@ const NewInventory = ({ parkingId }) => {
     return (<>
         <h2>Add a New Availability</h2>
         <form className="add-inventory-form" onSubmit={handleSubmit}>
-            <div className="field">
+            <div className="inv-field">
                 <label htmlFor="date">Date</label>
                 <input
                     name="date"
@@ -48,7 +48,7 @@ const NewInventory = ({ parkingId }) => {
                     onChange={handleChange}
                 />
             </div>
-            <div className="field">
+            <div className="inv-field">
                 <label htmlFor="price">Price </label>
                 <input
                     placeholder="1.00"

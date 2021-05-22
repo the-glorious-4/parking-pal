@@ -10,14 +10,15 @@
     align-items: flex-start;
     overflow: scroll;
 }
+
 .nowServing{
     font-family: 'Black Han Sans', sans-serif;
     color: #fff;
     text-shadow: #000 1px 1px 1px;
-    position: absolute;
-    font-size: 3vw;
-    left: 40%;
-    top: 210vh;
+    font-size: 5vh;
+    width: 100%;
+    text-align: center;
+    margin: 5vh 0 0 0;
 }
 .nowCity{
     display: flex;
@@ -32,5 +33,9 @@
         min-width: 300px;
         height: 20vh;
         margin: 0 8vw;
+    }
+
+    &:nth-of-type(5){
+        margin-bottom: 10vh;
     }
 }

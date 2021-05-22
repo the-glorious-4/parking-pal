@@ -40,7 +40,7 @@ const Message = ({ message }) => (
 const StripeCheckout = () => {
 
   Auth.loggedIn() === false && window.location.assign('/');
-  const [state, _] = useStoreContext();
+  const [state, ] = useStoreContext();
   const price = state.selectedInventory.price;
   const [checkout, { data }] = useLazyQuery(QUERY_CHECKOUT);
   const [message, setMessage] = useState("");
@@ -59,7 +59,7 @@ const StripeCheckout = () => {
         res.redirectToCheckout({ sessionId: data.checkout.session });
       });
     }
-  }, [data]);
+  }, [data, state.selectedInventory]);
 
   useEffect(() => {
     // Check to see if this is a redirect back from Checkout

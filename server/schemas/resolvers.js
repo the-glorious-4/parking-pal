@@ -61,7 +61,7 @@ const resolvers = {
     getInventoryById: async (parent, { _id }) => {
       const parkingPlacesInv = await Inventory.findById({ _id }).populate({
         path: "parkingPlace",
-        model: ParkingPlace,
+        model: "ParkingPlace",
       });
 
       return parkingPlacesInv;
@@ -80,18 +80,21 @@ const resolvers = {
 
     //Get Consumers current and future resesrvation based on date criteria.
     getConsumerReservations: async (parent, args, context) => {
-      const { startDate } = args;
-      const params = startDate
-        ? { startDate: { $gte: startDate }, consumer: context.user._id }
-        : { consumer: context.user._id };
-
       if (context.user) {
-        const reservedParkingPlaces = await Reservation.find(params).populate({
+
+        const { startDate} = args
+        const params = startDate
+          ? { startDate: { $gte: startDate }, consumer: context.user._id }
+          : { consumer: context.user._id };
+        const reservedParkingPlaces = await Reservation.find(params)
+        .populate({
           path: "parkingPlace",
           model: "ParkingPlace",
         });
+        console.log(params);
         return reservedParkingPlaces;
       }
+      
 
       throw new AuthenticationError("No logged in user found");
     },

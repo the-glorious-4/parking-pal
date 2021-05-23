@@ -11,7 +11,7 @@ import { QUERY_USER } from "../../utils/queries";
 const MySpots = () => {
 
     Auth.loggedIn() === false && window.location.assign('/');
-
+    // update inventory to use global state later
     const [inventory, setInventory] = useState({ display: false, spaceId: "", spaceName: "", invList: [] });
     const { loading, data } = useQuery(QUERY_USER);
     let spaces;
@@ -90,7 +90,12 @@ const MySpots = () => {
                         <span className="dashboard-nolist">
                             You have not added any availabilities for this space.
                         </span>}
-                        <NewInventory parkingId={inventory.spaceId} />
+                        <NewInventory
+                            parkingId={inventory.spaceId}
+                            inventory={inventory}
+                            setInventory={setInventory}
+                            // todo: update to remove props and use global state
+                        />
                     </div>}
                 </div>
             </div>

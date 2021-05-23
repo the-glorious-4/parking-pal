@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import "./style.scss";
-// import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { todaysDate } from "../../utils/helpers";
-// import { ADD_INVENTORY } from "../../utils/mutations";
+import { QUERY_USER } from "../../utils/queries";
+import { ADD_INVENTORY } from "../../utils/mutations";
 
-const NewInventory = ({ parkingId }) => {
+const NewInventory = ({ parkingId, inventory, setInventory }) => {
     const [formState, setFormState] = useState({ date: "", price: 1 });
-    //UNUSED VARIABLE CAUSES WARNING
-    // const [addInventory, { error }] = useMutation(ADD_INVENTORY);
+    const [addInventory, { error }] = useMutation(ADD_INVENTORY, {
+        refetchQueries: [ { query: QUERY_USER } ]
+    });
 
     const handleChange = event => {
         // destructure event target
@@ -22,18 +24,29 @@ const NewInventory = ({ parkingId }) => {
         // console.log(parkingId, formState);
 
         try {
-            //UNUSED VARIABLE CAUSES WARNING
-            // let response = await addInventory({
-            //     variables: {
-            //         startDate: formState.date,
-            //         price: parseFloat(formState.price),
-            //         parkingPlace: parkingId
-            //     }
-            // });
-            window.location.assign("/myspots");
+            const { data : { addInventory: newInv } } = await addInventory({
+                variables: {
+                    startDate: formState.date,
+                    price: parseFloat(formState.price),
+                    parkingPlace: parkingId
+                }
+            });
+            // console.log(newInv.startDate)
+
+            setInventory({
+                ...inventory,
+                invList: [...inventory.invList, {
+                    _id: newInv._id,
+                    startDate: newInv.startDate,
+                    price: newInv.price,
+                    isAvailable: newInv.isAvailable
+                }]
+            });
         }
         catch (e) {
             console.error(e);
+
+            if (error) console.error(error);
         }
     };
 

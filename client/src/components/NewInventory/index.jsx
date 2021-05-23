@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import "./style.scss";
-import { useMutation } from "@apollo/react-hooks";
+// import { useMutation } from "@apollo/react-hooks";
 import { todaysDate } from "../../utils/helpers";
-import { ADD_INVENTORY } from "../../utils/mutations";
+// import { ADD_INVENTORY } from "../../utils/mutations";
 
 const NewInventory = ({ parkingId }) => {
     const [formState, setFormState] = useState({ date: "", price: 0 });
-    const [addInventory, { error }] = useMutation(ADD_INVENTORY);
+    //UNUSED VARIABLE CAUSES WARNING
+    // const [addInventory, { error }] = useMutation(ADD_INVENTORY);
 
     const handleChange = event => {
         // destructure event target
@@ -20,18 +21,18 @@ const NewInventory = ({ parkingId }) => {
         console.log(parkingId, formState);
 
         try {
-            let response = await addInventory({
-                variables: {
-                    startDate: formState.date,
-                    price: parseFloat(formState.price),
-                    parkingPlace: parkingId
-                }
-            });
-
+            //UNUSED VARIABLE CAUSES WARNING
+            // let response = await addInventory({
+            //     variables: {
+            //         startDate: formState.date,
+            //         price: parseFloat(formState.price),
+            //         parkingPlace: parkingId
+            //     }
+            // });
             window.location.assign("/myspots");
         }
         catch (e) {
-            console.error(error);
+            console.error(e);
         }
     };
 

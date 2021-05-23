@@ -32,9 +32,7 @@ const Nav = () => {
                 className='menuBtn'
                 alt="menu button"
                 onClick={() => {
-                    console.log('click')
                     let x = document.getElementById('navMenu');
-                    console.log(x)
                     if (x.className === "menu") {
                         x.className += " responsive";
                     } else {

@@ -5,10 +5,8 @@ import {
   BrowserRouter as Router,
   Route,
   Switch,
-  Redirect,
 } from "react-router-dom";
 import { StoreProvider } from "./utils/GlobalState";
-import Auth from "./utils/auth";
 
 import Home from "./pages/Home";
 import Dashboard from "./pages/Dashboard";

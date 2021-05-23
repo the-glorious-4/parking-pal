@@ -8,7 +8,8 @@ import {
     UPDATE_QUERY_CITY,
     UPDATE_SELECTED_INVENTORY,
     SET_CURRENT_USER,
-    REDIRECT_ON_LOGIN
+    REDIRECT_ON_LOGIN,
+    SET_LOADING
 } from "./actions";
 
 /*
@@ -20,6 +21,11 @@ state: {
 
 export const reducer = (state, action) => {
     switch (action.type) {
+        case SET_LOADING:
+            return {
+                ...state,
+                loadingGif: !state.loadingGif
+            }
         case REDIRECT_ON_LOGIN:
             return {
                 ...state,

@@ -28,7 +28,7 @@ const MySpots = () => {
         // get id of selected parking space and find it in spaces array
         const targetId = event.target.getAttribute("data-id");
         const currentSpace = spaces.find(ele => ele._id === targetId);
-        console.log(currentSpace);
+        // console.log(currentSpace);
 
         // set inventory state by info in spaces array
         setInventory({
@@ -37,10 +37,10 @@ const MySpots = () => {
             spaceName: event.target.innerHTML,
             invList: [...currentSpace.inventory]
         });
-        console.log(inventory.invList)
+        // console.log(inventory.invList)
     }
 
-    console.log(spaces);
+    // console.log(spaces);
 
 
     return (<>

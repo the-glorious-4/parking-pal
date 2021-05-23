@@ -5,7 +5,7 @@ import { todaysDate } from "../../utils/helpers";
 // import { ADD_INVENTORY } from "../../utils/mutations";
 
 const NewInventory = ({ parkingId }) => {
-    const [formState, setFormState] = useState({ date: "", price: 0 });
+    const [formState, setFormState] = useState({ date: "", price: 1 });
     //UNUSED VARIABLE CAUSES WARNING
     // const [addInventory, { error }] = useMutation(ADD_INVENTORY);
 
@@ -18,7 +18,8 @@ const NewInventory = ({ parkingId }) => {
 
     const handleSubmit = async event => {
         event.preventDefault();
-        console.log(parkingId, formState);
+
+        // console.log(parkingId, formState);
 
         try {
             //UNUSED VARIABLE CAUSES WARNING

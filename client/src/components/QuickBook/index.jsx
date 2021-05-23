@@ -5,15 +5,17 @@ import { Link, withRouter, useHistory } from "react-router-dom";
 import './style.scss';
 import { todaysDate } from '../../utils/helpers';
 import { useStoreContext } from '../../utils/GlobalState';
-import { UPDATE_MAP_DATE, UPDATE_QUERY_CITY } from '../../utils/actions';
-
+import { UPDATE_MAP_DATE, UPDATE_QUERY_CITY, SET_LOADING } from '../../utils/actions';
 import { getGeocode } from 'use-places-autocomplete';
+
+import loading from '../../images/loading.gif';
+
 
 const Quickbook = () => {
 
     let history = useHistory();
 
-    const [, dispatch] = useStoreContext();
+    const [state, dispatch] = useStoreContext();
 
     const handleSubmit = (event) => {
         
@@ -39,6 +41,10 @@ const Quickbook = () => {
         history.push('/findparking');
         
     }
+    const handleLoad = () => {
+        dispatch({type: SET_LOADING});
+        setTimeout(()=>{dispatch({type: SET_LOADING})}, 4000)
+    }
 
     return (<>
         <main className='quickBook'>
@@ -53,13 +59,13 @@ const Quickbook = () => {
                         <input min={todaysDate()} type="date" />
                     </div>
                     <div className='buttonDiv'>
-                        {/* <Link type='submit' to={{pathname: "/findparking"}}> */}
-                        <button className='searchBtn' type='submit'>🔍</button>
-                        {/* </Link> */}
-                        <Link id='findMeBtn' to='/findparking'>
+                        
+                        <button onClick={handleLoad} className='searchBtn' type='submit'>🔍</button>
+                        
+                        <Link onClick={handleLoad} id='findMeBtn' to='/findparking'>
                             <FindMeBtn className='qbFindMe' />
                         </Link>
-
+                        {state.loadingGif && <img id='loadingGif' src={loading} alt="loading"/>}
                     </div>
                 </form>
             </div>

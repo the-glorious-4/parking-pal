@@ -5,7 +5,7 @@ import { todaysDate } from "../../utils/helpers";
 // import { ADD_INVENTORY } from "../../utils/mutations";
 
 const NewInventory = ({ parkingId }) => {
-    const [formState, setFormState] = useState({ date: "", price: 0 });
+    const [formState, setFormState] = useState({ date: "", price: 1 });
     //UNUSED VARIABLE CAUSES WARNING
     // const [addInventory, { error }] = useMutation(ADD_INVENTORY);
 

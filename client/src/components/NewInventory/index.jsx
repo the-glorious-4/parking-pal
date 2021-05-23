@@ -18,7 +18,8 @@ const NewInventory = ({ parkingId }) => {
 
     const handleSubmit = async event => {
         event.preventDefault();
-        console.log(parkingId, formState);
+
+        // console.log(parkingId, formState);
 
         try {
             //UNUSED VARIABLE CAUSES WARNING

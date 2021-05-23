@@ -5,6 +5,7 @@ import { UPDATE_MAP_LOCATION } from '../../utils/actions';
 function getPosition() {
     return new Promise((res, rej) => {
         navigator.geolocation.getCurrentPosition(res, console.log)
+        console.log(rej);
     });
 }
 const FindMeBtn = () => {

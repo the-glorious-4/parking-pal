@@ -18,9 +18,11 @@
     font-size: 18px;
     width: 90%;
     max-width: 700px;
-    form{
+
+    form {
         justify-content: space-evenly;
     }
+
     div {
         padding-top: 10px;
         width: 25%;
@@ -35,15 +37,17 @@
             font-size: 35px;
             border-radius: 40px;
             background: none;
-            border: 1px solid black ;
+            border: 1px solid black;
             box-shadow: 0px 10px 14px -7px black;
         }
+
         .comboMain {
-            input{
+            input {
                 max-width: 150px;
             }
         }
-        button:not(:first-child){
+
+        button:not(:first-child) {
             padding: 15px;
         }
     }
@@ -54,38 +58,54 @@
         padding: 0 10px;
         font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     }
+
     select {
         display: block;
         height: 40px;
     }
+
     form {
         display: inline-flex;
         width: 100%;
     }
-    .buttonDiv{
+
+    .buttonDiv {
         flex-direction: row;
         justify-content: space-between;
     }
-    
+
 }
+
 .comboOption {
     z-index: 5;
     width: 20%;
 }
 
-@media screen and (max-width: 750px){
+#loadingGif {
+    height: 20vh;
+    position: absolute;
+    margin: 40vh auto auto auto;
+    left: 0;
+    right: 0;
+    text-align: center;
+}
+
+@media screen and (max-width: 750px) {
     #findMeBtn {
         display: none;
     }
+
     .buttonDiv {
         justify-content: flex-end;
     }
-    .mainBubble div{
+
+    .mainBubble div {
         width: unset;
     }
-    
+
 }
-@media screen and (max-width: 500px){
+
+@media screen and (max-width: 500px) {
     .mainBubble input {
         width: 100px;
     }

@@ -1,33 +1,34 @@
 # parking-pal
 
-ParkingPal connects Providers who wanted to rent their parkings and Consumer who are looking for parkings near to their location.
-Provider and Consumer can create their accounts. Provider can add parking place detail and available date with price. 
-Consumer can search for parking and based on location he can make reservation followed by stripe transaction.
+ParkingPal connects Providers who want to rent their parking spaces to Consumers who are looking for spaces near their location. When logged into the app, a user can both provide their parking spots or rent out a spot from another user.
+
+When providing a space, a user can add their parking space details, prices and date(s) available. When looking for a space to rent, a user can search for parking by location, and make a reservation to rent a space via stripe transaction.
 
 
 ### Technology 
 - MVC (Model View Controller) pattern 
 - React Application with 
-    - Context Api
-    - Graph QL api
-    - vanilla CSS
+    - Context API
+    - Graph QL API
+    - SCSS
     - JavaScript
     - Mongoose
     - MongoDB
     - Node.JS
     - bcrypt
     - Express
-- Lucid for basic DB design / wireframes / project tasks
-- Stripe Trasanction for Payment. 
+- Lucid for basic database design / wireframes / project tasks
+- Stripe Trasanction for payments
 
 
 ### Installation
 
-To install dependencies, run the following command: 
+To install dependencies, run the following command from the root directory of this project: 
 
 ```npm install```
 
-This will install mysql2, dotenv, Handlebars.js,express-session,express, bcrypt and Sequelize libraries, passport and cypress.
+You will need Node.js and MongoDB installed on your machine to run Parking-Pal locally.
+
 
 ### Project Deployment / GitHub Details
 
@@ -38,8 +39,9 @@ To clone the project:
  
 Project Source code : https://github.com/the-glorious-4/parking-pal
 
-This project is also deployed to Heroku, a cloud platform as a service where user can deploy project in many languages:
+This project is also deployed to Heroku, a cloud platform service where users can deploy their projects:
 - Heroku URL  http://parking-palz.herokuapp.com/
+
 
 ### Images
 
@@ -71,4 +73,4 @@ Checkout and Payment.
 
 ### Questions
 
-If you have any additional questions about the repo, open an issue or contact me directly at abby.parkinglot@gmail.com
+If you have any additional questions about the repo, open an issue or contact us directly at abby.parkinglot@gmail.com
